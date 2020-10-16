@@ -3,7 +3,7 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{babel}
+\usepackage{babel}\usepackage{csquotes}% Recommended by `biblatex'.
 
 \frenchspacing
 \usepackage{microtype}
@@ -13,11 +13,10 @@
 \definecolor{aaublue}{RGB}{33,26,82}
 \usepackage[contents={},color=gray]{background}
 
-\usepackage{csquotes}
 \usepackage[backend=biber]{biblatex}
-\addbibresource{appendices/bibliography}
+\addbibresource{appendices/bibliography.bib}
 
-\usepackage[multiuser]{fixme}
+\usepackage[multiuser,draft]{fixme}\usepackage{tocbasic}% Compatibility with `scrartcl'.
 \fxsetup{theme=colorsig}\definecolor{fxtarget}{rgb}{1,0,0}
 \FXRegisterAuthor{hh}{ahh}{HH}
 \FXRegisterAuthor{mk}{amk}{MK}
