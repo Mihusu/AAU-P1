@@ -1,5 +1,8 @@
 ### Manual additions
 
+# Temporarily added report (to avoid merge warnings)
+docs/main.pdf
+
 # Visual Studio Code
 .vscode
 
