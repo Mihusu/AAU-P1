@@ -1,43 +1,48 @@
-% Template for online resources, e.g., web sites.
-%
-% Note that all entry types support the url field. For example, when adding an
-% article from an online journal, it may be preferable to use the @article type
-% and its url field.
-%
-% Although many fields are optional, please attempt to fill as many as possible.
-%
-%@online{<label>,                           % Required and used for citing
-%    title          =   "<title>",          % Required
-%    author         =   "<author>",         % Required (unless "editor" is used)
-%    editor         =   "<editor>",         % Required (unless "author" is used)
-%%    year           =   "2020",             % Required (unless "date" is used, in which case it is overrided)
-%    date           =   "2020-10-16",       % Required (unless "year" is used)
-%    url            =   "<url>",            % Required (unless "doi" or "eprint" is used)
-%    doi            =   "<doi>",            % Required (unless "url" or "eprint" is used)
-%    eprint         =   "<eprint>",         % Required (unless "url" or "doi" is used)
-%    subtitle       =   "<subtitle>",       % Optional
-%    titleaddon     =   "<titleaddon>",     % Optional
-%    language       =   "<language>",       % Optional
-%    version        =   "<version>",        % Optional
-%    note           =   "<note>",           % Optional
-%    organization   =   "<organization>",   % Optional
-%%    month          =   "10",               % Optional (and overrided if "date" is used)
-%    addendum       =   "<addendum>",       % Optional
-%    pubstate       =   "<pubstate>",       % Optional
-%    eprintclass    =   "<eprintclass>",    % Optional
-%    eprinttype     =   "<eprinttype>",     % Optional
-%    urldate        =   "2020-10-16"        % Optional
-%}
+Please strive to fill all relevant fields even though most are optional.
+Separate items in a list (such as the "author" field) by the keyword "and".
 
-% CEPOS (borgerlig-liberal tænketank) om “reelle” arbejdsløshedstal, hvor ansatte på lønkompensation medtælles:
+Template entry for online resources, e.g., web sites.
+Note that all entry types support the "url" field. For example, when adding an
+article from an online journal, it may be preferable to use the "article" type
+and its "url" field.
+online{<citation_key>,              % Required and used for citing
+  title         = {<title>},        % Required
+  author        = {<author>},       % Required (unless "editor" is used)
+  editor        = {<editor>},       % Required (unless "author" is used)
+  year          = {2020},           % Required (unless "date" is used, in which case it is overridden)
+  date          = {2020-10-16},     % Required (unless "year" is used)
+  url           = {<url>},          % Required (unless "doi" or "eprint" is used)
+  doi           = {<doi>},          % Required (unless "url" or "eprint" is used)
+  eprint        = {<eprint>},       % Required (unless "url" or "doi" is used)
+  subtitle      = {<subtitle>},     % Optional
+  titleaddon    = {<titleaddon>},   % Optional
+  language      = {<language>},     % Optional
+  version       = {<version>},      % Optional
+  note          = {<note>},         % Optional
+  organization  = {<organization>}, % Optional
+  month         = {10},             % Optional (and overridden if "date" is used)
+  addendum      = {<addendum>},     % Optional
+  pubstate      = {<pubstate>},     % Optional
+  eprintclass   = {<eprintclass>},  % Optional
+  eprinttype    = {<eprinttype>},   % Optional
+  urldate       = {2020-10-16},     % Optional
+  abstract      = {<abstract>},     % Optional
+  annotation    = {<annotation>},   % Optional
+  label         = {<label>},        % Optional
+  shorthand     = {<shorthand>}     % Optional
+}
+
+CEPOS (borgerlig-liberal tænketank) om “reelle” arbejdsløshedstal, hvor ansatte på lønkompensation medtælles:
 @online{cepos,
-    title           =   "Stigning på 200.000 i reel ledighed",
-    author          =   "Mads Lundby Hansen and Carl-Christian Heiberg",
-    date            =   "2020-05-02",
-    url             =   "https://cepos.dk/artikler/stigning-paa-200000-i-reel-ledighed/",
-    subtitle        =   "Stigningen i Corona-ledighed slår stigningen under finanskrisen, 80'er-krisen og oliekriserne",
-    language        =   "Danish",
-    organization    =   "CEPOS",
-    addendum        =   "The memo of which this article is a summary can be found here: https://cepos.dk/media/4778/historisk-stigning-i-ledighed-010520.pdf",
-    urldate         =   "2020-10-16"
+  title         = {Stigning på 200.000 i reel ledighed},
+  author        = {Mads Lundby Hansen and Carl-Christian Heiberg},
+  OVERRIDDENyear          = {2020},
+  date          = {2020-05-02},
+  url           = {https://cepos.dk/artikler/stigning-paa-200000-i-reel-ledighed/},
+  subtitle      = {Stigningen i Corona-ledighed slår stigningen under finanskrisen, 80'er-krisen og oliekriserne},
+  language      = {Danish},
+  organization  = {CEPOS},
+  OVERRIDDENmonth         = {05},
+  addendum      = {The memo of which this article is a summary can be found here: https://cepos.dk/media/4778/historisk-stigning-i-ledighed-010520.pdf},
+  urldate       = {2020-10-16}
 }
