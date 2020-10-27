@@ -1,20 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_CHARACTER 100
+
 /*
 The function should convert a plain text into a LaTeX file
 */
-void LaTeX(char ConLaTeX[]) {
+void LaTeX(char ConLaTeX[MAX_CHARACTER]) {
     
     printf("Write down the name of your file");
-    scanf("%c", ConLaTeX[]);
+    scanf("%c", ConLaTeX[MAX_CHARACTER]);
 
-    if(ConLaTeX[] <= 0) {
+    if(ConLaTeX[MAX_CHARACTER] <= 0) {
         printf("could not create a file");
         exit(EXIT_FAILURE);
     }
 
-    fopen("%c.tex","w",ConLaTeX[]);
+    fopen("%c.tex","w",ConLaTeX[MAX_CHARACTER]);
 }
 
 /*
