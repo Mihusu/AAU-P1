@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /*
-The function should convert it a LaTeX file
+The function should convert a plain text into a LaTeX file
 */
 void LaTeX(char ConLaTeX[]) {
     
@@ -16,6 +16,9 @@ void LaTeX(char ConLaTeX[]) {
 
 }
 
+/*
+This function will make some modification for the plain text like structure, font etc.
+*/
 int formaliaInLaTeX(preamble, beginText, thePlainText) {
     
     LaTeX(thePlainText);
@@ -25,13 +28,20 @@ int formaliaInLaTeX(preamble, beginText, thePlainText) {
     return preamble && beginText;
 }
 
+/*
+If there is text to one, two, three or more categories then the function will make the
+text more beautiful and readable
+*/
 int contents(education, workExperience, freeText) {
 
     if(education) {
-
+        // Make bulletpoints for the text
+        printf("* ");
     }
     
     if(workExperience) {
+        // Make bulletpoints for the text
+        printf("* ");
 
     }
 
