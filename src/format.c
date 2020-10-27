@@ -20,7 +20,7 @@ void LaTeX(char ConLaTeX[MAX_CHARACTER]) {
 }
 
 /*
-This function will make some modification for the plain text like structure, font etc.
+This function will make some modification for the plain text like structure, layout, font etc.
 */
 int formaliaInLaTeX(preamble, beginText, thePlainText) {
     
