@@ -14,6 +14,7 @@ void LaTeX(char ConLaTeX[]) {
         exit(EXIT_FAILURE);
     }
 
+    fopen("%c.tex","w",ConLaTeX[]);
 }
 
 /*
