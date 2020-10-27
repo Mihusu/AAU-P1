@@ -5,22 +5,43 @@
 int max_word_count = 700;
 int min_word_count = 500;  //change at a later stage, to the req.txt
 
+bool is_word_match(char word_CV[], char word_Key[]);
+
 int main(void){
     //load largecv.read.c
     //load req.read.c
     //load keyword.read.c
-
     //run word_matcher, to see how many words match keywords
 
+    printf("\n\n=====start GEN=====\n"); //debug
+    char cv[] = "hej";
+    char buzz[] = "hej";
+
+    printf("Wordmatch value: %d",is_word_match(cv,buzz)); //debug
+    printf("\n=====end GEN=====\n\n"); //Debug
     return 0;
 }
 /*
  * Function to compare words
  */
 
-bool is_word_match(word1, word2){
+bool is_word_match(char word_CV[], char word_Key[]){
+    printf("-----is_Word_Match Start-----\n"); //debug
+    printf("word_CV = %s, word_Key = %s\n",word_CV,word_Key); //debug
+    bool word_Match;
+    word_Match = strcmp(word_CV,word_Key); //compares for string match
 
-    return;
+    //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
+    if(word_Match == 0){ 
+        word_Match = 1;
+        printf("-----is_Word_Match end, T: %d-----\n\n",word_Match); //debug
+        return(word_Match);
+    }
+    else if(word_Match != 0){
+        word_Match = 0;
+        printf("-----is_Word_Match end, T: %d-----\n\n",word_Match); //debug
+        return(word_Match);
+    }
 }
 //
 ///*
