@@ -2,7 +2,7 @@
 void start_read(){
 
     // Open a file (Keywords, Requirments, Long CV)
-    // Send file to read_file function
+    // Send file to word_reader function
     // Send Long CV file to tag_searcher
 
 }
