@@ -16,7 +16,7 @@ void LaTeX(char ConLaTeX[MAX_CHARACTER]) {
         exit(EXIT_FAILURE);
     }
 
-    fopen("%c.tex","w",ConLaTeX[MAX_CHARACTER]);
+    fopen("%c.tex", ConLaTeX[MAX_CHARACTER]);
 }
 
 /*
