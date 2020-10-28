@@ -2,33 +2,38 @@
 #include <stdbool.h>
 #include <string.h>
 
-int CV_LENGTH = 5;
-int KEYWORD_LENGTH = 5;
-int max_word_count = 700;
-int min_word_count = 500;  //change at a later stage, to the req.txt
+#define MAX_LETTERS 50 //PARAGRAPH_MAX_LETTERS_PER_WORD
+#define PARA_LENGTH 0 //the array position of the length of paragraph n
+#define KEYWORD_LENGTH 6 //amount of keywords in array
 
 bool is_word_match(char word_1[], char word_2[]);
-int paragraph_Matches(char Paragraph[][50], char Keywords[][50]);
-int paragraph_Length(char paragraph[][50]);
-int paragraph_Importance(char paragraph[][]);
-
+int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length[]);
+double paragraph_Density(int Weight, int Length[]);
 
 int main(void){
-    char cv[4][50] = {"hej","hvordan","gaar","det"};
-    char buzz[3][50] = {"hej","hvordan","gaar"};
-    printf("%d",paragraph_Matches(cv,buzz));
+    char paragraph1[5][MAX_LETTERS] = {"hej","hvordan","gaar","det","asd"}; //testing, tb replace by read.c
+    char buzz[KEYWORD_LENGTH][MAX_LETTERS] = {"hej","hvordan","gaar","det","med","sig"}; //testing, tb replace by read.c
+    int length[5] = {5,2,3,4,5}; //testing, tb replace by read.c
+    
+    printf("%lf",paragraph_Density(paragraph_Weight(paragraph1,buzz,length),length)); 
+
     return 0;
 }
 
+// divies paragraph weight with the same paragraphs length, to fin density form 0 to 1
+double paragraph_Density(int Weight, int Length[]){
+    double Density = ((double)Weight)/((double)Length[PARA_LENGTH]);
+    return(Density);
+}
+
 //Checks for how many times a paragraph matches keywords
-int paragraph_Matches(char Paragraph[][50], char Keywords[][50]){    
+int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length[]){
     int match_Weight = 0;
-    for(int j = 0; j < 3; j++)  //need sizeof command instead of 3 //buzz length
+    for(int j = 0; j < KEYWORD_LENGTH; j++)
     {  
         int i = 0;
-        for(; i < 4; i++) //need sizeof instead of 4, length of cv
+        for(; i < length[PARA_LENGTH]; i++)
         {
-            printf("cv[%d]: %s, buzz[%d]: %s\n ",i,Paragraph[i],j,Keywords[j]);
             match_Weight += is_word_match(Paragraph[i],Keywords[j]);
         }
     }
@@ -42,12 +47,10 @@ bool is_word_match(char word_1[], char word_2[]){
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){ 
         word_Match = 1;
-        printf("-----is_Word_Match end, T: %d-----\n\n",word_Match); //debug
         return(word_Match);
     }
     else if(word_Match != 0){
         word_Match = 0;
-        printf("-----is_Word_Match end, T: %d-----\n\n",word_Match); //debug
         return(word_Match);
     }
 }
