@@ -1,5 +1,6 @@
 
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void start_read();
 void word_reader();
@@ -33,20 +34,21 @@ void start_read(){
 } 
 
 
-void word_reader(FILE *hitler){
+void word_reader(FILE *hello2){
     // Read every word of a file or section (in an array)
-    char tom[100];
-    char *jim[100];
-    int hej = 0;
-    while(1){
-        fscanf(hitler, "%s", tom);
-        jim[hej]
-
+    char arrayofwords[9999];
+    char *jim[9999];
+    int hej = 0, i;
     
+    while(1){
+        fscanf(hello2, "%s", &arrayofwords[hej]);
+        hej++;
 
     
     }
-    if(){
+        
+
+    if(File contains no more words)
 
     }
 
