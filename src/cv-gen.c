@@ -3,36 +3,46 @@
 #include <string.h>
 
 #define MAX_LETTERS 50 //PARAGRAPH_MAX_LETTERS_PER_WORD
-#define PARA_LENGTH 0 //the array position of the length of paragraph n
 #define KEYWORD_LENGTH 6 //amount of keywords in array
+#define PARA_AMOUNT 5 //amount of paragraphs
+#define PARA_LENGTH 8 //length of each paragraph
 
 bool is_word_match(char word_1[], char word_2[]);
-int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length[]);
-double paragraph_Density(int Weight, int Length[]);
+int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length);
+void paragraph_Density(int Weight, int Length,double *density);
 
 int main(void){
-    char paragraph1[5][MAX_LETTERS] = {"hej","hvordan","gaar","det","asd"}; //testing, tb replace by read.c
+    char paragraph1[PARA_LENGTH][MAX_LETTERS] = {"hej","hvordan","gaar","det","asd","Jeg","Har","BSC"}; //testing, tb replace by read.c
     char buzz[KEYWORD_LENGTH][MAX_LETTERS] = {"hej","hvordan","gaar","det","med","sig"}; //testing, tb replace by read.c
-    int length[5] = {5,2,3,4,5}; //testing, tb replace by read.c
+    int length[PARA_AMOUNT] = {PARA_LENGTH,2,3,4,5}; //testing, tb replace by read.c
+    double density_of_Paragraph[PARA_AMOUNT];
     
-    printf("%lf",paragraph_Density(paragraph_Weight(paragraph1,buzz,length),length)); 
 
+    for (int i = 0; i < PARA_AMOUNT; i++) //loops through all paragraphs to get each density. only the first paragraph
+    {
+        int weight = paragraph_Weight(paragraph1,buzz,length[i]);
+        paragraph_Density(weight,length[i],&density_of_Paragraph[i]);
+        printf("density of paragraph %d: %lf",i, density_of_Paragraph[i]);
+    }
     return 0;
 }
 
-// divies paragraph weight with the same paragraphs length, to fin density form 0 to 1
-double paragraph_Density(int Weight, int Length[]){
-    double Density = ((double)Weight)/((double)Length[PARA_LENGTH]);
-    return(Density);
+//calculates the density of all paragraphs and an returns the value
+//void density_of_All_Paragraphs(){}
+
+// divies paragraph weight with the same paragraphs length, to find density form 0 to 1
+void paragraph_Density(int Weight, int Length, double* density){
+    printf("    weight: %d, length: %d\n", Weight, Length);
+    *density = ((double)Weight)/((double)Length);
 }
 
 //Checks for how many times a paragraph matches keywords
-int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length[]){
+int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length){
     int match_Weight = 0;
     for(int j = 0; j < KEYWORD_LENGTH; j++)
     {  
         int i = 0;
-        for(; i < length[PARA_LENGTH]; i++)
+        for(; i < length; i++)
         {
             match_Weight += is_word_match(Paragraph[i],Keywords[j]);
         }
