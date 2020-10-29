@@ -1,7 +1,5 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+void start_read(){
 
 void start_read();
 void word_reader();
@@ -59,8 +57,6 @@ void word_reader(FILE *theInFile, char ***theOutput_ppp){
     }
 
     // Find tags, and end current reading there
-    *theOutput_ppp = allWords_pp;
-}
 
 
 void arrayExtender(char ***theIn_ppp, int currLength){
