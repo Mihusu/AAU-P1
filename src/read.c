@@ -20,7 +20,7 @@ int main(void){
 
 
 void start_read(char ***theKeaywords_ppp, int *wordsInKeaywords_p, char ****cvLongSections_pppp, int **cvLongSectionsWord_pp, char ****cvLongItemiced_pppp, int **cvLongItemicedWord_pp){
-    // Open a file (Keywords, Requirments, Long CV)
+    // Open a file (Keywords, Long CV)
     /*
     FILE *hello; 
     hello = fopen("Hello.txt", "r");
@@ -28,6 +28,7 @@ void start_read(char ***theKeaywords_ppp, int *wordsInKeaywords_p, char ****cvLo
     word_reader(fopen("Hello.txt", "r"), theKeaywords_ppp);
 
     // Send Long CV file to tag_searcher
+    tag_searcher(fopen("LongCV.txt", "r"), );
     
     // Send file to word_reader function
     
@@ -74,6 +75,36 @@ void arrayExtender(char ***theIn_ppp, int currLength){
 
 void tag_searcher(){
 
-    // Use to divide sections in Long CV reading (array)
+    // Use to divide sections in Long CV reading (array) 
+    
+    // Run Word_Reader on Long CV
+    word_reader();
+    
 
 }
+
+void line_reader(){
+
+
+}
+
+/*
+#Workexperience
+2009-2011 Flaskedreng i Netto.
+2011-2013 Flymekaniker.
+#Education
+2016 AAU Batchelor i software.
+2013 HTX-Hillerød, Mat-Fys.
+#FreeText
+Hello I am a good worker.
+
+I flush the toilet always.
+
+Going home is for the weak.
+
+I am very proud.
+I am also happy.
+
+WorkExperience
+[0,1]
+// */
