@@ -2,54 +2,49 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define MAX_LETTERS 50 //PARAGRAPH_MAX_LETTERS_PER_WORD
 #define KEYWORD_LENGTH 12 //amount of keywords in array
 #define PARA_AMOUNT 6 //amount of paragraphs
 #define PARA_LENGTH 12 //length of each paragraph
 
-bool is_word_match(char word_1[], char word_2[]);
-int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length);
-void paragraph_Density(int Weight, int Length,double *density);
+bool is_word_match();
+int paragraph_Weight();
+void paragraph_Density();
+void cv_Density();
 
 int main(void){
-    char CV[PARA_AMOUNT][PARA_LENGTH][MAX_LETTERS] = {{"Jeg","har","en","gym","uddannelse"}, //testing, tb replace by read.c
+    char *CV[PARA_AMOUNT][PARA_LENGTH] = {{"Jeg","har","en","gym","uddannelse"}, //testing, tb replace by read.c
                                             {"jeg","har","arbejdet","i","netto"},
                                             {"Jeg","er","god","til","C","prog"},
                                             {"Jeg","kan","finde","ud","af","machinelearning","og","statistik","og","sandsynlighedsteori"},
                                             {"Jeg","tager","en","Bsc","i","Software"},
                                             {"Erfaring","med","C","python","css","og","databaser"}};
     
-    char buzz[KEYWORD_LENGTH][MAX_LETTERS] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
+    char *buzz[KEYWORD_LENGTH] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
     int length[PARA_AMOUNT] = {5,5,6,10,6,7}; //length of each individuel paragraph //testing, tb replace by read.c
     double density_of_Paragraph[PARA_AMOUNT];
+    cv_Density(density_of_Paragraph,CV,buzz,length);
 
-    for (int i = 0; i < PARA_AMOUNT; i++) //loops through all paragraphs to get each density.
-    {   
-        int weight = paragraph_Weight(CV[i],buzz,length[i]);
-        paragraph_Density(weight,length[i],&density_of_Paragraph[i]);
-        printf("density of paragraph %d: %lf",i+1, density_of_Paragraph[i]);
-    }
+    printf("\n\n1: %lf 2:%lf 3:%lf 4:%lf 5:%lf 6: %lf",density_of_Paragraph[0],density_of_Paragraph[1],density_of_Paragraph[2],density_of_Paragraph[3],density_of_Paragraph[4],density_of_Paragraph[5]);
+    printf("\n\n%d",strlen(CV[0][1]));
     return 0;
 }
 
-//calculates the density of all paragraphs and an returns the value
-//void cv_Density(char CV[][PARA_LENGTH][MAX_LETTERS], double* density_of_Paragraph[PARA_AMOUNT],int length[PARA_AMOUNT],char buzz[KEYWORD_LENGTH][MAX_LETTERS]){
-//    for (int i = 0; i < PARA_AMOUNT; i++) //loops through all paragraphs to get each density. only the first paragraph
-//    {   
-//        int weight = paragraph_Weight(CV[i],buzz,length[i]);
-//        paragraph_Density(weight,length[i],density_of_Paragraph[i]);
-//        printf("density of paragraph %d: %lf",i+1, density_of_Paragraph[i]);
-//    }
-//}
+//calculates the density of all paragraphs and returns the value into the density array
+void cv_Density(double *density_of_Paragraph, char *CV[PARA_AMOUNT][PARA_LENGTH], char *keyword_List[KEYWORD_LENGTH], int length[PARA_AMOUNT]){
+    for (int i = 0; i < PARA_AMOUNT; i++) //loops through all paragraphs to get each density. 
+    {   
+        int weight = paragraph_Weight(CV[i],keyword_List,length[i]);
+        paragraph_Density(weight,length[i],density_of_Paragraph, i);
+    }
+}
 
 // divies paragraph weight with the same paragraphs length, to find density form 0 to 1
-void paragraph_Density(int Weight, int Length, double* density){
-    printf("\nweight: %d, length: %d\n", Weight, Length);
-    *density = ((double)Weight)/((double)Length);
+void paragraph_Density(int Weight, int Length, double* density, int i){
+    density[i] = ((double)Weight)/((double)Length);
 }
 
 //Checks for how many times a paragraph matches keywords
-int paragraph_Weight(char Paragraph[][MAX_LETTERS], char Keywords[][MAX_LETTERS], int length){
+int paragraph_Weight(char *Paragraph[], char *Keywords[], int length){
     int match_Weight = 0;
     for(int j = 0; j < KEYWORD_LENGTH; j++)
     {  
