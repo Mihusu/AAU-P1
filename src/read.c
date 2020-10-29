@@ -1,5 +1,7 @@
 
-void start_read(){
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void start_read();
 void word_reader();
@@ -57,7 +59,7 @@ void word_reader(FILE *theInFile, char ***theOutput_ppp){
     }
 
     // Find tags, and end current reading there
-
+}
 
 void arrayExtender(char ***theIn_ppp, int currLength){
     // Adds an extra entry to the array
@@ -89,7 +91,7 @@ void tag_searcher(FILE *fileInbound, char ****hellos_pppp, char ****hellos2_pppp
     
     // Run Word_Reader on Long CV
     while(!(feof(fileInbound))){
-        word_reader();
+        //word_reader();
     }
     
 }
