@@ -47,12 +47,10 @@ bool is_word_match(char word_1[], char word_2[]){
     word_Match = strcmp(word_1,word_2);
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){
-        word_Match = 1;
-        return(word_Match);
+        return 1;
     }
-    else if(word_Match != 0){
-        word_Match = 0;
-        return(word_Match);
+    else{
+        return 0;
     }
 }
 
@@ -71,13 +69,13 @@ int cmpfunc (const void *ep1, const void *ep2) {
     }
 }
 
-void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
+void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
     typedef struct {
-        char strVal;
-        int intval;
+        double doubleVal;
+        int intVal;
     } tTuple;
-    // tTuple list[702];
 
+    printf("density of 5: %lf", Density[4]);
     int biggist_density, sum = 0;
     int max_word_count_CV = 702; //change at a later stage, to the req.txt
     int j, i;
