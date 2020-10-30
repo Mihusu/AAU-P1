@@ -69,17 +69,17 @@ int cmpfunc (const void *val1, const void *val2) {
     }
 }
 
-// Making a compare tuple that will check if one is bigger than the other
-int cmp_tuples(const void *a, const void *b) {
-    return (* (b.doubleVal) - * (a.doubleVal));
-}
-
-void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
     typedef struct {
         double doubleVal; //density array
         int intVal; //value to be inserted into CV, to declare which to add first.
     } tTuple;//defines the tuple as (x,y), where x is double val, and y is intval
     
+// Making a compare tuple that will check if one is bigger than the other
+int cmp_tuples(tTuple a, tTuple b) {
+    return (b.doubleVal - a.doubleVal);
+}
+
+void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
     tTuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
 
     for (int i = 0; i < PARA_AMOUNT; i++) {
