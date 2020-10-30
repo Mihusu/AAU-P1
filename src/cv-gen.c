@@ -88,8 +88,6 @@ int cmpfunc (const void *ep1, const void *ep2) {
     }
 }
 
-
-
 void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
     typedef struct {
         char strVal;
@@ -106,10 +104,6 @@ void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
             sum += i;
         
         }
-        
-        for(j = 0; j < biggist_density; i++)  {
-                
-        }
     } 
     printf("AFTER sorting\n"); 
     qsort(a, 702, sizeof(int), cmpfunc);
@@ -118,3 +112,32 @@ void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
         printf(" %s ", a); 
     }
 } 
+
+/* Første er til at vælge de vigtigste fra string arrays 
+   (KOMMER FRA DESENTY FUNKTIONEN). Skal sortere og gå tilbage og sortere igen, 
+   anden skal angive den maksimale længde af et CV og det tredje skal gøres ved at vælge afsnit
+   og sortere dem fra ved hjælp af TRUE eller FALSE. */
+
+
+
+///*
+// * Function to create an array with booleans of wether a paragraph is to be
+// * included or not
+// */
+//void include(*importance_array, *inclusion_array){
+//    *inclusion_array.i = true;// sets entries to true if they should be included
+//}
+//
+///*
+// * Function to output the plain text file with the final cv, so it can be
+// * formatted
+// */
+//void output(long_cv, *inclusion_array){
+//    for (int i = 0; i < size(long_cv); i++) {
+//        if (*inclusion_array = true) {
+//            print long_cv.i;
+//        }
+//    }
+//}
+//
+//
