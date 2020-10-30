@@ -11,7 +11,7 @@ bool is_word_match();
 int paragraph_Weight();
 void paragraph_Density();
 void cv_Density();
-
+void inclusion(double *a, int b, bool *c);
 
 //calculates the density of all paragraphs and returns the value into the density array
 void cv_Density(double *density_of_Paragraph, char *CV[PARA_AMOUNT][PARA_LENGTH], char *keyword_List[KEYWORD_LENGTH], int length[PARA_AMOUNT]){
@@ -56,14 +56,14 @@ bool is_word_match(char word_1[], char word_2[]){
     }
 }
 
-int cmpfunc (const void *ep1, const void *ep2) {
-    double *tp1 = (double*)ep1;
-    double *tp2 = (double*)ep2;
+int cmpfunc (const void *val1, const void *val2) {
+    double *x = (double*)val1;
+    double *y = (double*)val2;
 
-    if (*tp1 < *tp2) {
+    if (*x < *y) {
         return -1;
     }
-    else if (*tp1 < *tp2) {
+    else if (*x < *y) {
         return 1;
     }
     else {
@@ -73,26 +73,26 @@ int cmpfunc (const void *ep1, const void *ep2) {
 
 void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
     typedef struct {
-        char strVal;
-        int intval;
+        double strVal;
+        int intval = 0;
     } tTuple;
     // tTuple list[702];
 
-    int biggist_density, sum = 0;
+    int biggist_density[0], sum_of_words = 0;
     int max_word_count_CV = 702; //change at a later stage, to the req.txt
     int j, i;
 
-    while(sum < max_word_count_CV) {
+    while(sum_of_words < max_word_count_CV) {
         for(i = 0; i < max_word_count_CV; i++) {
-            sum += i;
+            sum_of_words += i;
 
         }
     }
     printf("AFTER sorting\n");
     qsort(a, 702, sizeof(int), cmpfunc);
     // printing strings in sorted order
-    for (i= 0; i < 702; i++) {
-        printf(" %s ", a);
+    for (i= 0; i < max_word_count_CV; i++) {
+        printf("\nBiggist density is: %d\n", biggist_density[i]); 
     }
 }
 
