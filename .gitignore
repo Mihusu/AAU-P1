@@ -1,12 +1,17 @@
-### Manual additions
+####################
+# Manual additions #
+####################
 
-# Temporarily added report (to avoid merge warnings)
+# Build
+build/
 docs/main.pdf
 
 # Visual Studio Code
 .vscode
 
-### Automatically generated for C projects
+######################################
+# GitHub template for C repositories #
+######################################
 
 # Prerequisites
 *.d
@@ -61,7 +66,9 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-### Automatically generated for TeX projects
+########################################
+# GitHub template for TeX repositories #
+########################################
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
