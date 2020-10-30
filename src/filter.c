@@ -56,14 +56,14 @@ bool is_word_match(char word_1[], char word_2[]){
     }
 }
 
-int cmpfunc (const void *ep1, const void *ep2) {
-    double *tp1 = (double*)ep1;
-    double *tp2 = (double*)ep2;
+int cmpfunc (const void *val1, const void *val2) {
+    double *x = (double*)val1;
+    double *y = (double*)val2;
 
-    if (*tp1 < *tp2) {
+    if (*x < *y) {
         return -1;
     }
-    else if (*tp1 < *tp2) {
+    else if (*x < *y) {
         return 1;
     }
     else {
@@ -73,8 +73,8 @@ int cmpfunc (const void *ep1, const void *ep2) {
 
 void inclusion(double *a, int max_word_count_CV = 702, bool *c) {
     typedef struct {
-        char strVal;
-        int intval;
+        double strVal;
+        int intval = 0;
     } tTuple;
     // tTuple list[702];
 
