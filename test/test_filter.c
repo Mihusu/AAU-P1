@@ -53,7 +53,7 @@ void test_Inclusion(CuTest *tc){
     int length[PARA_AMOUNT] = {5,5,6,10,6,7}; //length of each individuel paragraph //testing, tb replace by read.c
     double density_of_Paragraph[PARA_AMOUNT];
     cv_Density(density_of_Paragraph,CV,buzz,length);
-    bool included_Paragraphs[PARA_AMOUNT];
+    bool included_Paragraphs[PARA_AMOUNT] = {};
     inclusion(density_of_Paragraph,CV,length,included_Paragraphs);
 }
 
