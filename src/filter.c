@@ -11,7 +11,7 @@ bool is_word_match();
 int paragraph_Weight();
 void paragraph_Density();
 void cv_Density();
-void inclusion(double *a, int b, bool *c);
+void inclusion();
 
 //calculates the density of all paragraphs and returns the value into the density array
 void cv_Density(double *density_of_Paragraph, char *CV[PARA_AMOUNT][PARA_LENGTH], char *keyword_List[KEYWORD_LENGTH], int length[PARA_AMOUNT]){
@@ -71,26 +71,22 @@ int cmpfunc (const void *val1, const void *val2) {
 
 void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
     typedef struct {
-        double doubleVal;
-        int intVal;
-    } tTuple;
+        double doubleVal; //density array
+        int intVal; //value to be inserted into CV, to declare which to add first.
+    } tTuple;//defines the tuple as (x,y), where x is double val, and y is intval
+    
+    tTuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
 
-    printf("density of 5: %lf", Density[4]);
-    int biggist_density, sum = 0;
-    int max_word_count_CV = 702; //change at a later stage, to the req.txt
-    int j, i;
-
-    while(sum_of_words < max_word_count_CV) {
-        for(i = 0; i < max_word_count_CV; i++) {
-            sum_of_words += i;
-
-        }
+    for (int i = 0; i < PARA_AMOUNT; i++) {
+        priority_array[i].doubleVal = Density[i];
+        priority_array[i].intVal = i;
+        printf("%d doubleval: %lf, intVal: %d  ---", i, priority_array[i].doubleVal,priority_array[i].intVal); //testing
+        printf("density[%d]: %lf, CV[%d]: %s, length[%d]: %d, include[%d]: %d\n",i, Density[i], i, *CV[i], i, length[i],i,include[i]);
     }
-    printf("AFTER sorting\n");
-    qsort(a, 702, sizeof(int), cmpfunc);
-    // printing strings in sorted order
-    for (i= 0; i < max_word_count_CV; i++) {
-        printf("\nBiggist density is: %d\n", biggist_density[i]); 
+    qsort(&priority_array, PARA_AMOUNT, sizeof(tTuple), cmp_tuples);
+    printf("\n==============\n");
+    for (int i = 0; i < PARA_AMOUNT; i++) {
+        printf("%d doubleval: %lf, intVal: %d  ---", i, priority_array[i].doubleVal,priority_array[i].intVal); //testing
     }
 }
 
