@@ -11,7 +11,7 @@
 typedef struct {
     double doubleVal; //density array
     int intVal; //value to be inserted into CV, to declare which to add first.
-} tTuple; //defines the tuple as (x,y), where x is double val, and y is intval
+} tTuple;//defines the tuple as (x,y), where x is double val, and y is intval
   
 bool is_word_match();
 int paragraph_Weight();
