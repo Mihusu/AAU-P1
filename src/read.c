@@ -5,7 +5,7 @@
 void start_read();
 void word_reader();
 void tag_searcher();
-void arrayExtender();
+//void arrayExtender();
 void** arrayExtenderExperimental();
 void text_reader();
 
@@ -26,19 +26,39 @@ void start_read(char ***theKeywords_ppp, char ****cvLongItemiced_pppp, char ****
     word_reader(fopen("Hello.txt", "r"), theKeywords_ppp);
 
     // Send Long CV file to tag_searcher
+    tag_searcher(fopen("LongCV.txt", "r"), cvLongItemiced_pppp, cvLongSections_pppp);
     
     // Send file to word_reader function
     
 } 
 
-void text_reader(FILE *theFile){
+
+void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
     // Alternative, probably simpler
-    char *theText = malloc(10 * sizeof(char));
-    int characters = 0;
-    while(feof(theFile)){
-        
+    int characters = 0, alottetArray = 300;
+    char *theText_p = malloc(alottetArray * sizeof(char));
+    while(!(feof(theFile))){
+        if(characters >= alottetArray){
+            alottetArray += 100;
+            theText_p = (char *) realloc(theText_p, alottetArray);
+        }
+        theText_p[characters] = fgetc(theFile);
+        characters++;
     }
+    if(characters == 0){
+        free(theText_p);
+        // Error file is empty
+    }
+    char *finalText_p = malloc((characters + 1) * sizeof(char));
+    for(int i = 0; i < characters; i++){
+        finalText_p[i] = theText_p[i];
+    }
+    finalText_p[characters] = '\0';
+    free(theText_p);
+    *outText_pp = finalText_p;
+    *outLength_p = characters + 1;
 }
+
 
 void word_reader(FILE *theInFile, char ***theOutput_ppp){
     // Read every word of a file or section (in an array)
@@ -69,7 +89,7 @@ void word_reader(FILE *theInFile, char ***theOutput_ppp){
     *theOutput_ppp = allWords_pp;
 }
 
-
+/*
 void arrayExtender(char ***theIn_ppp, int currLength){
     // Adds an extra entry to the array
     char **theNew_pp = malloc((currLength + 10) * sizeof(char *));
@@ -78,7 +98,7 @@ void arrayExtender(char ***theIn_ppp, int currLength){
     }
     free(*theIn_ppp);
     *theIn_ppp = theNew_pp;
-}
+}// */
 
 
 void** arrayExtenderExperimental(void **theIn_pp, int currLength){
