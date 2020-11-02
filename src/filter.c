@@ -6,12 +6,18 @@
 #define KEYWORD_LENGTH 12 //amount of keywords in array
 #define PARA_AMOUNT 6 //amount of paragraphs
 #define PARA_LENGTH 12 //length of each paragraph
+#define MAX_WORDS 10 //max words in the CV
 
+typedef struct {
+    double doubleVal; //density array
+    int intVal; //value to be inserted into CV, to declare which to add first.
+} tTuple; //defines the tuple as (x,y), where x is double val, and y is intval
+  
 bool is_word_match();
 int paragraph_Weight();
 void paragraph_Density();
 void cv_Density();
-void inclusion(double *a, int b, bool *c);
+void inclusion();
 
 //calculates the density of all paragraphs and returns the value into the density array
 void cv_Density(double *density_of_Paragraph, char *CV[PARA_AMOUNT][PARA_LENGTH], char *keyword_List[KEYWORD_LENGTH], int length[PARA_AMOUNT]){
@@ -53,77 +59,38 @@ bool is_word_match(char word_1[], char word_2[]){
         return 0;
     }
 }
-
-int cmpfunc (const void *val1, const void *val2) {
-    double *x = (double*)val1;
-    double *y = (double*)val2;
-
-    if (*x < *y) {
-        return -1;
-    }
-    else if (*x < *y) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
-// Making a compare tuple that will check if one is bigger than the other
-int cmp_tuples(const void *a, const void *b) {
-    return (* (b.doubleVal) - * (a.doubleVal));
+  
+// Comparing tuples by comparing the first (double) value = doubleval. to be used in stdlib.qsort
+int cmp_tuples(const void * a, const void * b) {
+    double cmp = ((*(tTuple*)b).doubleVal - (*(tTuple*)a).doubleVal);
+    // Make sure a negative double also results in returning a negative int, and likewise for positive
+    if (cmp < 0.0) {return -1;}
+    else if (cmp > 0.0) {return 1;}
+    else {return 0;}
 }
 
 void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
-    typedef struct {
-        double doubleVal;
-        int intVal;
-    } tTuple;
+    tTuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
 
-    printf("density of 5: %lf", Density[4]);
-    int biggist_density, sum = 0;
-    int max_word_count_CV = 702; //change at a later stage, to the req.txt
-    int j, i;
-
-    while(sum_of_words < max_word_count_CV) {
-        for(i = 0; i < max_word_count_CV; i++) {
-            sum_of_words += i;
-
-        }
+    for (int i = 0; i < PARA_AMOUNT; i++) { //initializes the priority array with the values from density.
+        priority_array[i].doubleVal = Density[i];
+        priority_array[i].intVal = i;
+        printf("%d doubleval: %lf, intVal: %d  ---", i, priority_array[i].doubleVal,priority_array[i].intVal); //testing
+        printf("density[%d]: %lf, CV[%d]: %s, length[%d]: %d, include[%d]: %d\n",i, Density[i], i, *CV[i], i, length[i],i,include[i]); //test
     }
-    printf("AFTER sorting\n");
-    qsort(a, 702, sizeof(int), cmpfunc);
-    // printing strings in sorted order
-    for (i= 0; i < max_word_count_CV; i++) {
-        printf("\nBiggist density is: %d\n", biggist_density[i]); 
+    qsort(priority_array, PARA_AMOUNT, sizeof(tTuple), cmp_tuples); //sorts the priority array from highest density to lowest
+    printf("\n==============\n"); //test
+    for (int i = 0; i < PARA_AMOUNT; i++) //test
+    {
+        printf("%d doubleval: %lf, intVal: %d  ---\n", i, priority_array[i].doubleVal,priority_array[i].intVal); //testing
     }
+
+    int words = 0;
+    int i = 0;
+    while (words < MAX_WORDS) {  //creates the bool array with what paragraphs that needs to be included
+        words += (int)length[priority_array[i].intVal];
+        include[priority_array[i].intVal] = 1; 
+        i++;
+    } 
 }
 
-/* Første er til at vælge de vigtigste fra string arrays
-   (KOMMER FRA DESENTY FUNKTIONEN). Skal sortere og gå tilbage og sortere igen,
-   anden skal angive den maksimale længde af et CV og det tredje skal gøres ved at vælge afsnit
-   og sortere dem fra ved hjælp af TRUE eller FALSE. */
-
-
-
-///*
-// * Function to create an array with booleans of wether a paragraph is to be
-// * included or not
-// */
-//void include(*importance_array, *inclusion_array){
-//    *inclusion_array.i = true;// sets entries to true if they should be included
-//}
-//
-///*
-// * Function to output the plain text file with the final cv, so it can be
-// * formatted
-// */
-//void output(long_cv, *inclusion_array){
-//    for (int i = 0; i < size(long_cv); i++) {
-//        if (*inclusion_array = true) {
-//            print long_cv.i;
-//        }
-//    }
-//}
-//
-//
