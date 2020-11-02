@@ -49,10 +49,10 @@ int paragraph_weight(char *paragraph[], char *keywords[], int length){
 
 //compares for string match, to see if they are the same.
 bool is_word_match(char word_1[], char word_2[]){
-    bool word_Match;
-    word_Match = strcmp(word_1,word_2);
+    bool word_match;
+    word_match = strcmp(word_1,word_2);
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
-    if(word_Match == 0){
+    if(word_match == 0){
         return 1;
     }
     else{
