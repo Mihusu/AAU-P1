@@ -69,7 +69,7 @@ int cmp_tuples(const void * a, const void * b) {
     else {return 0;}
 }
 
-void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int *length[PARA_AMOUNT], bool *include) {
+void inclusion(double *Density, char *CV[PARA_AMOUNT][PARA_LENGTH], int length[PARA_AMOUNT], bool *include) {
     tTuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
 
     for (int i = 0; i < PARA_AMOUNT; i++) { //initializes the priority array with the values from density.
