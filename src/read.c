@@ -104,7 +104,7 @@ void arrayExtender(char ***theIn_ppp, int currLength){
 void** arrayExtenderExperimental(void **theIn_pp, int currLength){
     // Creates a new array (containing pointers) thats 1 space longer
     // than the old array, copies the content of old into new and
-    // free the old array.
+    // free the old array. Only works for a array containing pointers.
     void **theNew_pp = malloc((currLength + 1) * sizeof(void *));
     for(int i = 0; i < currLength; i++){
         theNew_pp[i] = theIn_pp[i];
