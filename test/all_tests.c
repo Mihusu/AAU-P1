@@ -1,15 +1,19 @@
+#include "all_tests.h"
+
 #include <stdio.h>
 
 #include "CuTest.h"
-#include "test_filter.h"
-
-CuSuite* cv_gen_get_suite();
+#include "filter_test.h"
+#include "format_test.h"
+#include "read_test.h"
 
 void RunAllTests(void) {
-    CuString *output = CuStringNew();
+    CuString* output = CuStringNew();
     CuSuite* suite = CuSuiteNew();
 
-    CuSuiteAddSuite(suite, cv_gen_get_suite());
+    CuSuiteAddSuite(suite, filter_get_suite());
+    CuSuiteAddSuite(suite, format_get_suite());
+    CuSuiteAddSuite(suite, read_get_suite());
 
     CuSuiteRun(suite);
     CuSuiteSummary(suite, output);
@@ -17,6 +21,4 @@ void RunAllTests(void) {
     printf("%s\n", output->buffer);
 }
 
-int main(void) {
-    RunAllTests();
-}
+int main(void) { RunAllTests(); }
