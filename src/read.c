@@ -21,12 +21,20 @@ int main(void){
 
 
 void start_read(char ***theKeywords_ppp, char ****cvLongItemiced_pppp, char ****cvLongSections_pppp){
-    // Open a file (Keywords, Long CV)
-    
-    word_reader(fopen("Hello.txt", "r"), theKeywords_ppp);
+
+    //char *fnLongCV = malloc(); // In case of user defined file name
+    FILE *theLongCV, *theKeywords;
+    theLongCV = fopen("LongCV.txt", "r");
+    theKeywords = fopen("Hello.txt", "r");
+    if(theLongCV == NULL || theKeywords == NULL){
+        // Error, can't open file.
+        printf("\nError can't open input file(s)\n");
+        exit(1);
+    }
+    word_reader(theKeywords, theKeywords_ppp);
 
     // Send Long CV file to tag_searcher
-    tag_searcher(fopen("LongCV.txt", "r"), cvLongItemiced_pppp, cvLongSections_pppp);
+    tag_searcher(theLongCV, cvLongItemiced_pppp, cvLongSections_pppp);
     
     // Send file to word_reader function
     
@@ -37,26 +45,50 @@ void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
     // Alternative, probably simpler
     int characters = 0, alottetArray = 300;
     char *theText_p = malloc(alottetArray * sizeof(char));
+    if(theText_p == NULL){
+        // Error can't allocate memmory
+        printf("\nError m allo, in text_reader\n");
+        exit(1);
+    }
     while(!(feof(theFile))){
         if(characters >= alottetArray){
             alottetArray += 100;
             theText_p = (char *) realloc(theText_p, alottetArray);
+            if(theText_p == NULL){
+                // Error can't reallocate new memmory
+                printf("\nError m re allo, in text_reader\n");
+                exit(1);
+            }
         }
+        // Reads the next char from the file
         theText_p[characters] = fgetc(theFile);
         characters++;
     }
     if(characters == 0){
-        free(theText_p);
         // Error file is empty
+        printf("\nError file is empty\n");
+        exit(1);
     }
+    /* Do the same as a realloc call, final array exact correct size,
+    here for untherstanding */
     char *finalText_p = malloc((characters + 1) * sizeof(char));
+    if(finalText_p == NULL){
+        // Error can't allocate memmory
+        printf("\nError m allo, in text_reader\n");
+        exit(1);
+    }
     for(int i = 0; i < characters; i++){
         finalText_p[i] = theText_p[i];
     }
-    finalText_p[characters] = '\0';
     free(theText_p);
+    // Alter char array to string
+    finalText_p[characters] = '\0';
+    // Returning the variables
     *outText_pp = finalText_p;
     *outLength_p = characters + 1;
+
+    // Placement here instead of file_read: needs testing
+    fclose(theFile);
 }
 
 
