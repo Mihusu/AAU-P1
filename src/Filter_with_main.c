@@ -24,72 +24,49 @@ void generate_cv();
 
 //pseudo main, just defining the main pointer variables and running the functions in the right order + print testing
 int main(void){
-    printf("Hello\n");
-    int i, j;
-    char *buzzTemp[KEYWORD_LENGTH] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"};
-    int length[PARA_AMOUNT] = {5,5,6,10,6,7};
-    char *cvTemp[PARA_AMOUNT][PARA_LENGTH] = {{"Jeg","har","en","gym","uddannelse"},
+    //char **cv[PARA_AMOUNT];
+    //char **cv1[];
+    char *cv[PARA_AMOUNT][PARA_LENGTH] = {{"Jeg","har","en","gym","uddannelse"}, //testing, tb replace by read.c
                                             {"jeg","har","arbejdet","i","netto"},
                                             {"Jeg","er","god","til","C","prog"},
                                             {"Jeg","kan","finde","ud","af","machinelearning","og","statistik","og","sandsynlighedsteori"},
                                             {"Jeg","tager","en","Bsc","i","Software"},
                                             {"Erfaring","med","C","python","css","og","databaser"}};
-
-    // :FLAG: code section is structure of data from read.c
-    int n_kw = 12; // Number of keywords
-    char **buzz = malloc(n_kw * sizeof(char *)); // Keyword list
-    for(i = 0; i < n_kw; i++){
-        buzz[i] = malloc((strlen(buzzTemp[i]) + 1) * sizeof(char));
-        strcpy(buzz[i], buzzTemp[i]);
-    }
-
-    int n_para = 6; // Number of paragraphs
-    int *n_word_para = malloc(n_para * sizeof(int)); // Number of words in paragraph
-    char ***cv = malloc(n_para * sizeof(char **));
-    for(i = 0; i < n_para; i++){
-        n_word_para[i] = length[i];
-        cv[i] = malloc(n_word_para[i] * sizeof(char *));
-        for(j = 0; j < n_word_para[i]; j++){
-            cv[i][j] = malloc((strlen(cvTemp[i][j]) + 1) * sizeof(char));
-            strcpy(cv[i][j], cvTemp[i][j]);
-        }
-    }
-    // :FLAG: End of the structure definition, this isn't all of it
-    
-    printf("Hello2\n");
+    char *buzz[KEYWORD_LENGTH] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
+    int length[PARA_AMOUNT] = {5,5,6,10,6,7}; //length of each individuel paragraph //testing, tb replace by read.c
     double density_of_paragraph[PARA_AMOUNT] = {};
-    calculate_cv_density(density_of_paragraph,cv,buzz,n_word_para);
+    calculate_cv_density(density_of_paragraph,cv,buzz,length);
     bool included_paragraphs[PARA_AMOUNT] = {};
-    include_paragraph(density_of_paragraph,cv,n_word_para,&included_paragraphs);
+    include_paragraph(density_of_paragraph,cv,length,&included_paragraphs);
     char *filtered_cv[OUTPUT_PARA_AMOUNT][PARA_LENGTH] = {};
     generate_cv(filtered_cv,included_paragraphs,cv);
-    printf("Hello3\n");
+
     //testing started
-    for(i = 0; i < PARA_AMOUNT; i++){
+    for(int i = 0; i < PARA_AMOUNT; i++){
         printf("(%d) density: %lf included?: %d \n",i+1,density_of_paragraph[i],included_paragraphs[i]); //testing
     }
     printf("\n");
-    for (i = 0; i < PARA_AMOUNT; i++) //print input cv.
+    for (int i = 0; i < PARA_AMOUNT; i++) //print input cv.
     {
         printf("input CV paragraph [%d] ",i+1);
-        for (j = 0; j < PARA_LENGTH; j++)
+        for (int j = 0; j < PARA_LENGTH; j++)
         {
             printf("%s ", cv[i][j]);
         }
         printf("\n");
     }
     printf("\n");
-    for (i = 0; i < OUTPUT_PARA_AMOUNT; i++) //print output cv.
+    for (int i = 0; i < OUTPUT_PARA_AMOUNT; i++) //print output cv.
     {
         printf("output CV paragraph [%d] ",i+1);
-        for (j = 0; j < PARA_LENGTH; j++)
+        for (int j = 0; j < PARA_LENGTH; j++)
         {
             printf("%s ", filtered_cv[i][j]);
         }
         printf("\n");
     }
     //testing ended
-    printf("Hello4\n");
+    
     return 0;
 }
 
