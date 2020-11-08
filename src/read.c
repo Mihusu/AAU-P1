@@ -24,19 +24,23 @@ void start_read(char ***theKeywords_ppp, char ****cvLongItemiced_pppp, char ****
 
     //char *fnLongCV = malloc(); // In case of user defined file name
     FILE *theLongCV, *theKeywords;
-    theLongCV = fopen("LongCV.txt", "r");
+    char *cvTotalText, *keywordsTotalText;
+    int cvCharLength, kwCharLength;
+    theLongCV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
     theKeywords = fopen("Hello.txt", "r");
     if(theLongCV == NULL || theKeywords == NULL){
         // Error, can't open file.
-        printf("\nError can't open input file(s)\n");
+        printf("\nError can't open input file(s)\n"); // temp remove later
         exit(1);
     }
-    word_reader(theKeywords, theKeywords_ppp);
 
-    // Send Long CV file to tag_searcher
-    tag_searcher(theLongCV, cvLongItemiced_pppp, cvLongSections_pppp);
+    text_reader(theLongCV, &cvTotalText, &cvCharLength);
+    text_reader(theKeywords, &keywordsTotalText, &kwCharLength);
+
+    //word_reader(theKeywords, theKeywords_ppp);
+
+    //tag_searcher(theLongCV, cvLongItemiced_pppp, cvLongSections_pppp);
     
-    // Send file to word_reader function
     
 } 
 
@@ -47,7 +51,7 @@ void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
     char *theText_p = malloc(alottetArray * sizeof(char));
     if(theText_p == NULL){
         // Error can't allocate memmory
-        printf("\nError m allo, in text_reader\n");
+        printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(1);
     }
     while(!(feof(theFile))){
@@ -56,7 +60,7 @@ void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
             theText_p = (char *) realloc(theText_p, alottetArray);
             if(theText_p == NULL){
                 // Error can't reallocate new memmory
-                printf("\nError m re allo, in text_reader\n");
+                printf("\nError m re allo, in text_reader\n"); // Temp remove later
                 exit(1);
             }
         }
@@ -66,7 +70,7 @@ void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
     }
     if(characters == 0){
         // Error file is empty
-        printf("\nError file is empty\n");
+        printf("\nError file is empty\n"); // Temp remove later
         exit(1);
     }
     /* Do the same as a realloc call, final array exact correct size,
@@ -74,7 +78,7 @@ void text_reader(FILE *theFile, char **outText_pp, int *outLength_p){
     char *finalText_p = malloc((characters + 1) * sizeof(char));
     if(finalText_p == NULL){
         // Error can't allocate memmory
-        printf("\nError m allo, in text_reader\n");
+        printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(1);
     }
     for(int i = 0; i < characters; i++){
