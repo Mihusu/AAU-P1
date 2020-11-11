@@ -9,7 +9,6 @@ void tag_searcher();
 void** arrayExtenderExperimental();
 void text_reader();
 void worder();
-int length_of_a_string();
 
 
 int main(void){
@@ -26,15 +25,6 @@ int main(void){
     start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p);
 
     return 0;
-}
-
-
-int length_of_a_string(char *inStr){
-    // Returns the length of a null terminated char array, not including the termination character
-    int i = 0;
-    while(inStr[i] != '\0')
-        i++;
-    return i;
 }
 
 
@@ -137,6 +127,7 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
                     exit(EXIT_FAILURE);
                 }
                 // Alternative to strncpy(), strncpy() needs second argument to be const char *
+                // New knowlege char * --> const char *, is ok
                 for(i = wordStart; i < currentChar; i++){
                     aWord_p[i - wordStart] = cleanText_p[i];
                 }
