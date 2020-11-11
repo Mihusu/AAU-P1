@@ -3,12 +3,11 @@
 #include <string.h>
 
 void start_read();
-void word_reader();
 void tag_searcher();
-//void arrayExtender();
-void** arrayExtenderExperimental();
 void text_reader();
+void line_reader();
 void worder();
+void section_treater();
 
 
 int main(void){
@@ -42,8 +41,8 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     }
 
     text_reader(theLongCV, &cvTotalText_p);
-    //tag_searcher(theLongCV, cvLongItemiced_pppp, cvLongSections_pppp);
-
+    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, cvLongSections_pppp);
+    free(cvTotalText_p);
 
     text_reader(theKeywords, &keywordsTotalText_p);
     worder(keywordsTotalText_p, theKeywords_ppp, nKword_p);
@@ -147,77 +146,58 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
 }
 
 
-void word_reader(FILE *theInFile, char ***theOutput_ppp){
-    // Read every word of a file or section (in an array)
-    char **allWords_pp = malloc(10 * sizeof(char *));
-    int hej = 0, hills = 10;
-    
-    while(1){
-        if(feof(theInFile)){
-            // feof() -> is next char in the file_input-stream the 'EOF' (End Of File)
-            break;
-        }
-        // Temporary storage for 1 word.
-        char theWordTemp_p[100]; // Longest word in Danish is 51
-        fscanf(theInFile, "%s", theWordTemp_p);
-        // Final storage for 1 word, only allocated the required length for that word
-        char *theWord_p = malloc((strlen(theWordTemp_p) + 1) * sizeof(char));
-        strcpy(theWord_p, theWordTemp_p);
-        
-        allWords_pp[hej] = theWord_p;
-        if(hej >= hills){
-            //arrayExtender(&allWords_pp, hej+1);
-            allWords_pp = (char **) arrayExtenderExperimental(allWords_pp, hej+1);
-        }
-        hej++;
-    }
 
-    // Find tags, and end current reading there
-    *theOutput_ppp = allWords_pp;
-}
-
-/*
-void arrayExtender(char ***theIn_ppp, int currLength){
-    // Adds an extra entry to the array
-    char **theNew_pp = malloc((currLength + 10) * sizeof(char *));
-    for(int i = 0; i < currLength; i++){
-        theNew_pp[i] = (*theIn_ppp)[i];
-    }
-    free(*theIn_ppp);
-    *theIn_ppp = theNew_pp;
-}// */
-
-
-void** arrayExtenderExperimental(void **theIn_pp, int currLength){
-    // Creates a new array (containing pointers) thats 1 space longer
-    // than the old array, copies the content of old into new and
-    // free the old array. Only works for a array containing pointers.
-    void **theNew_pp = malloc((currLength + 1) * sizeof(void *));
-    for(int i = 0; i < currLength; i++){
-        theNew_pp[i] = theIn_pp[i];
-    }
-    free(theIn_pp);
-    return theNew_pp;
-}
-
-
-void tag_searcher(FILE *fileInbound, char ****theItems_pppp, char ****theText_pppp){
+void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_pppp){
     char ***theReadItems_ppp, ***theReadText_ppp;
     theReadItems_ppp = malloc(2 * sizeof(char **));
     theReadText_ppp = malloc(1 * sizeof(char **));
-    // Use to divide sections in Long CV reading (array) 
     
-    // Run Word_Reader on Long CV
-    while(!(feof(fileInbound))){
-        //word_reader();
-    }
     
 }
 
 void line_reader(){
 
-    // Use to divide sections in Long CV reading (array)
 
+
+}
+
+
+void section_treater(char *theFreeText_p, char ****theSections, int *theNSections, int **theNWordSections){
+    int theReader = 0, currentMarker = -1, nSections = 1, nSectAllo = 10, i;
+    char **theSectionsTemp_pp = malloc(nSectAllo * sizeof(char *));
+    if(theSectionsTemp_pp == NULL){
+        exit(EXIT_FAILURE);
+    }
+    theSectionsTemp_pp[0] = theFreeText_p;
+    while(theFreeText_p[theReader] != '\0'){
+        if(theReader == currentMarker && theFreeText_p[theReader] == '\n' && theFreeText_p[theReader + 1] != '\0'){
+            if(nSections >= nSectAllo){
+                nSectAllo += 10;
+                theSectionsTemp_pp = (char **) realloc(theSectionsTemp_pp, nSectAllo * sizeof(char *));
+                if(theSectionsTemp_pp == NULL){
+                    exit(EXIT_FAILURE);
+                }
+            }
+            theFreeText_p[theReader - 1] = '\0';
+            theSectionsTemp_pp[nSections] = &(theFreeText_p[theReader + 1]);
+            nSections++;
+        } else if(theFreeText_p[theReader] == '\n'){
+            currentMarker = theReader + 1;
+        }
+        theReader++;
+    }
+    char ***finalSections_ppp = malloc(nSections * sizeof(char **));
+    int *wordsInSections_p = malloc(nSections * sizeof(int));
+    if(finalSections_ppp == NULL || wordsInSections_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+    for(i = 0; i < nSections; i++){
+        worder(theSectionsTemp_pp[i], &(finalSections_ppp[i]), &(wordsInSections_p[i]));
+    }
+    free(theSectionsTemp_pp);
+    *theSections = finalSections_ppp;
+    *theNSections = nSections;
+    *theNWordSections = wordsInSections_p;
 }
 
 /* Exampel of LongCV conntent:
