@@ -9,9 +9,7 @@ void line_reader();
 void worder();
 void section_treater();
 
-
 int main(void){
-
     char **keywords_pp;
     int nKeywords; // Number of keywords
 
@@ -22,10 +20,8 @@ int main(void){
     int nSections, *nSectionContent_p; // Number of freetext sections, Number of words in eatch section
 
     start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p);
-
     return 0;
 }
-
 
 void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp){
 
@@ -39,7 +35,6 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
         printf("\nError can't open input file(s)\n"); // temp remove later
         exit(EXIT_FAILURE);
     }
-
     text_reader(theLongCV, &cvTotalText_p);
     tag_searcher(cvTotalText_p, cvLongItemiced_pppp, cvLongSections_pppp);
     free(cvTotalText_p);
@@ -47,9 +42,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     text_reader(theKeywords, &keywordsTotalText_p);
     worder(keywordsTotalText_p, theKeywords_ppp, nKword_p);
     free(keywordsTotalText_p);
-
 } 
-
 
 void text_reader(FILE *theFile, char **outText_pp){
     // Read all text from the file
@@ -95,7 +88,6 @@ void text_reader(FILE *theFile, char **outText_pp){
     // Placement here instead of file_read: needs testing
     fclose(theFile);
 }
-
 
 void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     // Seperates a string text into a array of strings containing individual words
@@ -145,22 +137,16 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     *nWordsOut_p = nTheWords;
 }
 
-
-
 void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_pppp){
     char ***theReadItems_ppp, ***theReadText_ppp;
     theReadItems_ppp = malloc(2 * sizeof(char **));
     theReadText_ppp = malloc(1 * sizeof(char **));
-    
-    
 }
 
 void line_reader(){
 
 
-
 }
-
 
 void section_treater(char *theFreeText_p, char ****theSections, int *theNSections, int **theNWordSections){
     int theReader = 0, currentMarker = -1, nSections = 1, nSectAllo = 10, i;
