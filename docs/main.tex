@@ -7,14 +7,16 @@
 
 \begin{document}
 
-\listoffixmes
+%\listoffixmes
 
-\input{sections/titlepage}
+\input{titlepage/Frontpage}
+\input{sections/tiltlepage}
+\input{sections/preface}\newpage
 
+\hypersetup{linkcolor=black}
 \tableofcontents\newpage
 
 \pagenumbering{arabic}
-\input{sections/preface}\newpage
 \input{sections/introduction}
 \input{sections/background}
 \input{sections/analysis}
@@ -27,6 +29,6 @@
 \appendix
 \include{appendices/group_contract}
 
-\printbibliography
+\printbibliography[heading=bibintoc]
 
 \end{document}
