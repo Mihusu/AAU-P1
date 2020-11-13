@@ -13,7 +13,11 @@
 \definecolor{aaublue}{RGB}{33,26,82}
 \usepackage[contents={},color=gray]{background}
 
-\usepackage[backend=biber]{biblatex}
+%\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber,
+bibencoding=utf8,
+sorting=none,
+style=numeric-comp]{biblatex}
 \addbibresource{appendices/bibliography.bib}
 
 \usepackage[multiuser,draft]{fixme}\usepackage{tocbasic}% Compatibility with `scrartcl'.
