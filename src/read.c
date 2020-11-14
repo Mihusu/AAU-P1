@@ -8,6 +8,7 @@ void text_reader();
 void line_reader();
 void worder();
 void section_treater();
+void the_ending();
 
 
 int main(void){
@@ -22,7 +23,8 @@ int main(void){
     int nSections, *nSectionContent_p; // Number of freetext sections, Number of words in eatch section
 
     start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p);
-
+    // All rest of code here
+    the_ending(keywords_pp, nKeywords, itemicedSections_ppp, nItemices, nItemicedContent_p, inCVSections_ppp, nSections, nSectionContent_p);
     return 0;
 }
 
@@ -51,6 +53,31 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
 } 
 
 
+void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int **nSectionWords_p){
+    int i, j;
+    for(i = 0; i < nKword; i++){
+        free(theKeywords_pp[i]);
+    }
+    free(theKeywords_pp);
+    for(i = 0; i < nItemices; i++){
+        for(j = 0; j < nItemicedContent_p[i]; j++){
+            free(cvLongItemiced_ppp[i][j]);
+        }
+        free(cvLongItemiced_ppp[i]);
+    }
+    free(nItemicedContent_p);
+    free(cvLongItemiced_ppp);
+    for(i = 0; i < nSections; i++){
+        for(j = 0; j < nSectionWords_p[i]; j++){
+            free(cvLongSections_ppp[i][j]);
+        }
+        free(cvLongSections_ppp[i]);
+    }
+    free(nSectionWords_p);
+    free(cvLongSections_ppp);
+}
+
+
 void text_reader(FILE *theFile, char **outText_pp){
     // Read all text from the file
     int characters = 0, alottetArray = 300;
@@ -60,7 +87,7 @@ void text_reader(FILE *theFile, char **outText_pp){
         printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
-    while(!(feof(theFile))){
+    while(1){
         if(characters >= alottetArray){
             alottetArray += 100;
             theText_p = (char *) realloc(theText_p, alottetArray * sizeof(char));
@@ -72,7 +99,16 @@ void text_reader(FILE *theFile, char **outText_pp){
         }
         // Reads the next char from the file
         theText_p[characters] = fgetc(theFile);
-        characters++;
+
+        // End Of File was reatched
+        if(theText_p[characters] == EOF){
+            // Change theText_p from char array to string
+            theText_p[characters] = '\0';
+            break;
+        }
+        // Easyer to handel in the rest of the code if there is no '\r'
+        if(theText_p[characters] != '\r')
+            characters++;
     }
     if(characters == 0){
         // Error file is empty
@@ -86,8 +122,6 @@ void text_reader(FILE *theFile, char **outText_pp){
         printf("\nError m allo end, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
-    // Alter char array to string
-    theText_p[characters] = '\0';
     
     // Returning the variables
     *outText_pp = theText_p;
@@ -126,7 +160,7 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
                     exit(EXIT_FAILURE);
                 }
                 // Alternative to strncpy(), strncpy() needs second argument to be const char *
-                // New knowlege char * --> const char *, is ok
+                // New knowlege: char * --> const char *, is ok, work already done so why change
                 for(i = wordStart; i < currentChar; i++){
                     aWord_p[i - wordStart] = cleanText_p[i];
                 }
@@ -146,7 +180,6 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
 }
 
 
-
 void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_pppp){
     char ***theReadItems_ppp, ***theReadText_ppp;
     theReadItems_ppp = malloc(2 * sizeof(char **));
@@ -155,6 +188,7 @@ void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_
     
 }
 
+
 void line_reader(){
 
 
@@ -162,7 +196,7 @@ void line_reader(){
 }
 
 
-void section_treater(char *theFreeText_p, char ****theSections, int *theNSections, int **theNWordSections){
+void section_treater(char *theFreeText_p, char ****theSections_pppp, int *theNSections_p, int **theNWordSections_pp){
     int theReader = 0, currentMarker = -1, nSections = 1, nSectAllo = 10, i;
     char **theSectionsTemp_pp = malloc(nSectAllo * sizeof(char *));
     if(theSectionsTemp_pp == NULL){
@@ -195,9 +229,9 @@ void section_treater(char *theFreeText_p, char ****theSections, int *theNSection
         worder(theSectionsTemp_pp[i], &(finalSections_ppp[i]), &(wordsInSections_p[i]));
     }
     free(theSectionsTemp_pp);
-    *theSections = finalSections_ppp;
-    *theNSections = nSections;
-    *theNWordSections = wordsInSections_p;
+    *theSections_pppp = finalSections_ppp;
+    *theNSections_p = nSections;
+    *theNWordSections_pp = wordsInSections_p;
 }
 
 /* Exampel of LongCV conntent:
