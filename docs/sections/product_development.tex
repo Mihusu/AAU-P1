@@ -1,0 +1,35 @@
+\section{Product Development}\label{sec:product_development}
+\subsection{Planing phase}
+Before building the program, we brainstormed and created a Minimal Viable Product (MVP).
+This MVP (which can be seen illustrate beneeth) is a general high level schematic outlining what our program is supposed to do.
+
+\incfigure{figures/engMVP}{fig: MVP}{MVP}
+Here we discussed what are the most essential parts, and came to the conclusion that the following things
+were needed: The Users skills/abilities and the information from the vacant job position. These things
+should be transformed into a custom application. 
+
+After further consideration, we had encountered a problem, that generating a custom CV from nothing but
+skills/abilities would create a very childlike, maybe even unreadable, application. This could be solved with a lot
+of data, and therefore a lot of time calibrating the process of automatically creating sentences. This may also result
+in a lower quality application, if this calibration doesn't happen. 
+A CV, that might and might not even get through the "ATS/keyword scanner" outlined in the analysis. 
+
+We therefore sought to instead create a filter, where the high quality sentences would be somewhat guaranteed and maintained.
+This filter is only supposed to filter out all the unneccessary parts of a longer quality CV, into an application that
+is ready to be sent. In other words, we decided to instead concentrate on creating a tool that aids
+in sending out applications, instead of a CV generation program.
+
+We then changed the MVP schematic to the following:
+\incfigure{figures/engMVP}{fig: MVP}{Revised MVP}
+This program is supposed to take in the keywords/job application, some formel requirements for
+the structure of the new CV, and the originally long CV. 
+
+The long CV should contain as many pages as possible, of all abilities and skills one has.
+It should also include prior work experience, and anything else relevant on a CV. 
+
+In this way, the program chooses the most important sentences, work experience and skills to be included,
+and from the structural requirements creates a new CV.
+
+From here we decided to organize our MVP into a UML diagram, to make it more apparent
+what the essential functions were supposed to do, and which functions that were essential:
+\incfigure{figures/UML}{fig: UML}{UML 1.0}

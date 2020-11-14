@@ -10,6 +10,7 @@ void worder();
 void section_treater();
 void the_ending();
 
+
 int main(void){
     char **keywords_pp;
     int nKeywords; // Number of keywords
@@ -26,6 +27,7 @@ int main(void){
     return 0;
 }
 
+
 void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp){
 
     //char *fnLongCV = malloc(); // In case of user defined file name
@@ -38,6 +40,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
         printf("\nError can't open input file(s)\n"); // temp remove later
         exit(EXIT_FAILURE);
     }
+
     text_reader(theLongCV, &cvTotalText_p);
     tag_searcher(cvTotalText_p, cvLongItemiced_pppp, cvLongSections_pppp);
     free(cvTotalText_p);
@@ -82,6 +85,7 @@ void text_reader(FILE *theFile, char **outText_pp){
         printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
+    
     while(1){
         if(characters >= alottetArray){
             alottetArray += 100;
@@ -105,6 +109,7 @@ void text_reader(FILE *theFile, char **outText_pp){
         if(theText_p[characters] != '\r')
             characters++;
     }
+
     if(characters == 0){
         // Error file is empty
         printf("\nError file is empty, in text_reader\n"); // Temp remove later
@@ -124,6 +129,7 @@ void text_reader(FILE *theFile, char **outText_pp){
     // Placement here instead of file_read: needs testing
     fclose(theFile);
 }
+
 
 void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     // Seperates a string text into a array of strings containing individual words
@@ -182,7 +188,6 @@ void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_
 
 
 void line_reader(){
-
 
 }
 
