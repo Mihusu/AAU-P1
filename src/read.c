@@ -10,9 +10,7 @@ void worder();
 void section_treater();
 void the_ending();
 
-
 int main(void){
-
     char **keywords_pp;
     int nKeywords; // Number of keywords
 
@@ -28,7 +26,6 @@ int main(void){
     return 0;
 }
 
-
 void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp){
 
     //char *fnLongCV = malloc(); // In case of user defined file name
@@ -41,7 +38,6 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
         printf("\nError can't open input file(s)\n"); // temp remove later
         exit(EXIT_FAILURE);
     }
-
     text_reader(theLongCV, &cvTotalText_p);
     tag_searcher(cvTotalText_p, cvLongItemiced_pppp, cvLongSections_pppp);
     free(cvTotalText_p);
@@ -49,7 +45,6 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     text_reader(theKeywords, &keywordsTotalText_p);
     worder(keywordsTotalText_p, theKeywords_ppp, nKword_p);
     free(keywordsTotalText_p);
-
 } 
 
 
@@ -130,7 +125,6 @@ void text_reader(FILE *theFile, char **outText_pp){
     fclose(theFile);
 }
 
-
 void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     // Seperates a string text into a array of strings containing individual words
     int nTheWords = 0, nWordsSpace = 30, currentChar = 0, wordStart = 0, i;
@@ -184,13 +178,10 @@ void tag_searcher(char *fileCleanText, char ****theItems_pppp, char ****theText_
     char ***theReadItems_ppp, ***theReadText_ppp;
     theReadItems_ppp = malloc(2 * sizeof(char **));
     theReadText_ppp = malloc(1 * sizeof(char **));
-    
-    
 }
 
 
 void line_reader(){
-
 
 
 }
