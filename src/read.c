@@ -9,6 +9,7 @@ void line_reader();
 void worder();
 void section_treater();
 void the_ending();
+void line_reader_controle();
 
 
 int main(void){
@@ -184,13 +185,54 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
 
 
 void tag_searcher(char *fileCleanText_p, char ****theItems_pppp, char ****theText_pppp){
-    int currentChar = 0, currentMarker = -1;
-    char ***theReadItems_ppp, ***theReadText_ppp;
-    theReadItems_ppp = malloc(2 * sizeof(char **));
-    theReadText_ppp = malloc(1 * sizeof(char **));
-    while(fileCleanText_p[currentChar] != '\0'){
+    int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
+    char *infoText_p = malloc(sizeof(char));
+    *infoText_p = '\0';
+    // Contains pointers to the tags.
+    char **tagLocations_pp = malloc(alloTags * sizeof(char *));
+    if(tagLocations_pp == NULL){
+        exit(EXIT_FAILURE);
+    }
+    
+    tagLocations_pp[0] = fileCleanText_p;
+    while(1){
+        if(fileCleanText_p[currentChar] == '\n'){
+            currentMarker = currentChar;
+        } else if(fileCleanText_p[currentChar] != '\0' || (fileCleanText_p[currentChar] == '#' && currentMarker + 1 == currentChar)){
+            if(nTags >= alloTags){
+                alloTags += 5;
+                tagLocations_pp = (char **) realloc(tagLocations_pp, alloTags * sizeof(char *));
+                if(tagLocations_pp == NULL){
+                    exit(EXIT_FAILURE);
+                }
+            }
+            tagLocations_pp[nTags] = &(fileCleanText_p[currentChar]);
+            nTags++;
+            if(fileCleanText_p[currentChar] != '\0')
+                break;
+        }
         currentChar++;
     }
+
+    for(i = 0; i < nTags - 1; i++){
+        areaLength = tagLocations_pp[i + 1] - tagLocations_pp[i];
+        if(i == nTags - 2)
+            areaLength++;
+        if(tagLocations_pp[i][0] == '#'){
+            line_reader_controle();
+        } else {
+            infoText_p = (char *) realloc(infoText_p, areaLength * sizeof(char));
+            for(j = 0; j < areaLength - 1; j++){
+                infoText_p[j] = tagLocations_pp[i][j];
+            }
+            infoText_p[areaLength - 1] = '\0';
+        }
+    }
+}
+
+
+void line_reader_controle(){
+    
 }
 
 
