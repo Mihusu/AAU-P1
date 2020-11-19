@@ -3,6 +3,12 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define KEYWORD_LENGTH 12 //amount of keywords in array
+#define PARA_AMOUNT 6 //amount of paragraphs
+#define PARA_LENGTH 12 //length of each paragraph
+#define MAX_WORDS 10 //max words in the CV
+#define OUTPUT_PARA_AMOUNT 2 //amount of paragraphs in output
+
 typedef struct {
     double doubleVal; //density array
     int intVal; //value to be inserted into cv, to declare which to add first.
@@ -15,12 +21,6 @@ void calculate_paragraph_density();
 void calculate_cv_density();
 int cmp_tuples();
 void generate_cv();
-
-#define KEYWORD_LENGTH 12 //amount of keywords in array
-#define PARA_AMOUNT 6 //amount of paragraphs
-#define PARA_LENGTH 12 //length of each paragraph
-#define MAX_WORDS 10 //max words in the CV
-#define OUTPUT_PARA_AMOUNT 2 //amount of paragraphs in output
 
 //checks if a paragraph in CV is apart of "bool included paragraphs" to add those paragraphs to "filtered_cv"
 void generate_cv(char *filtered_cv[OUTPUT_PARA_AMOUNT][PARA_LENGTH], bool included_paragraphs[PARA_AMOUNT], char *cv[PARA_AMOUNT][PARA_LENGTH]){
@@ -65,9 +65,9 @@ int calculate_paragraph_weight(char *Paragraph[], char *Keywords[], int length){
 }
 
 //compares for string match, to see if they are the same.
-bool is_word_match(char *word_1, char *word_2){
+bool is_word_match(char word_1[], char word_2[]){
     bool word_Match;
-    word_Match = strcasecmp(word_1,word_2);
+    word_Match = strcmp(word_1,word_2);
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){
         return 1;
@@ -76,7 +76,6 @@ bool is_word_match(char *word_1, char *word_2){
         return 0;
     }
 }
-
 //returns a pointer to bool array of which paragraphs that should be included.
 void include_paragraph(double *Density, char *cv[PARA_AMOUNT][PARA_LENGTH], int length[PARA_AMOUNT], bool *include) {
     Tuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
