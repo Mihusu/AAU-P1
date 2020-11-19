@@ -65,9 +65,9 @@ int calculate_paragraph_weight(char *Paragraph[], char *Keywords[], int length){
 }
 
 //compares for string match, to see if they are the same.
-bool is_word_match(char word_1[], char word_2[]){
+bool is_word_match(char *word_1, char *word_2){
     bool word_Match;
-    word_Match = strcmp(word_1,word_2);
+    word_Match = strcasecmp(word_1,word_2);
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){
         return 1;
@@ -76,6 +76,7 @@ bool is_word_match(char word_1[], char word_2[]){
         return 0;
     }
 }
+
 //returns a pointer to bool array of which paragraphs that should be included.
 void include_paragraph(double *Density, char *cv[PARA_AMOUNT][PARA_LENGTH], int length[PARA_AMOUNT], bool *include) {
     Tuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple

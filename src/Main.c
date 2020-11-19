@@ -4,21 +4,13 @@
 #include <string.h>
 #include "filter.c"
 
-#define KEYWORD_LENGTH 12 //amount of keywords in array
-#define PARA_AMOUNT 6 //amount of paragraphs
-#define PARA_LENGTH 12 //length of each paragraph
-#define MAX_WORDS 10 //max words in the CV
-#define OUTPUT_PARA_AMOUNT 2 //amount of paragraphs in output
-
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
-    //char **cv[PARA_AMOUNT];
-    //char **cv1[];
     char *cv[PARA_AMOUNT][PARA_LENGTH] = {{"Jeg","har","en","gym","uddannelse"}, //testing, tb replace by read.c
                                             {"jeg","har","arbejdet","i","netto"},
                                             {"Jeg","er","god","til","C","prog"},
                                             {"Jeg","kan","finde","ud","af","machinelearning","og","statistik","og","sandsynlighedsteori"},
-                                            {"Jeg","tager","en","Bsc","i","Software"},
+                                            {"Jeg","tager","en","Bsc","i","software"},
                                             {"Erfaring","med","C","python","css","og","databaser"}};
     char *buzz[KEYWORD_LENGTH] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
     int length[PARA_AMOUNT] = {5,5,6,10,6,7}; //length of each individuel paragraph //testing, tb replace by read.c
@@ -54,8 +46,5 @@ int main(void){
         printf("\n");
     }
     //testing ended
-    
-
-
     return 0;
 }
