@@ -4,10 +4,7 @@
 #include <string.h>
 
 #define KEYWORD_LENGTH 12 //amount of keywords in array
-#define PARA_AMOUNT 6 //amount of paragraphs
-#define PARA_LENGTH 12 //length of each paragraph
-#define MAX_WORDS 10 //max words in the CV
-#define OUTPUT_PARA_AMOUNT 2 //amount of paragraphs in output
+#define MAX_WORDS 100 //max words in the CV
 
 typedef struct {
     double doubleVal; //density array
@@ -23,24 +20,37 @@ int cmp_tuples();
 void generate_cv();
 
 //checks if a paragraph in CV is apart of "bool included paragraphs" to add those paragraphs to "filtered_cv"
-void generate_cv(char *filtered_cv[OUTPUT_PARA_AMOUNT][PARA_LENGTH], bool included_paragraphs[PARA_AMOUNT], char *cv[PARA_AMOUNT][PARA_LENGTH]){
+void generate_cv(char **filtered_cv, bool *included_paragraphs, char ***theSectionsOut, int sectionsCount, int *wordsInSection){
     int j = 0;
-    for(int i = 0; i < PARA_AMOUNT; i++){
-        if (included_paragraphs[i] == 1)
+    int total_chars = 1;
+    int ammount_malloced = 100;
+    *filtered_cv = malloc(ammount_malloced*sizeof(char));
+    **filtered_cv = '\0';
+    for(int i = 0; i < sectionsCount; i++){
+        
+        if (included_paragraphs[i])
         {
-            for(int k = 0; k < PARA_LENGTH; k++){
-                filtered_cv[j][k] = cv[i][k];
+            for(int k = 0; k < wordsInSection[i]; k++){
+                if (total_chars + strlen(theSectionsOut[i][k]) + 1 >= ammount_malloced){
+                    ammount_malloced += 100;
+                    *filtered_cv = realloc(*filtered_cv, ammount_malloced * sizeof(char));
+                }
+                strcat(*filtered_cv,theSectionsOut[i][k]);
+                if (k != wordsInSection[i] - 1){
+                    strcat(*filtered_cv," "); //puts a space after each word, if it isnt the last word
+                }
             }
+            strcat(*filtered_cv,"\n"); //adds newline
             j++;
         }  
     }
 }
 
 //calculates the density of all paragraphs and returns the value into the density array
-void calculate_cv_density(double *density_of_paragraph, char *cv[PARA_AMOUNT][PARA_LENGTH], char *keyword_List[KEYWORD_LENGTH], int length[PARA_AMOUNT]){
-    for (int i = 0; i < PARA_AMOUNT; i++) //loops through all paragraphs to get each density.
+void calculate_cv_density(double *density_of_paragraph, char ***theSectionsOut, char *keyword_List[KEYWORD_LENGTH], int *length, int sectionsCount){
+    for (int i = 0; i < sectionsCount; i++) //loops through all paragraphs to get each density.
     {
-        int weight = calculate_paragraph_weight(cv[i],keyword_List,length[i]);
+        int weight = calculate_paragraph_weight(theSectionsOut[i],keyword_List,length[i]);
         calculate_paragraph_density(weight,length[i],density_of_paragraph, i);
     }
 }
@@ -77,18 +87,18 @@ bool is_word_match(char word_1[], char word_2[]){
     }
 }
 //returns a pointer to bool array of which paragraphs that should be included.
-void include_paragraph(double *Density, char *cv[PARA_AMOUNT][PARA_LENGTH], int length[PARA_AMOUNT], bool *include) {
-    Tuple priority_array[PARA_AMOUNT]; //defining priority array as a tuple
+void include_paragraph(double *Density, char ***theSectionsOut, int *length, bool *include, int sectionsCount) {
+    Tuple priority_array[sectionsCount]; //defining priority array as a tuple
 
-    for (int i = 0; i < PARA_AMOUNT; i++) { //initializes the priority array with the values from density.
+    for (int i = 0; i < sectionsCount; i++) { //initializes the priority array with the values from density.
         priority_array[i].doubleVal = Density[i];
         priority_array[i].intVal = i;
     }
-    qsort(priority_array, PARA_AMOUNT, sizeof(Tuple), cmp_tuples); //sorts the priority array from highest density to lowest
+    qsort(priority_array, sectionsCount, sizeof(Tuple), cmp_tuples); //sorts the priority array from highest density to lowest
 
     int words = 0;
     int i = 0;
-    while (words < MAX_WORDS) {  //creates the bool array with what paragraphs that needs to be included
+    while (words < MAX_WORDS && i < sectionsCount) {  //creates the bool array with what paragraphs that needs to be included
         words += (int)length[priority_array[i].intVal];
         include[priority_array[i].intVal] = 1; 
         i++;

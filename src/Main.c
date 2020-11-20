@@ -3,48 +3,43 @@
 #include <stdbool.h>
 #include <string.h>
 #include "filter.c"
+#include "testingRead.c" //testing to be replaced by full version
 
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
-    char *cv[PARA_AMOUNT][PARA_LENGTH] = {{"Jeg","har","en","gym","uddannelse"}, //testing, tb replace by read.c
-                                            {"jeg","har","arbejdet","i","netto"},
-                                            {"Jeg","er","god","til","C","prog"},
-                                            {"Jeg","kan","finde","ud","af","machinelearning","og","statistik","og","sandsynlighedsteori"},
-                                            {"Jeg","tager","en","Bsc","i","software"},
-                                            {"Erfaring","med","C","python","css","og","databaser"}};
+    //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
+    int sectionsCount, *wordsInSections, i, j;
+    char *fullText, ***theSectionsOut;
+    FILE *theFileIn = fopen("Hello.txt", "r");
+    text_reader(theFileIn, &fullText);
+    printf("\nchars total: %d\n", strlen(fullText));
+    section_treater(fullText, &theSectionsOut, &sectionsCount, &wordsInSections);
+    printf("Number of sections: %d\n", sectionsCount);
+    //===============================================read ^^ filter vv =============================0
     char *buzz[KEYWORD_LENGTH] = {"netto","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
-    int length[PARA_AMOUNT] = {5,5,6,10,6,7}; //length of each individuel paragraph //testing, tb replace by read.c
-    double density_of_paragraph[PARA_AMOUNT] = {};
-    calculate_cv_density(density_of_paragraph,cv,buzz,length);
-    bool included_paragraphs[PARA_AMOUNT] = {};
-    include_paragraph(density_of_paragraph,cv,length,included_paragraphs);
-    char *filtered_cv[OUTPUT_PARA_AMOUNT][PARA_LENGTH] = {};
-    generate_cv(filtered_cv,included_paragraphs,cv);
 
-    //testing started
-    for(int i = 0; i < PARA_AMOUNT; i++){
-        printf("(%d) density: %lf included?: %d \n",i+1,density_of_paragraph[i],included_paragraphs[i]); //testing
-    }
-    printf("\n");
-    for (int i = 0; i < PARA_AMOUNT; i++) //print input cv.
-    {
-        printf("input CV paragraph [%d] ",i+1);
-        for (int j = 0; j < PARA_LENGTH; j++)
-        {
-            printf("%s ", cv[i][j]);
+    double *density_of_paragraph = calloc(sectionsCount,sizeof(double)); //defines a density for each sections/paragraph
+    calculate_cv_density(density_of_paragraph,theSectionsOut,buzz,wordsInSections,sectionsCount);
+    bool *included_paragraphs = calloc(sectionsCount,sizeof(bool)); //defines an array of which paragraphs/sections should be included
+    include_paragraph(density_of_paragraph,theSectionsOut,wordsInSections,included_paragraphs,sectionsCount);
+    
+    char *filtered_cv; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
+    generate_cv(&filtered_cv,included_paragraphs,theSectionsOut,sectionsCount,wordsInSections);
+
+    printf("output: %s ", filtered_cv);
+    //testing read started again, to free variables
+    free(filtered_cv); //freeinng variables
+    free(fullText);
+    for(i = 0; i < sectionsCount; i++){
+        //printf("Section: %d, words in section: %d\n", i, wordsInSections[i]);
+        for(j = 0; j < wordsInSections[i]; j++){
+            //printf("\n%s", theSectionsOut[i][j]);
+            free(theSectionsOut[i][j]);
         }
-        printf("\n");
+        free(theSectionsOut[i]);
     }
-    printf("\n");
-    for (int i = 0; i < OUTPUT_PARA_AMOUNT; i++) //print output cv.
-    {
-        printf("output CV paragraph [%d] ",i+1);
-        for (int j = 0; j < PARA_LENGTH; j++)
-        {
-            printf("%s ", filtered_cv[i][j]);
-        }
-        printf("\n");
-    }
-    //testing ended
+    free(wordsInSections);
+    free(theSectionsOut);
+
     return 0;
 }
