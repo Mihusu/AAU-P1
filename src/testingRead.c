@@ -7,27 +7,6 @@ void text_reader();
 void worder();
 void section_treater();
 
-int main(void){
-    int sectionsCount, *wordsInSections, i, j;
-    char *fullText, ***theSectionsOut;
-    FILE *theFileIn = fopen("Hello.txt", "r");
-    text_reader(theFileIn, &fullText);
-    section_treater(fullText, &theSectionsOut, &sectionsCount, &wordsInSections);
-    free(fullText);
-    printf("Number of sections: %d\n", sectionsCount);
-    for(i = 0; i < sectionsCount; i++){
-        printf("Section: %d, words in section: %d\n", i, wordsInSections[i]);
-        for(j = 0; j < wordsInSections[i]; j++){
-            printf("%s\n", theSectionsOut[i][j]);
-            free(theSectionsOut[i][j]);
-        }
-        free(theSectionsOut[i]);
-    }
-    free(wordsInSections);
-    free(theSectionsOut);
-    return 0;
-}
-
 
 void text_reader(FILE *theFile, char **outText_pp){
     // Read all text from the file
