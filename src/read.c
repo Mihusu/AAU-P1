@@ -45,7 +45,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     }
 
     text_reader(theLongCV, &cvTotalText_p);
-    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, cvLongSections_pppp);
+    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, cvGInfo_pp);
     free(cvTotalText_p);
 
     text_reader(theKeywords, &keywordsTotalText_p);
@@ -184,7 +184,7 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
 }
 
 
-void tag_searcher(char *fileCleanText_p, char ****theItems_pppp, char ****theText_pppp){
+void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp){
     int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
     char *infoText_p = malloc(sizeof(char));
     *infoText_p = '\0';
@@ -219,9 +219,12 @@ void tag_searcher(char *fileCleanText_p, char ****theItems_pppp, char ****theTex
         if(i == nTags - 2)
             areaLength++;
         if(tagLocations_pp[i][0] == '#'){
-            line_reader_controle();
+            line_reader_controle(tagLocations_pp[i], areaLength);
         } else {
             infoText_p = (char *) realloc(infoText_p, areaLength * sizeof(char));
+            if(infoText_p == NULL){
+                exit(EXIT_FAILURE);
+            }
             for(j = 0; j < areaLength - 1; j++){
                 infoText_p[j] = tagLocations_pp[i][j];
             }
@@ -231,8 +234,25 @@ void tag_searcher(char *fileCleanText_p, char ****theItems_pppp, char ****theTex
 }
 
 
-void line_reader_controle(){
-    
+void line_reader_controle(char *tags_p, int lengthOfTag){
+    int currentChar = 0, alloChToTagWord = 10;
+    char *tagMarker_p = malloc(alloChToTagWord * sizeof(char));
+    // Copy of first line for compare with special marker words.
+    while(1){
+        if(currentChar >= alloChToTagWord){
+            alloChToTagWord += 10;
+            tagMarker_p = (char *) realloc(tagMarker_p, alloChToTagWord * sizeof(char));
+        }
+        if(tags_p[currentChar] == '\n' || tags_p[currentChar] == '\0')
+            break;
+        tagMarker_p[currentChar] = tags_p[currentChar];
+        currentChar++;
+    }
+    if(tags_p[currentChar] == '\0'){
+        printf("\nError tag is end of text.\n");
+        exit(EXIT_FAILURE);
+    }
+    tagMarker_p[currentChar] = '\0';
 }
 
 
