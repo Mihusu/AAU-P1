@@ -17,7 +17,7 @@ int main(void){
     section_treater(fullText, &theSectionsOut, &sectionsCount, &wordsInSections);
     printf("Number of sections: %d\n", sectionsCount);
     //===============================================read ^^ filter vv =============================0
-    char *buzz[KEYWORD_LENGTH] = {"elektronik","c#","java","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
+    char *buzz[KEYWORD_LENGTH] = {"elektronik","c#","java","gym","c","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","bsc","software"}; //testing, tb replace by read.c
 
     double *density_of_paragraph = calloc(sectionsCount,sizeof(double)); //defines a density for each sections/paragraph
     calculate_cv_density(density_of_paragraph,theSectionsOut,buzz,wordsInSections,sectionsCount);
@@ -55,9 +55,9 @@ int main(void){
     free(filtered_cv); //freeinng variables
     free(fullText);
     for(i = 0; i < sectionsCount; i++){
-        printf("Section: %d, words in section: %d\n", i, wordsInSections[i]);
+        //printf("Section: %d, words in section: %d\n", i, wordsInSections[i]);
         for(j = 0; j < wordsInSections[i]; j++){
-            printf("\n%s", theSectionsOut[i][j]);
+            //printf("\n%s", theSectionsOut[i][j]);
             free(theSectionsOut[i][j]);
         }
         free(theSectionsOut[i]);

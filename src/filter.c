@@ -36,6 +36,7 @@ void generate_cv(char **filtered_cv, bool *included_paragraphs, char ***theSecti
                     ammount_malloced += 100;
                     *filtered_cv = realloc(*filtered_cv, ammount_malloced * sizeof(char));
                 }
+                total_chars += strlen(theSectionsOut[i][k])+1; //adds neccesary characters for the added chars plus nullterminator
                 strcat(*filtered_cv,theSectionsOut[i][k]);
                 if (k != wordsInSection[i] - 1){
                     strcat(*filtered_cv," "); //puts a space after each word, if it isnt the last word
@@ -78,8 +79,7 @@ int calculate_paragraph_weight(char *Paragraph[], char *Keywords[], int length){
 //compares for string match, to see if they are the same.
 bool is_word_match(char word_1[], char word_2[]){
     bool word_Match;
-    word_Match = strcmp(word_1,word_2);
-    
+    word_Match = strcasecmp(word_1,word_2); //case insensitive string compare
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){
         printf("match: %d, a: %s, b: %s\n",word_Match,word_1,word_2);
@@ -88,6 +88,15 @@ bool is_word_match(char word_1[], char word_2[]){
     else{
         return 0;
     }
+}
+
+//removes punctuation such as . , : to make stringcompare more reliable
+void remove_punctuation(char *word){
+    for (int i = 0; i < strlen(word); i++){
+        
+    }
+    
+
 }
 //returns a pointer to bool array of which paragraphs that should be included.
 void include_paragraph(double *Density, char ***theSectionsOut, int *length, bool *include, int sectionsCount) {
