@@ -4,20 +4,20 @@
 #include <string.h>
 #include "filter.c"
 #include "testingRead.c" //testing to be replaced by full version
-#include "format.c"
+//#include "format.c"
 
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
     //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
     int sectionsCount, *wordsInSections, i, j;
     char *fullText, ***theSectionsOut;
-    FILE *theFileIn = fopen("Short.txt", "r");
+    FILE *theFileIn = fopen("Long.txt", "r");
     text_reader(theFileIn, &fullText);
     printf("\nchars total: %d\n", strlen(fullText));
     section_treater(fullText, &theSectionsOut, &sectionsCount, &wordsInSections);
     printf("Number of sections: %d\n", sectionsCount);
     //===============================================read ^^ filter vv =============================0
-    char *buzz[KEYWORD_LENGTH] = {"elektronikw","c#","java","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
+    char *buzz[KEYWORD_LENGTH] = {"elektronik","c#","java","gym","C","prog","css","databaser","python","statistik","sandsynlighedsteori","machinelearning","Bsc","Software"}; //testing, tb replace by read.c
 
     double *density_of_paragraph = calloc(sectionsCount,sizeof(double)); //defines a density for each sections/paragraph
     calculate_cv_density(density_of_paragraph,theSectionsOut,buzz,wordsInSections,sectionsCount);
@@ -30,8 +30,27 @@ int main(void){
     char *filtered_cv; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
     generate_cv(&filtered_cv,included_paragraphs,theSectionsOut,sectionsCount,wordsInSections);
     
-    printf("output: %s ", filtered_cv);
-    formaliaInLaTeX(filtered_cv);
+    printf("\nOutput: %s\n", filtered_cv);
+    FILE *fp = fopen("CV.tex", "w"); // Creates a file
+   
+    if (fp == NULL) { 
+        printf("Cannot open file \n"); 
+        exit(EXIT_FAILURE); 
+    } 
+
+    //fgets(filtered_cv, sizeof(filtered_cv), stdin);
+    fprintf(fp, "output: %s\n", filtered_cv);
+    fclose(fp);
+
+    /*char received_string[20000]; 
+    for (i = 0; filtered_cv[i]!='\0'; i++) {
+        // Input string into the file 
+        // single character at a time 
+        fputc(filtered_cv[i], fp); 
+    } 
+    // Reading the string from file 
+    fgets(received_string, 20000, fp); */
+
     //testing read started again, to free variables
     free(filtered_cv); //freeinng variables
     free(fullText);
