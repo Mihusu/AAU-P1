@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <strings.h>
 
-#define KEYWORD_LENGTH 12 //amount of keywords in array
-#define MAX_WORDS 100 //max words in the CV
+#define KEYWORD_LENGTH 14 //amount of keywords in array
+#define MAX_WORDS 20 //max words in the CV
 
 typedef struct {
     double doubleVal; //density array
@@ -78,8 +79,10 @@ int calculate_paragraph_weight(char *Paragraph[], char *Keywords[], int length){
 bool is_word_match(char word_1[], char word_2[]){
     bool word_Match;
     word_Match = strcmp(word_1,word_2);
+    
     //flips the bool value, since strcmp = 0 is true; strcmp = 1 is false
     if(word_Match == 0){
+        printf("match: %d, a: %s, b: %s\n",word_Match,word_1,word_2);
         return 1;
     }
     else{
