@@ -36,8 +36,27 @@ int main(void){
     char *filtered_cv; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
     generate_cv(&filtered_cv,included_paragraphs,theSectionsOut,sectionsCount,wordsInSections);
     
-    printf("output: %s ", filtered_cv);
-    //formaliaInLaTeX(filtered_cv);
+    printf("\nOutput: %s\n", filtered_cv);
+    FILE *fp = fopen("CV.tex", "w"); // Creates a file
+   
+    if (fp == NULL) { 
+        printf("Cannot open file \n"); 
+        exit(EXIT_FAILURE); 
+    } 
+
+    //fgets(filtered_cv, sizeof(filtered_cv), stdin);
+    fprintf(fp, "output: %s\n", filtered_cv);
+    fclose(fp);
+
+    /*char received_string[20000]; 
+    for (i = 0; filtered_cv[i]!='\0'; i++) {
+        // Input string into the file 
+        // single character at a time 
+        fputc(filtered_cv[i], fp); 
+    } 
+    // Reading the string from file 
+    fgets(received_string, 20000, fp); */
+
     //testing read started again, to free variables
     free(filtered_cv); //freeinng variables
     free(fullText);
