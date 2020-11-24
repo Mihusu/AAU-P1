@@ -3,16 +3,16 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct {
-    double doubleVal; //density array
-    int intVal; //value to be inserted into cv, to declare which to add first.
-} Tuple;//defines the tuple as (x,y), where x is double val, and y is intval
-
 #define KEYWORD_LENGTH 12 //amount of keywords in array
 #define PARA_AMOUNT 6 //amount of paragraphs
 #define PARA_LENGTH 12 //length of each paragraph
 #define MAX_WORDS 10 //max words in the CV
 #define OUTPUT_PARA_AMOUNT 2 //amount of paragraphs in output
+
+typedef struct {
+    double doubleVal; //density array
+    int intVal; //value to be inserted into cv, to declare which to add first.
+} Tuple;//defines the tuple as (x,y), where x is double val, and y is intval
 
 void include_paragraph();
 bool is_word_match();
