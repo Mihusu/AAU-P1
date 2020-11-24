@@ -22,15 +22,8 @@ The function should also convert a plain text into a LaTeX file
 void formaliaInLaTeX(char *array_text)
 {
     FILE *fp;
-    FILE *preamble;
-    FILE *main_tex;
     fp = fopen("D:\\Skole\\Universitet\\1_semester\\P1\\AAU_P1\\docs\\CV.tex", "w+"); // Creates a file
-    if (preamble == NULL)
-    {
-        printf("\nError can't open input file(s)\n"); // temp remove later
-        exit(EXIT_FAILURE);
-    }
-    fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
+    fprintf(fp, "%s %s %s %d", "We", "LORT", "in", 2012);
 }
 
 /*

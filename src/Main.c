@@ -4,6 +4,7 @@
 #include <string.h>
 #include "filter.c"
 #include "testingRead.c" //testing to be replaced by full version
+#include "format.c"
 
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
@@ -30,6 +31,7 @@ int main(void){
     generate_cv(&filtered_cv,included_paragraphs,theSectionsOut,sectionsCount,wordsInSections);
     
     printf("output: %s ", filtered_cv);
+    formaliaInLaTeX(filtered_cv);
     //testing read started again, to free variables
     free(filtered_cv); //freeinng variables
     free(fullText);
