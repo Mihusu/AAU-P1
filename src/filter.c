@@ -9,7 +9,7 @@ typedef struct {
     int intVal; //value to be inserted into cv, to declare which to add first.
 } Tuple;//defines the tuple as (x,y), where x is double val, and y is intval
 
-#define MAX_WORDS 50 //max words in the CV
+#define MAX_WORDS 75 //max words in the CV
 
 void include_paragraph();
 bool is_word_match();
