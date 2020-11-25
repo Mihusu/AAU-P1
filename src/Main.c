@@ -5,7 +5,7 @@
 #include <strings.h>
 #include "filter.c"
 #include "testingRead.c" //testing to be replaced by full version
-//#include "format.c"
+#include "format.c"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
@@ -37,26 +37,9 @@ int main(void){
     include_section(density_of_paragraph,sections_out,words_in_sections,sections_count,included_paragraphs);
     generate_text(included_paragraphs,sections_out,sections_count,words_in_sections,&filtered_cv);
     
-    printf("\nOutput: %s\n", filtered_cv);
-    FILE *fp = fopen("CV.tex", "w"); // Creates a file
-   
-    if (fp == NULL) { 
-        printf("Cannot open file \n"); 
-        exit(EXIT_FAILURE); 
-    } 
-
-    //fgets(filtered_cv, sizeof(filtered_cv), stdin);
-    fprintf(fp, "output: %s\n", filtered_cv);
-    fclose(fp);
-
-    /*char received_string[20000]; 
-    for (i = 0; filtered_cv[i]!='\0'; i++) {
-        // Input string into the file 
-        // single character at a time 
-        fputc(filtered_cv[i], fp); 
-    } 
-    // Reading the string from file 
-    fgets(received_string, 20000, fp); */
+    printf("\n%s\n", filtered_cv);
+    output_LaTeX_free_text(filtered_cv);
+    //output_LaTeX_essential_contents(general_information, education, work_experience);   // SKAL BRUGES. M.I.S
 
     //testing read started again, to free variables
     free(density_of_paragraph);
