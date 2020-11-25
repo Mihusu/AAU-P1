@@ -31,9 +31,10 @@ int main(void){
     char *filtered_cv; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
     bool *included_paragraphs = calloc(sections_count,sizeof(bool)); //defines an array of which paragraphs/sections should be included
 
-    calculate_cv_density(sections_out,keywords,words_in_sections,sections_count,keyword_count,density_of_paragraph);
-    include_paragraph(density_of_paragraph,sections_out,words_in_sections,sections_count,included_paragraphs);
-    generate_cv(included_paragraphs,sections_out,sections_count,words_in_sections,&filtered_cv);
+    remove_personal_pronouns(words_in_sections,sections_count,sections_out);
+    calculate_text_density(sections_out,keywords,words_in_sections,sections_count,keyword_count,density_of_paragraph);
+    include_section(density_of_paragraph,sections_out,words_in_sections,sections_count,included_paragraphs);
+    generate_text(included_paragraphs,sections_out,sections_count,words_in_sections,&filtered_cv);
     
     printf("\n\n%s\n", filtered_cv);
     run_pdfLaTeX(filtered_cv);
@@ -53,5 +54,6 @@ int main(void){
     }
     free(words_in_sections);
     free(sections_out);
+    printf("Executed program correctly");
     return 0;
 }

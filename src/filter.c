@@ -9,67 +9,99 @@ typedef struct {
     int intVal; //value to be inserted into cv, to declare which to add first.
 } Tuple;//defines the tuple as (x,y), where x is double val, and y is intval
 
-#define MAX_WORDS 75 //max words in the CV
+#define MAX_WORDS 100 //max words in the CV
+#define PP_AMOUNT 61 //amount of personal pronouns.
 
-void include_paragraph();
+void include_section();
 bool is_word_match();
-int calculate_paragraph_weight();
-void calculate_paragraph_density();
-void calculate_cv_density();
+int calculate_section_weight();
+void calculate_section_density();
+void calculate_text_density();
 int cmp_tuples();
-void generate_cv();
+void generate_text();
 void remove_punctuation();
 void remove_duplicate();
 int levenshtein();
+void remove_personal_pronouns();
 
-//checks if a paragraph in CV is apart of "bool included paragraphs" to add those paragraphs to "filtered_cv"
-void generate_cv(bool *included_paragraphs, char ***sections_out, int sections_count, int *wors_in_section, char **filtered_cv){
+//removes all personal pronouns of the start of every sentence of the input section, before calculating cv density
+void remove_personal_pronouns(int *words_in_sections,int sections_count,char ***sections_out){
+    //personal pronouns selected from this list https://en.wikipedia.org/wiki/English_personal_pronouns                                                                                                                                                                                                                                                                                                       vvvv official pronouns end here                                             
+    char *personal_pronouns[PP_AMOUNT] = {"i","me","myself","mine","my","we","us","ourselves","ourself","ours","our","you","yourself","yours","your","thou","thee","thyself","thine","thy","yourselves","he","him","himself","his","she","her","herself","hers","her","it","itself","its","they","them","themselves","theirs","their","themself","one","oneself","one's","who","whom","whose","what","which","is","it's","its","you're","youre","are","am","im","i'm","have","has","had","take","a"};
+    for (int i = 0; i < sections_count; i++){ //runs through sections
+        int marker = 0;
+        for (int j = 0; j < words_in_sections[i]; j++){ //runs through the words in a section
+            char ph = sections_out[i][j][strlen(sections_out[i][j]) - 1]; //placeholder for last char in a word
+            int m;
+            int compare_true = 1;
+            for(m = 0; m < PP_AMOUNT && compare_true; m++){ //loops through the personal pronouns list
+                compare_true = strcasecmp(sections_out[i][j],personal_pronouns[m]);
+            }
+            if (!(compare_true) && (marker == j)){ //scans to see if this word exists
+                free(sections_out[i][j]); //free the unsued pointer value in the begninging
+                words_in_sections[i] -= 1; //decrementing the stored size of a section..
+                for (int k = j; k < words_in_sections[i]; k++){ //shifts the words to the left
+                    sections_out[i][k] = sections_out[i][k+1];
+                }
+                sections_out[i] = realloc(sections_out[i],sizeof(char *)*(words_in_sections[i])); //realloc size of the section
+                j--;
+            }
+            //checking to see if the part ends with a specifik punctuation, to also remove the next word starting with personal pronouns
+            else if(ph == '.' || ph == '!' || ph == '?' || ph == ':' || ph == ';'){
+                marker = j+1;
+            }
+        }
+    }
+}
+
+//checks if a paragraph in CV is apart of "bool included paragraphs" to add those paragraphs to "filtered_text"
+void generate_text(bool *included_sections, char ***sections_out, int sections_count, int *wors_in_section, char **filtered_text){
     int total_chars = 1;
     int ammount_malloced = 100;
 
-    *filtered_cv = malloc(ammount_malloced*sizeof(char));
-    **filtered_cv = '\0';
+    *filtered_text = malloc(ammount_malloced*sizeof(char));
+    **filtered_text = '\0';
     for(int i = 0; i < sections_count; i++){
-        if (included_paragraphs[i])
+        if (included_sections[i])
         {
             for(int k = 0; k < wors_in_section[i]; k++){
                 if (total_chars + strlen(sections_out[i][k]) + 1 >= ammount_malloced){
                     ammount_malloced += 100;
-                    *filtered_cv = realloc(*filtered_cv, ammount_malloced * sizeof(char));
+                    *filtered_text = realloc(*filtered_text, ammount_malloced * sizeof(char));
                 }
                 total_chars += strlen(sections_out[i][k])+1; //adds neccesary characters for the added chars plus nullterminator
-                strcat(*filtered_cv,sections_out[i][k]);
+                strcat(*filtered_text,sections_out[i][k]); //adds the section to the filtered CV.
                 if (k != wors_in_section[i] - 1){
-                    strcat(*filtered_cv," "); //puts a space after each word, if it isnt the last word
+                    strcat(*filtered_text," "); //puts a space after each word, if it isnt the last word
                 }
             }
-            strcat(*filtered_cv,"\n"); //adds newline
+            strcat(*filtered_text,"\n"); //adds newline
         }  
     }
 }
 
 //calculates the density of all paragraphs and returns the value into the density array
-void calculate_cv_density(char ***sections_out, char **keyword_List, int *length, int sections_count, int keyword_count, double *density_of_paragraph){
+void calculate_text_density(char ***sections_out, char **keyword_List, int *length, int sections_count, int keyword_count, double *density_of_section){
     for (int i = 0; i < sections_count; i++) //loops through all paragraphs to get each density.
     {
-        int weight = calculate_paragraph_weight(sections_out[i],keyword_List,length[i],keyword_count);
-        calculate_paragraph_density(weight,length[i],i,density_of_paragraph);
+        int weight = calculate_section_weight(sections_out[i],keyword_List,length[i],keyword_count);
+        calculate_section_density(weight,length[i],i,density_of_section);
     }
 }
 
 // divides paragraph weight with the same paragraphs length, to find density form 0 to 1
-void calculate_paragraph_density(int Weight, int Length, int i, double* density){
-    density[i] = ((double)Weight)/((double)Length);
+void calculate_section_density(int weight, int length, int i, double* density){
+    density[i] = ((double)weight)/((double)length);
 }
 
 //Checks for how many times a paragraph matches keywords
-int calculate_paragraph_weight(char **Paragraph, char **Keywords, int length, int keyword_count){
+int calculate_section_weight(char **section, char **keywords, int length, int keyword_count){
     int match_Weight = 0;
     for(int j = 0; j < length; j++){
         for(int i = 0; i < keyword_count; i++){
-            match_Weight += is_word_match(Paragraph[j],Keywords[i]);
+            match_Weight += is_word_match(section[j],keywords[i]);
             //if a word matches a keyword, it breaks the loop, so that that one word can't match with more than one keyword
-            if(is_word_match(Paragraph[j],Keywords[i]) == 1){
+            if(is_word_match(section[j],keywords[i]) == 1){
                 break;
             }
         }
@@ -162,7 +194,7 @@ int levenshtein(char *s, char *t){
 }
 
 //returns a pointer to bool array of which paragraphs that should be included.
-void include_paragraph(double *density, char ***sections_out, int *length, int sections_count, bool *include) {
+void include_section(double *density, char ***sections_out, int *length, int sections_count, bool *include) {
     Tuple priority_array[sections_count]; //defining priority array as a tuple
     int words = 0;
     int i = 0;
@@ -188,4 +220,3 @@ int cmp_tuples(const void * a, const void * b) {
     else if (cmp > 0.0) {return 1;}
     else {return 0;}
 }
-

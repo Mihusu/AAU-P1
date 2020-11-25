@@ -22,8 +22,8 @@ void output_capitalized(char *capitalized_text) {
 }
 
 /*
-If there is text to one, two, three or more categories then the function will make the
-text more beautiful and readable.
+This function will make some modification for the plain text like structure, layout, font etc.
+The function should also convert a plain text into a LaTeX file
 */
 void output_general_contents(char *array_general_information, FILE *general_CV) {
     output_capitalized(array_general_information);
@@ -43,8 +43,8 @@ void output_essential_contens(char ***array_essential_contents, int n, int *amou
 }
 
 /*
-This function will make some modification for the plain text like structure, layout, font etc.
-The function should also convert a plain text into a LaTeX file.
+If there is text to one, two, three or more categories then the function will make the
+text more beautiful and readable
 */
 void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
     output_capitalized(array_free_text);
@@ -63,3 +63,23 @@ void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *
     output_LaTeX_free_text(run_free_text, final_CV);
     fclose(final_CV);
 }
+/*
+int contents(education, workExperience, freeText) {
+
+    if(education) {
+        // Make bulletpoints for the text
+        printf("* ");
+    }
+    
+    if(workExperience) {
+        // Make bulletpoints for the text
+        printf("* ");
+
+    }
+
+    if(freeText) {
+
+    }
+
+    return education && workExperience && freeText;
+}*/
