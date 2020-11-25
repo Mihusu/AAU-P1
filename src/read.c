@@ -198,7 +198,7 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     while(1){
         if(fileCleanText_p[currentChar] == '\n'){
             currentMarker = currentChar;
-        } else if(fileCleanText_p[currentChar] != '\0' || (fileCleanText_p[currentChar] == '#' && currentMarker + 1 == currentChar)){
+        } else if(fileCleanText_p[currentChar] == '\0' || (fileCleanText_p[currentChar] == '#' && currentMarker + 1 == currentChar)){
             if(nTags >= alloTags){
                 alloTags += 5;
                 tagLocations_pp = (char **) realloc(tagLocations_pp, alloTags * sizeof(char *));
@@ -208,40 +208,52 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
             }
             tagLocations_pp[nTags] = &(fileCleanText_p[currentChar]);
             nTags++;
-            if(fileCleanText_p[currentChar] != '\0')
+            if(fileCleanText_p[currentChar] == '\0')
                 break;
         }
         currentChar++;
     }
-
+    // Number of tags is now knowen.
+    *nItemices_p = nTags - 1;
     for(i = 0; i < nTags - 1; i++){
         areaLength = tagLocations_pp[i + 1] - tagLocations_pp[i];
-        if(i == nTags - 2)
-            areaLength++;
+        if(tagLocations_pp[i + 1][0] != '\0')
+            tagLocations_pp[i + 1][-1] = '\0';
         if(tagLocations_pp[i][0] == '#'){
-            line_reader_controle(tagLocations_pp[i], areaLength);
+            line_reader_controle(tagLocations_pp[i], areaLength, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp);
         } else {
+            if(tagLocations_pp[i + 1][0] == '\0')
+                areaLength++;
             infoText_p = (char *) realloc(infoText_p, areaLength * sizeof(char));
             if(infoText_p == NULL){
                 exit(EXIT_FAILURE);
             }
-            for(j = 0; j < areaLength - 1; j++){
+            for(j = 0; j < areaLength; j++){
                 infoText_p[j] = tagLocations_pp[i][j];
             }
-            infoText_p[areaLength - 1] = '\0';
+            *cvGInfo_pp = infoText_p;
+            *nItemices_p -= 1;
         }
     }
 }
 
 
-void line_reader_controle(char *tags_p, int lengthOfTag){
-    int currentChar = 0, alloChToTagWord = 10;
+void line_reader_controle(char *tags_p, int lengthOfTag, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp){
+    int currentChar = 0, alloChToTagWord = 10, i, tempTest = 1;
+    char *freeTextVariations[16] = {"#freetext", "#Freetext", "#freeText", "#FreeText", "#freetext.", "#Freetext.", "#freeText.", "#FreeText.",
+    "#free text", "#Free text", "#free Text", "#Free Text", "#free text.", "#Free text.", "#free Text.", "#Free Text."};
     char *tagMarker_p = malloc(alloChToTagWord * sizeof(char));
+    if(tagMarker_p == NULL){
+        exit(EXIT_FAILURE);
+    }
     // Copy of first line for compare with special marker words.
     while(1){
         if(currentChar >= alloChToTagWord){
             alloChToTagWord += 10;
             tagMarker_p = (char *) realloc(tagMarker_p, alloChToTagWord * sizeof(char));
+            if(tagMarker_p == NULL){
+                exit(EXIT_FAILURE);
+            }
         }
         if(tags_p[currentChar] == '\n' || tags_p[currentChar] == '\0')
             break;
@@ -253,6 +265,16 @@ void line_reader_controle(char *tags_p, int lengthOfTag){
         exit(EXIT_FAILURE);
     }
     tagMarker_p[currentChar] = '\0';
+    currentChar++;
+
+    // Comparing for if freetext or not.
+    for(i = 0; i < 16 && tempTest != 0; i++){
+        tempTest = strcmp(tagMarker_p, freeTextVariations[i]);
+    }
+    if(tempTest == 0){
+        free(tagMarker_p);
+        section_treater(&(tags_p[currentChar]), cvLongSections_pppp, nSections_p, nSectionWords_pp);
+    } else {}
 }
 
 
