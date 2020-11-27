@@ -4,7 +4,7 @@ I took a highschool diploma in Biotechnology and chemistry: im capable of doing 
 
 I'm fluent in english, danish and somewhat capable of understand french and spanish due to my understanding of latin.
 
-My highschool exam project was using c# (unity) to make a game.
+My highschool exam project was using c sharp (unity) to make a game.
 
 im currently doing a bsc in engineerig (software) at Aalborg university.
 

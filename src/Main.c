@@ -18,8 +18,7 @@ int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
     //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
     int sections_count, *words_in_sections, i, j, keyword_count;
-    char *full_text, ***sections_out;
-    char **keywords;
+    char *full_text, **keywords, ***sections_out;
     FILE *freetext_file_in = fopen("Long.txt", "r");
     FILE *keyword_file_in = fopen("Keywords.txt", "r");
     text_reader(freetext_file_in, &full_text);
@@ -37,8 +36,8 @@ int main(void){
     include_section(density_of_paragraph,sections_out,words_in_sections,sections_count,included_paragraphs);
     generate_text(included_paragraphs,sections_out,sections_count,words_in_sections,&filtered_cv);
     
-    printf("\n%s\n", filtered_cv);
-    //output_LaTeX_free_text(filtered_cv);
+    printf("\n\n%s\n", filtered_cv);
+    run_pdfLaTeX(filtered_cv);
     //output_LaTeX_essential_contents(general_information, education, work_experience);   // SKAL BRUGES. M.I.S
 
     //free variables
