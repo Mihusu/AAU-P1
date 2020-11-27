@@ -250,17 +250,23 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     free(tempTrash_pp);
 
     line_reader_controle(tagLocations_pp, nTags, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, wordCounter_p);
-    
+    free(tagLocations_pp);
 }
 
 
 void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, int *nWordsInStart_p){
-    int currentChar = 0, alloChToTagWord = 10, i, j, tempTest;
+    int currentItemice = 0, alloItemices = 4, i, j, tempTest, nItems, alloItems, tempWordCounter, tempLineResult;
     char *freeTextVariations[32] = {"freetext", "Freetext", "freeText", "FreeText", "freetext.", "Freetext.", "freeText.", "FreeText.",
     "free text", "Free text", "free Text", "Free Text", "free text.", "Free text.", "free Text.", "Free Text.",
     " freetext", " Freetext", " freeText", " FreeText", " freetext.", " Freetext.", " freeText.", " FreeText.",
     " free text", " Free text", " free Text", " Free Text", " free text.", " Free text.", " free Text.", " Free Text."};
-    char *tempFirstLine_p, *tempNextLineLocation_p;
+    char *tempFirstLine_p, *tempNextLineLocation_p, **tempWords_pp;
+    int *nItemsInItem_p = malloc(alloItemices * sizeof(int));
+    char ***itemices_ppp = malloc(alloItemices * sizeof(char **));
+    if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+
     for(i = 1; i < nOfTags - 1; i++){
         if(tags_pp[i + 1][0] != '\0')
             tags_pp[i + 1][-1] = '\0';
@@ -272,13 +278,69 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
         tempTest = 1;
         for(j = 0; j < 32 && tempTest; j++)
             tempTest = strcmp(tempFirstLine_p, freeTextVariations[j]);
+        
         if(tempTest){
-
-            while(1){
-
+            if(currentItemice >= alloItemices){
+                alloItemices += 2;
+                itemices_ppp = (char ***) realloc(itemices_ppp, alloItemices * sizeof(char **));
+                nItemsInItem_p = (int *) realloc(nItemsInItem_p, alloItemices * sizeof(int));
+                if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+                    exit(EXIT_FAILURE);
+                }
             }
+            worder(tempNextLineLocation_p, &tempWords_pp, &tempWordCounter);
+            for(j = 0; j < tempWordCounter; j++){
+                free(tempWords_pp[j]);
+            }
+            free(tempWords_pp);
+            *nWordsInStart_p += tempWordCounter;
+
+            alloItems = 5;
+            nItems = 1;
+            itemices_ppp[currentItemice] = (char **) malloc(alloItems * sizeof(char *));
+            if(itemices_ppp[currentItemice] == NULL){
+                exit(EXIT_FAILURE);
+            }
+            itemices_ppp[currentItemice][0] = tempFirstLine_p;
+            while(1){
+                if(nItems >= alloItems){
+                    alloItems += 5;
+                    itemices_ppp[currentItemice] = (char **) realloc(itemices_ppp[currentItemice], alloItems * sizeof(char *));
+                    if(itemices_ppp[currentItemice] == NULL){
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                tempLineResult = line_reader(tempNextLineLocation_p, &tempNextLineLocation_p, &(itemices_ppp[currentItemice][nItems]));
+                if(tempLineResult >= 0){
+                    nItems++;
+                    if(tempLineResult == 0)
+                        break;
+                } else if(tempLineResult == -2){
+                    break;
+                }
+            }
+            itemices_ppp[currentItemice] = (char **) realloc(itemices_ppp[currentItemice], nItems * sizeof(char *));
+            if(nItems == 1 || itemices_ppp[currentItemice] == NULL){
+                exit(EXIT_FAILURE);
+            }
+            nItemsInItem_p[currentItemice] = nItems;
+            currentItemice++;
+        } else {
+            free(tempFirstLine_p);
+            section_treater(tempNextLineLocation_p, cvLongSections_pppp, nSections_p, nSectionWords_pp);
         }
     }
+    if(currentItemice == 0){
+        exit(EXIT_FAILURE);
+    }
+    itemices_ppp = (char ***) realloc(itemices_ppp, currentItemice * sizeof(char **));
+    nItemsInItem_p = (int *) realloc(nItemsInItem_p, currentItemice * sizeof(int));
+    if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+    *cvLongItemiced_pppp = itemices_ppp;
+    *nItemicedContent_pp = nItemsInItem_p;
+    *nItemices_p = currentItemice;
 }
 
 
@@ -307,6 +369,8 @@ int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
     // Something went wrong.
     if(theReader == 0){
         free(theLine_p);
+        if(theTextIn_p[theReader] == '\0')
+            return -2;
         return -1;
     }
     theLine_p[theReader] = '\0';
