@@ -63,8 +63,10 @@ this results in the following:
 \incfigure{figures/personal_pronoun_ex}{fig: pp example}{Removing Personal Pronouns}
 
 As we can see, the filtered result is much cleaner and easier to read, without losing any information.
+There is only problem left with it. Since the words are just shifted 1 to the left in the array, the sentence no longer begings
+with a capitalized letter. This will later be fixed in a function in format.c, where such things will be formated.
 
-
+\subsubsection{}
 \subsection{Format.c}
 \subsection{CV-Gen.c}
 \subsection{Makefile}
