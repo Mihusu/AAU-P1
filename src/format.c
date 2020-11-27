@@ -21,13 +21,19 @@ void output_capitalized(char *capitalized_text) {
     }
 }
 
+/* Load a picture to the CV. That can be essential for the recruiter. */
+void output_picture(FILE *picture) {
+    fprintf(picture, "\\begin{wrapfigure}{r}{0.25\\textwidth} %%this figure will be at the right\n \\centering\n \\includegraphics[width=25mm]{figures/1200px-Drottning_Margrethe_av_Danmark} %%Put you picture here after the phrase ""figures/...""\n \\caption*{}\n \\end{wrapfigure}\n");
+}
+
 /*
 This function will make some modification for the plain text like structure, layout, font etc.
 The function should also convert a plain text into a LaTeX file
 */
-void output_general_contents(char *array_general_information, FILE *general_CV) {
-    output_capitalized(array_general_information);
-    fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
+void output_general_contents(FILE *general_CV) { //char *array_general_information
+    //output_capitalized(array_general_information);
+    fprintf(general_CV,"\\subsubsection*{General information}\n Name: David Vinje\n\n Address: Islands brygge 56b 1tv - 2300 Koebenhavn S\n\n Phone number: 26325635 \n\nE-mail: david2300@hotmail.com \n\nCountry: Danmark\n\n Date of birth: 11/06/1995\n");
+    //fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
 }
 
 void output_essential_contens(char ***array_essential_contents, int n, int *amount_of_itemized, FILE *essenctial_CV) {
@@ -49,7 +55,7 @@ text more beautiful and readable
 void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
     output_capitalized(array_free_text);
     // Prints out the free text that has been filtered to the CV.tex file.
-    fprintf(free_text_CV,"\\section*{Free text}\n%s\n", array_free_text);
+    fprintf(free_text_CV,"\n\\section*{Free text}\n%s\n", array_free_text);
 }
 
 void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *run_free_text) {
@@ -58,28 +64,9 @@ void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *
         printf("Cannot open file\n"); 
         exit(EXIT_FAILURE); 
     }
-    //output_general_contents(run_general_info,final_CV);
+    output_picture(final_CV);
+    output_general_contents(final_CV);
     //output_essential_contens(run_essential_info, final_CV);
     output_LaTeX_free_text(run_free_text, final_CV);
     fclose(final_CV);
 }
-/*
-int contents(education, workExperience, freeText) {
-
-    if(education) {
-        // Make bulletpoints for the text
-        printf("* ");
-    }
-    
-    if(workExperience) {
-        // Make bulletpoints for the text
-        printf("* ");
-
-    }
-
-    if(freeText) {
-
-    }
-
-    return education && workExperience && freeText;
-}*/
