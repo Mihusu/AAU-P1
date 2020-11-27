@@ -11,7 +11,7 @@ void section_treater();
 void the_ending();
 void line_reader_controle();
 
-
+/*/
 int main(void){
     char **keywords_pp;
     int nKeywords; // Number of keywords
@@ -29,7 +29,7 @@ int main(void){
     // All rest of code here
     the_ending(keywords_pp, nKeywords, itemicedSections_ppp, nItemices, nItemicedContent_p, inCVSections_ppp, nSections, nSectionContent_p, cvGeneralInfo_p);
     return 0;
-}
+} // */
 
 
 void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *initialWords_p){
