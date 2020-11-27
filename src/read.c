@@ -5,13 +5,13 @@
 void start_read();
 void tag_searcher();
 void text_reader();
-void line_reader();
+int line_reader();
 void worder();
 void section_treater();
 void the_ending();
 void line_reader_controle();
 
-
+/*/
 int main(void){
     char **keywords_pp;
     int nKeywords; // Number of keywords
@@ -23,15 +23,16 @@ int main(void){
     int nSections, *nSectionContent_p; // Number of freetext sections, Number of words in eatch section
 
     char *cvGeneralInfo_p;
+    int initialWordCount;
 
-    start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p, &cvGeneralInfo_p);
+    start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p, &cvGeneralInfo_p, &initialWordCount);
     // All rest of code here
     the_ending(keywords_pp, nKeywords, itemicedSections_ppp, nItemices, nItemicedContent_p, inCVSections_ppp, nSections, nSectionContent_p, cvGeneralInfo_p);
     return 0;
-}
+} // */
 
 
-void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp){
+void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *initialWords_p){
 
     //char *fnLongCV = malloc(); // In case of user defined file name
     FILE *theLongCV, *theKeywords;
@@ -45,7 +46,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     }
 
     text_reader(theLongCV, &cvTotalText_p);
-    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, cvGInfo_pp);
+    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, cvGInfo_pp, initialWords_p);
     free(cvTotalText_p);
 
     text_reader(theKeywords, &keywordsTotalText_p);
@@ -81,7 +82,7 @@ void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, i
 
 
 void text_reader(FILE *theFile, char **outText_pp){
-    // Read all text from the file
+    // Read all text from the file.
     int characters = 0, alottetArray = 300;
     char *theText_p = malloc(alottetArray * sizeof(char));
     if(theText_p == NULL){
@@ -92,6 +93,7 @@ void text_reader(FILE *theFile, char **outText_pp){
     
     while(1){
         if(characters >= alottetArray){
+            // Allocating more memmory when more is required.
             alottetArray += 100;
             theText_p = (char *) realloc(theText_p, alottetArray * sizeof(char));
             if(theText_p == NULL){
@@ -100,16 +102,16 @@ void text_reader(FILE *theFile, char **outText_pp){
                 exit(EXIT_FAILURE);
             }
         }
-        // Reads the next char from the file
+        // Reads the next char from the file.
         theText_p[characters] = fgetc(theFile);
 
-        // End Of File was reatched
+        // End Of File was reatched.
         if(theText_p[characters] == EOF){
-            // Change theText_p from char array to string
+            // Change theText_p from char array to string.
             theText_p[characters] = '\0';
             break;
         }
-        // Easyer to handel in the rest of the code if there is no '\r'
+        // Easyer to handel in the rest of the code if there is no '\r'.
         if(theText_p[characters] != '\r')
             characters++;
     }
@@ -119,7 +121,9 @@ void text_reader(FILE *theFile, char **outText_pp){
         printf("\nError file is empty, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
-    // Redo the char array to have correct size
+    /* Redo theText_p to have correct size.
+    About realloc() atempts to resize at current memmory location, only if resize fails:
+    atempts to find somewhere with the requestet memmory size and moves there. // */
     theText_p = (char *) realloc(theText_p, (characters + 1) * sizeof(char));
     if(theText_p == NULL){
         // Error can't reallocate new memmory, for the final string
@@ -127,16 +131,16 @@ void text_reader(FILE *theFile, char **outText_pp){
         exit(EXIT_FAILURE);
     }
     
-    // Returning the variables
+    // Returning the variables.
     *outText_pp = theText_p;
 
-    // Placement here instead of file_read: needs testing
+    // All content of the file is in a string, file is no longer needed.
     fclose(theFile);
 }
 
 
 void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
-    // Seperates a string text into a array of strings containing individual words
+    // Seperates a string text into a array of strings containing individual words.
     int nTheWords = 0, nWordsSpace = 30, currentChar = 0, wordStart = 0, i;
     char **theWords_pp = malloc(nWordsSpace * sizeof(char *));
     if(theWords_pp == NULL){
@@ -145,10 +149,11 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
         exit(EXIT_FAILURE);
     }
     while(1){
-        // Handeling of " \0" and "\n\0" lead to while(1) rather than while(cleanText_p[currentChar] == '\0')
+        // Handeling of " \0" and "\n\0" lead to while(1) rather than while(cleanText_p[currentChar] != '\0').
         if(cleanText_p[currentChar] == ' ' || cleanText_p[currentChar] == '\n' || cleanText_p[currentChar] == '\0'){
             if(currentChar != wordStart){
                 if(nTheWords >= nWordsSpace){
+                    // More memmory is needed.
                     nWordsSpace += 10;
                     theWords_pp = (char **) realloc(theWords_pp, nWordsSpace * sizeof(char *));
                     if(theWords_pp == NULL){
@@ -163,8 +168,7 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
                     printf("\nError m allo, in worder, for a word\n"); // Temp remove later
                     exit(EXIT_FAILURE);
                 }
-                // Alternative to strncpy(), strncpy() needs second argument to be const char *
-                // New knowlege: char * --> const char *, is ok, work already done so why change
+                // Alternative to strncpy(), don't need "&(cleanText_p[wordStart])" calculation.
                 for(i = wordStart; i < currentChar; i++){
                     aWord_p[i - wordStart] = cleanText_p[i];
                 }
@@ -175,20 +179,34 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
             if(cleanText_p[currentChar] == '\0'){
                 break;
             }
+            // Keeps track of the index value for the start of the next word.
             wordStart = currentChar + 1;
         }
         currentChar++;
     }
+    if(nTheWords == 0){
+        // Error no words in the given string
+        printf("\nError bad worder function call, in read.c\n"); // Temp remove later
+        exit(EXIT_FAILURE);
+    }
+    // Resize theWords_pp to correct size.
+    theWords_pp = (char **) realloc(theWords_pp, nTheWords * sizeof(char *));
+    if(theWords_pp == NULL){
+        // Error can't allocate memmory
+        printf("\nError m re allo final, in worder, for words\n"); // Temp remove later
+        exit(EXIT_FAILURE);
+    }
+    // Returning the outputs, do here for less dereferencing.
     *wordsOut_ppp = theWords_pp;
     *nWordsOut_p = nTheWords;
 }
 
 
-void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp){
+void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *wordCounter_p){
+    // Handels tag splitting of the longCV.
     int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
-    char *infoText_p = malloc(sizeof(char));
-    *infoText_p = '\0';
-    // Contains pointers to the tags.
+    char *infoText_p, **tempTrash_pp;
+    // Contains pointers to the tags, in .
     char **tagLocations_pp = malloc(alloTags * sizeof(char *));
     if(tagLocations_pp == NULL){
         exit(EXIT_FAILURE);
@@ -213,73 +231,159 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
         }
         currentChar++;
     }
-    // Number of tags is now knowen.
-    *nItemices_p = nTags - 1;
-    for(i = 0; i < nTags - 1; i++){
-        areaLength = tagLocations_pp[i + 1] - tagLocations_pp[i];
-        if(tagLocations_pp[i + 1][0] != '\0')
-            tagLocations_pp[i + 1][-1] = '\0';
-        if(tagLocations_pp[i][0] == '#'){
-            line_reader_controle(tagLocations_pp[i], areaLength, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp);
+
+    areaLength = tagLocations_pp[1] - tagLocations_pp[0];
+    tagLocations_pp[1][-1] = '\0';
+    infoText_p = (char *) malloc(areaLength * sizeof(char));
+    if(infoText_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+    for(j = 0; j < areaLength; j++){
+        infoText_p[j] = tagLocations_pp[0][j];
+    }
+    *cvGInfo_pp = infoText_p;
+    // Gets number of words in the infoText.
+    worder(infoText_p, &tempTrash_pp, wordCounter_p);
+    for(j = 0; j < *wordCounter_p; j++){
+        free(tempTrash_pp[j]);
+    }
+    free(tempTrash_pp);
+
+    line_reader_controle(tagLocations_pp, nTags, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, wordCounter_p);
+    free(tagLocations_pp);
+}
+
+
+void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, int *nWordsInStart_p){
+    int currentItemice = 0, alloItemices = 4, i, j, tempTest, nItems, alloItems, tempWordCounter, tempLineResult;
+    char *freeTextVariations[32] = {"freetext", "Freetext", "freeText", "FreeText", "freetext.", "Freetext.", "freeText.", "FreeText.",
+    "free text", "Free text", "free Text", "Free Text", "free text.", "Free text.", "free Text.", "Free Text.",
+    " freetext", " Freetext", " freeText", " FreeText", " freetext.", " Freetext.", " freeText.", " FreeText.",
+    " free text", " Free text", " free Text", " Free Text", " free text.", " Free text.", " free Text.", " Free Text."};
+    char *tempFirstLine_p, *tempNextLineLocation_p, **tempWords_pp;
+    int *nItemsInItem_p = malloc(alloItemices * sizeof(int));
+    char ***itemices_ppp = malloc(alloItemices * sizeof(char **));
+    if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+
+    for(i = 1; i < nOfTags - 1; i++){
+        if(tags_pp[i + 1][0] != '\0')
+            tags_pp[i + 1][-1] = '\0';
+        // &(tags_pp[i][1]) remove # from the start of the first line.
+        if(line_reader(&(tags_pp[i][1]), &tempNextLineLocation_p, &tempFirstLine_p) <= 0){
+            // Tag is invalid, can't guarantee sufficient information to run the rest of the program.
+            exit(EXIT_FAILURE);
+        }
+        tempTest = 1;
+        for(j = 0; j < 32 && tempTest; j++)
+            tempTest = strcmp(tempFirstLine_p, freeTextVariations[j]);
+        
+        if(tempTest){
+            if(currentItemice >= alloItemices){
+                alloItemices += 2;
+                itemices_ppp = (char ***) realloc(itemices_ppp, alloItemices * sizeof(char **));
+                nItemsInItem_p = (int *) realloc(nItemsInItem_p, alloItemices * sizeof(int));
+                if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+                    exit(EXIT_FAILURE);
+                }
+            }
+            worder(tempNextLineLocation_p, &tempWords_pp, &tempWordCounter);
+            for(j = 0; j < tempWordCounter; j++){
+                free(tempWords_pp[j]);
+            }
+            free(tempWords_pp);
+            *nWordsInStart_p += tempWordCounter;
+
+            alloItems = 5;
+            nItems = 1;
+            itemices_ppp[currentItemice] = (char **) malloc(alloItems * sizeof(char *));
+            if(itemices_ppp[currentItemice] == NULL){
+                exit(EXIT_FAILURE);
+            }
+            itemices_ppp[currentItemice][0] = tempFirstLine_p;
+            while(1){
+                if(nItems >= alloItems){
+                    alloItems += 5;
+                    itemices_ppp[currentItemice] = (char **) realloc(itemices_ppp[currentItemice], alloItems * sizeof(char *));
+                    if(itemices_ppp[currentItemice] == NULL){
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                tempLineResult = line_reader(tempNextLineLocation_p, &tempNextLineLocation_p, &(itemices_ppp[currentItemice][nItems]));
+                if(tempLineResult >= 0){
+                    nItems++;
+                    if(tempLineResult == 0)
+                        break;
+                } else if(tempLineResult == -2){
+                    break;
+                }
+            }
+            itemices_ppp[currentItemice] = (char **) realloc(itemices_ppp[currentItemice], nItems * sizeof(char *));
+            if(nItems == 1 || itemices_ppp[currentItemice] == NULL){
+                exit(EXIT_FAILURE);
+            }
+            nItemsInItem_p[currentItemice] = nItems;
+            currentItemice++;
         } else {
-            if(tagLocations_pp[i + 1][0] == '\0')
-                areaLength++;
-            infoText_p = (char *) realloc(infoText_p, areaLength * sizeof(char));
-            if(infoText_p == NULL){
-                exit(EXIT_FAILURE);
-            }
-            for(j = 0; j < areaLength; j++){
-                infoText_p[j] = tagLocations_pp[i][j];
-            }
-            *cvGInfo_pp = infoText_p;
-            *nItemices_p -= 1;
+            free(tempFirstLine_p);
+            section_treater(tempNextLineLocation_p, cvLongSections_pppp, nSections_p, nSectionWords_pp);
         }
     }
+    if(currentItemice == 0){
+        exit(EXIT_FAILURE);
+    }
+    itemices_ppp = (char ***) realloc(itemices_ppp, currentItemice * sizeof(char **));
+    nItemsInItem_p = (int *) realloc(nItemsInItem_p, currentItemice * sizeof(int));
+    if(itemices_ppp == NULL || nItemsInItem_p == NULL){
+        exit(EXIT_FAILURE);
+    }
+    *cvLongItemiced_pppp = itemices_ppp;
+    *nItemicedContent_pp = nItemsInItem_p;
+    *nItemices_p = currentItemice;
 }
 
 
-void line_reader_controle(char *tags_p, int lengthOfTag, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp){
-    int currentChar = 0, alloChToTagWord = 10, i, tempTest = 1;
-    char *freeTextVariations[16] = {"#freetext", "#Freetext", "#freeText", "#FreeText", "#freetext.", "#Freetext.", "#freeText.", "#FreeText.",
-    "#free text", "#Free text", "#free Text", "#Free Text", "#free text.", "#Free text.", "#free Text.", "#Free Text."};
-    char *tagMarker_p = malloc(alloChToTagWord * sizeof(char));
-    if(tagMarker_p == NULL){
+int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
+    int theReader = 0, alloChars = 20, marking = 0, tempWordCounter = 0;
+    char *theLine_p = malloc(alloChars * sizeof(char));
+    if(theLine_p == NULL){
         exit(EXIT_FAILURE);
     }
-    // Copy of first line for compare with special marker words.
     while(1){
-        if(currentChar >= alloChToTagWord){
-            alloChToTagWord += 10;
-            tagMarker_p = (char *) realloc(tagMarker_p, alloChToTagWord * sizeof(char));
-            if(tagMarker_p == NULL){
+        if(theReader >= alloChars){
+            // Need more memmory.
+            alloChars += 20;
+            theLine_p = (char *) realloc(theLine_p, alloChars * sizeof(char));
+            if(theLine_p == NULL){
                 exit(EXIT_FAILURE);
             }
         }
-        if(tags_p[currentChar] == '\n' || tags_p[currentChar] == '\0')
+        if(theTextIn_p[theReader] == '\n' || theTextIn_p[theReader] == '\0')
             break;
-        tagMarker_p[currentChar] = tags_p[currentChar];
-        currentChar++;
+        theLine_p[theReader] = theTextIn_p[theReader];
+        theReader++;
     }
-    if(tags_p[currentChar] == '\0'){
-        printf("\nError tag is end of text.\n");
+    // Pointer to start of next line.
+    *theNextLine_pp = &(theTextIn_p[theReader + 1]);
+    // Something went wrong.
+    if(theReader == 0){
+        free(theLine_p);
+        if(theTextIn_p[theReader] == '\0')
+            return -2;
+        return -1;
+    }
+    theLine_p[theReader] = '\0';
+    theLine_p = (char *) realloc(theLine_p, (theReader + 1) * sizeof(char));
+    if(theLine_p == NULL){
         exit(EXIT_FAILURE);
     }
-    tagMarker_p[currentChar] = '\0';
-    currentChar++;
-
-    // Comparing for if freetext or not.
-    for(i = 0; i < 16 && tempTest != 0; i++){
-        tempTest = strcmp(tagMarker_p, freeTextVariations[i]);
-    }
-    if(tempTest == 0){
-        free(tagMarker_p);
-        section_treater(&(tags_p[currentChar]), cvLongSections_pppp, nSections_p, nSectionWords_pp);
-    } else {}
-}
-
-
-void line_reader(){
-
+    *theLineOut_pp = theLine_p;
+    
+    if(theTextIn_p[theReader] == '\0')
+        return 0;
+    else
+        return 1;
 }
 
 
@@ -322,12 +426,15 @@ void section_treater(char *theFreeText_p, char ****theSections_pppp, int *theNSe
 }
 
 /* Exampel of LongCV conntent:
+Name: Johannes Fjerndam.
+Sex: Female/non-binary.
+IQ: 78.
 #Workexperience
 2009-2011 Flaskedreng i Netto.
 2011-2013 Flymekaniker.
 #Education
 2016 AAU Batchelor i software.
-2013 HTX-Hillerød, Mat-Fys.
+2013 HTX-Hilleroed, Mat-Fys.
 #FreeText
 Hello I am a good worker.
 
