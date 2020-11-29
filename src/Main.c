@@ -5,7 +5,7 @@
 #include <strings.h>
 #include "filter.c"
 #include "testingRead.c" //testing to be replaced by full version
-#include "format.c"
+//#include "format.c"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
@@ -40,7 +40,7 @@ int main(void){
     run_pdfLaTeX(filtered_cv);
     //output_LaTeX_essential_contents(general_information, education, work_experience);   // SKAL BRUGES. M.I.S
 
-    //testing read started again, to free variables
+    //free variables
     free(density_of_paragraph);
     free(included_paragraphs);
     free(filtered_cv); //freeinng variables

@@ -50,8 +50,8 @@ void output_essential_contens(char ***array_essential_contents, int n, int *amou
 }
 
 /*
-If there is text to one, two, three or more categories then the function will make the
-text more beautiful and readable
+This function will make some modification for the plain text like structure, layout, font etc.
+The function should also convert a plain text into a LaTeX file.
 */
 void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
     output_capitalized(array_free_text);
