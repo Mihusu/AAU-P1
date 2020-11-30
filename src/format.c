@@ -12,7 +12,7 @@ void output_capitalized(char *capitalized_text) {
     // This will capitalize for other scenarios
     for(int i = 1; i < length - 1; i++) { // length should go -1 because of the '.'
         if(marker_index == i && (capitalized_text[i] == '\n' || capitalized_text[i] == ' ')) {
-            // Capitalized the next letter
+            // Capitalize the next letter
             capitalized_text[i+1] = toupper(capitalized_text[i+1]);
         } 
         else if(capitalized_text[i] == '.' || capitalized_text[i] == '?' || capitalized_text[i] == '!') {
