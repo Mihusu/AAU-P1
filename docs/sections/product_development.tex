@@ -20,7 +20,7 @@ is ready to be sent. In other words, we decided to instead concentrate on creati
 in sending out applications, instead of a CV generation program.
 
 We then changed the MVP schematic to the following:
-\incfigure{figures/engMVP}{fig: MVP}{Revised MVP}
+\incfigure{figures/Program_process_diagram}{fig: MVP}{Revised MVP}
 This program is supposed to take in the keywords/job application, some formel requirements for
 the structure of the new CV, and the originally long CV. 
 
@@ -33,3 +33,40 @@ and from the structural requirements creates a new CV.
 From here we decided to organize our MVP into a UML diagram, to make it more apparent
 what the essential functions were supposed to do, and which functions that were essential:
 \incfigure{figures/UML}{fig: UML}{UML 1.0}
+
+\subsection{Read.c}
+\subsection{Filter.c}
+%Indsæt filter strukturen som billede
+
+%talk about what this part should do
+
+\subsubsection{Removing personal pronouns}
+After receiving the "free text" part, from the read.c file, we need to remove any personal pronouns.
+We do this, since personal pronouns are quite unneccessary, since they don't add any substance to the sentences.
+This is important to do since recruiters, as we talked about in the background section, spend a fraction of a minute
+to look through the application. Having more unneccessary words will just distract the recruiters from understanding why they should hire you.
+As talked about in the background section, not using personal pronouns increases your
+chances of getting an interview by 55 percent.
+
+To remove all personal pronouns before filtering the rest of the text, we made the following function:
+\incfigure{figures/personal_pronoun}{fig: pp function}{remove_personal_pronouns}
+
+It's a pretty simple function. To start it reads a certain section. Then it removes all personal pronouns at the start of each sentence in that section.
+It loops through it, until there is no longer any personal pronouns left.
+
+In order to identity which words are personal pronouns, we have hardcoded a list of personal pronouns (including some words that are also unneccessary), that will be 'case insensitive compared'.
+Each time a word is identified as a personal pronoun, a loop swifts all the words 1 to the left in the array, where the last word in that array will then be freed.
+
+There are also some hardcoded punctuation symbols, to indicate what is defined as the "start of a sentence". 
+
+this results in the following:
+\incfigure{figures/personal_pronoun_ex}{fig: pp example}{Removing Personal Pronouns}
+
+As we can see, the filtered result is much cleaner and easier to read, without losing any information.
+There is only problem left with it. Since the words are just shifted 1 to the left in the array, the sentence no longer begings
+with a capitalized letter. This will later be fixed in a function in format.c, where such things will be formated.
+
+\subsubsection{}
+\subsection{Format.c}
+\subsection{CV-Gen.c}
+\subsection{Makefile}

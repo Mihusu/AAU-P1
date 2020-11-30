@@ -10,7 +10,7 @@ typedef struct {
 } Tuple;//defines the tuple as (x,y), where x is double val, and y is intval
 
 #define MAX_WORDS 100 //max words in the CV
-#define PP_AMOUNT 61 //amount of personal pronouns.
+#define PP_AMOUNT 62 //amount of personal pronouns.
 
 void include_section();
 bool is_word_match();
@@ -27,7 +27,7 @@ void remove_personal_pronouns();
 //removes all personal pronouns of the start of every sentence of the input section, before calculating cv density
 void remove_personal_pronouns(int *words_in_sections,int sections_count,char ***sections_out){
     //personal pronouns selected from this list https://en.wikipedia.org/wiki/English_personal_pronouns                                                                                                                                                                                                                                                                                                       vvvv official pronouns end here                                             
-    char *personal_pronouns[PP_AMOUNT] = {"i","me","myself","mine","my","we","us","ourselves","ourself","ours","our","you","yourself","yours","your","thou","thee","thyself","thine","thy","yourselves","he","him","himself","his","she","her","herself","hers","her","it","itself","its","they","them","themselves","theirs","their","themself","one","oneself","one's","who","whom","whose","what","which","is","it's","its","you're","youre","are","am","im","i'm","have","has","had","take","a"};
+    char *personal_pronouns[PP_AMOUNT] = {"i","me","myself","mine","my","we","us","ourselves","ourself","ours","our","you","yourself","yours","your","thou","thee","thyself","thine","thy","yourselves","he","him","himself","his","she","her","herself","hers","her","it","itself","its","they","them","themselves","theirs","their","themself","one","oneself","one's","who","whom","whose","what","which","is","it's","its","you're","youre","are","am","im","i'm","have","has","had","take","a","an"};
     for (int i = 0; i < sections_count; i++){ //runs through sections
         int marker = 0;
         for (int j = 0; j < words_in_sections[i]; j++){ //runs through the words in a section

@@ -23,11 +23,19 @@ void output_capitalized(char *capitalized_text) {
 
 /*
 This function will make some modification for the plain text like structure, layout, font etc.
-The function should also convert a plain text into a LaTeX file
+The function should also convert a plain text into a LaTeX format.
 */
-void output_general_contents(char *array_general_information, FILE *general_CV) {
-    output_capitalized(array_general_information);
-    fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
+void output_general_contents(FILE *general_CV) { //char *array_general_information,  FILE *Picture
+    //output_capitalized(array_general_information);
+    fprintf(general_CV,"\\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Vinje \n\n Address: Islands brygge 56b 1tv \n\n Zip nr. 2300 Koebenhavn S \n\n Phone number: 26325635 \n\n E-mail: david2300@hotmail.com \n\n Country: Danmark \n\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
+    //fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
+}
+
+/* Load a picture to the CV. That can be essential for the recruiter. */
+void output_picture(FILE *picture) {
+    //Put your picture here after the phrase figures/...
+    // This figure can be adjusted, so it will be at the right side of the CV
+    fprintf(picture, "\n\\begin{minipage}[b]{3cm} \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark} \\end{minipage}\n");
 }
 
 void output_essential_contens(char ***array_essential_contents, int n, int *amount_of_itemized, FILE *essenctial_CV) {
@@ -38,18 +46,17 @@ void output_essential_contens(char ***array_essential_contents, int n, int *amou
             fprintf(essenctial_CV, "\\item %s\n", array_essential_contents[i][j]);
         }
         fprintf(essenctial_CV, "\\end{itemize}\n");
-    }
-    
+    }    
 }
 
 /*
-If there is text to one, two, three or more categories then the function will make the
-text more beautiful and readable
+This function will make some modification for the plain text like structure, layout, font etc.
+The function should also convert a plain text into a LaTeX file.
 */
 void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
     output_capitalized(array_free_text);
     // Prints out the free text that has been filtered to the CV.tex file.
-    fprintf(free_text_CV,"\\section*{Free text}\n%s\n", array_free_text);
+    fprintf(free_text_CV,"\n\\section*{Free text}\n%s\n", array_free_text);
 }
 
 void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *run_free_text) {
@@ -58,28 +65,9 @@ void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *
         printf("Cannot open file\n"); 
         exit(EXIT_FAILURE); 
     }
-    //output_general_contents(run_general_info,final_CV);
+    output_general_contents(final_CV);
+    output_picture(final_CV);
     //output_essential_contens(run_essential_info, final_CV);
     output_LaTeX_free_text(run_free_text, final_CV);
     fclose(final_CV);
 }
-/*
-int contents(education, workExperience, freeText) {
-
-    if(education) {
-        // Make bulletpoints for the text
-        printf("* ");
-    }
-    
-    if(workExperience) {
-        // Make bulletpoints for the text
-        printf("* ");
-
-    }
-
-    if(freeText) {
-
-    }
-
-    return education && workExperience && freeText;
-}*/
