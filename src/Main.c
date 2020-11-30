@@ -4,6 +4,7 @@
 #include <string.h>
 #include <strings.h>
 #include "filter.c"
+#include "levenshtein.c"
 #include "testingRead.c" //testing to be replaced by full version
 //#include "format.c"
 
@@ -37,7 +38,7 @@ int main(void){
     generate_text(included_paragraphs,sections_out,sections_count,words_in_sections,&filtered_cv);
     
     printf("\n\n%s\n", filtered_cv);
-    run_pdfLaTeX(filtered_cv);
+    //run_pdfLaTeX(filtered_cv);
     //output_LaTeX_essential_contents(general_information, education, work_experience);   // SKAL BRUGES. M.I.S
 
     //free variables
