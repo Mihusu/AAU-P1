@@ -55,7 +55,7 @@ To remove all personal pronouns before filtering the rest of the text, we made t
 It's a pretty simple function. To start it reads a certain section. Then it removes all personal pronouns at the start of each sentence in that section.
 It loops through it, until there is no longer any personal pronouns left.
 \\
-In order to identity which words are personal pronouns, we have hardcoded a list of personal pronouns \cite{english_personal_pronouns} (including some words that are also unneccessary), that will be 'case insensitive compared'.
+In order to identity which words are personal pronouns, we have hardcoded a list of personal pronouns\cite{english_personal_pronouns} (including some words that are also unneccessary), that will be 'case insensitive compared'.
 Each time a word is identified as a personal pronoun, a loop swaps all the words 1 to the left in the array, where the last word in that array will then be freed.
 \\
 There are also some hardcoded punctuation symbols, to indicate what is defined as the "start of a sentence". 
@@ -89,7 +89,8 @@ But after reading through the string library we found a function that does just 
 The second problem has a quite a simple solution aswell. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a '\\0'. 
 instead, thus making the string shorter.
 \\
-The third problem, is the trickiest one of the bunch. To solve this we decided on using the levenshtein algorithm. We found a translation of this algorithm in C and imported it\cite{levenshtein}.
+The third problem, is the trickiest one of the bunch. To solve this we decided on using the levenshtein algorithm. 
+We found a translation of this algorithm in C and imported it\cite{levenshtein}.
 The way this algorithm works, is by finding the distance between words. The larger the distance, the greater the difference between the words.
 The algorithm determins distance as the amount of operations needed to change string A to string B. The algorithm uses 3 different types of operations:
 \begin{itemize}
@@ -107,7 +108,7 @@ to give an example of how these 3 operations can be applied:
 
 as an example, the levenshtein distance between "computer" and "cmptr" is 3.
 
-This quickly raises a problem though, since the distance between cat & hat is smaller than the distance
+This quickly raises a problem though, since the distance between cat and hat is smaller than the distance
 between artificial and artificially. 
 It's obvious that this isn't a spelling mistake, but 2 distinct words. Therefore we ran
 some tests, to see how long words need to be, before something like this doesn't happen. 
@@ -120,11 +121,11 @@ Now the problem is, what distance is accepted as 2 words being the same?
 Here the problem also becomes, that grammatical endings are still the same words, just conjugated.
 Based on a list of grammatical endings, the longest English ending adds a surfix of 3 letters\cite{grammar_endings}. Thus,
 the max levenshtein distance should be under 4 letters.
-Retesting using these values, we find that in nearly all arbitary cases, the levenshtein algorithm matches the right words.
+Retesting using these values, we find that in nearly all arbitrary cases, the levenshtein algorithm matches the right words.
 One problem may arise from the fact, that words can have different meanings in different contexts. Unfortunately taking account for semantics is out of the scope of this program.
 \\
 After using the levenshtein algorithm, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
-unneccessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
+unnecessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
 is smaller than what it had to be, if we hadn't removed punctuation.
 \\
 The overall structure of this functions ends up looking like the following: 
@@ -132,12 +133,12 @@ The overall structure of this functions ends up looking like the following:
 
 The overal structure can be described as this:
 
-\incfigure{figures/is_match}{fig: Is match flow diagram}{Flow diagram of word_matching}
+\incfigure{figures/is_match}{fig: is_match}{Flow diagram of word matching}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
 calculations, so that the run time is optimized as much as possible.
 \subsubsection{Section Density}
-\incfigure{figures/section_density}{fig: density function}{Density & weight function}
+\incfigure{figures/section_density}{fig: density function}{Density and weight function}
 Section density is based on the same concepts as in physics: Weight(mass)/Volume = Density.
 In this case, weight is how many times in a section different words match with a keyword, and volume is how many words there
 are in a section. The boundaries for the density function is as follows: Density goes from zero to one. 
@@ -159,11 +160,11 @@ Printing the result from this, we can see:
 Thus it can easily be seen, which sections may be best suited for the job opening. 
 In this case, an example of a job opening specializing in software.
 
-To demonstrate that the functions work, it can be seen that both line 8 & 9 gets printet with a result of exactly 1.
+To demonstrate that the functions work, it can be seen that both line 8 abd 9 gets printet with a result of exactly 1.
 Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
 
 \subsubsection{Included Sections and Generation}
-\incfigure{figures/include_function}{fig: inclusion function}{Inclusion Function}
+\incfigure{figures/include_function}{fig: inclusion_function}{Inclusion Function}
 The process of finding the included sections can be described in three steps:
 \begin{itemize}
   \item 1. Create tuple struct holding the density value, and the section ID.
@@ -181,9 +182,7 @@ The amount of allowed words in the output is restricted to around 650, as that i
 That is, according to the research as described in the background section.
 \\
 Here is an example, of it working.
-\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array}
-
-\\
+\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array} \\
 The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determins should be included, and saves it into a long string.
 Starting from the lowest section ID to the highest ID. 
 The process of getting here is a little more complex, since it requires a lot of dynamic arrays, and inserting a lot of Null terminators, such  that it doesn't print null pointers.
