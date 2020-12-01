@@ -7,7 +7,7 @@ void output_capitalized(char *capitalized_text) {
     int marker_index = -1;
     //Calculating length.
     int length = strlen(capitalized_text);
-    // Capitalized the first paragraph for the first letter  
+    // Capitalized the first paragraph for the first letter with toupper
     *capitalized_text = toupper(*capitalized_text);
     // This will capitalize for other scenarios
     for(int i = 1; i < length - 1; i++) { // length should go -1 because of the '.'
@@ -27,7 +27,7 @@ The function should also convert a plain text into a LaTeX format.
 */
 void output_general_contents(FILE *general_CV) { //char *array_general_information,  FILE *Picture
     //output_capitalized(array_general_information);
-    fprintf(general_CV,"\\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Vinje \n\n Address: Islands brygge 56b 1tv \n\n Zip nr. 2300 Koebenhavn S \n\n Phone number: 26325635 \n\n E-mail: david2300@hotmail.com \n\n Country: Danmark \n\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
+    fprintf(general_CV,"\\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Nikolaj Vinje \n\n Address: Islands brygge 56b 1tv \n\n Zip nr. 2300 Koebenhavn S \n\n Phone number: 26325635 \n\n E-mail: david2300@hotmail.com \n\n Country: Danmark \n\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
     //fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
 }
 

@@ -5,7 +5,7 @@
 #include <strings.h>
 #include "filter.c"
 #include "testingRead.c" //testing to be replaced by full version
-//#include "format.c"
+#include "format.c"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
