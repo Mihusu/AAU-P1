@@ -11,7 +11,7 @@
 This program reads the input cv and keyword and requirements, filterets it 
 and outputs the new CV as a latex document.
 
-Project done by Ming Sun, David Rasmusen, Mikkel Kaa, Hans Heje
+Project done by Ming Hui Sun, David Rasmusen, Mikkel Kaa, Hans Heje
 */
 
 int main(void){
