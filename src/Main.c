@@ -6,13 +6,13 @@
 #include "filter.c"
 #include "levenshtein.c"
 #include "testingRead.c" //testing to be replaced by full version
-//#include "format.c"
+#include "format.c"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
 and outputs the new CV as a latex document.
 
-Project done by Ming Sun, David Rasmusen, Mikkel Kaa, Hans Heje
+Project done by Ming Hui Sun, David Rasmusen, Mikkel Kaa, Hans Heje
 */
 
 int main(void){
