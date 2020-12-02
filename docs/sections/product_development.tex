@@ -86,13 +86,13 @@ In order to overcome the first problem, one could easily make a loop, to loop th
 and return a match. This is especially easy, since the small letters always has a 32 higher ASCII value from their capitalized counterpart.
 But after reading through the string library we found a function that does just the same comparison while ignoring capitalized letters: strcasecmp(n,r).
 \\
-The second problem has a quite a simple solution aswell. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a '\\0'. 
+The second problem has a quite a simple solution as well. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a '\\0'. 
 instead, thus making the string shorter.
 \\
 The third problem, is the trickiest one of the bunch. To solve this we decided on using the levenshtein algorithm. 
 We found a translation of this algorithm in C and imported it\cite{levenshtein}.
 The way this algorithm works, is by finding the distance between words. The larger the distance, the greater the difference between the words.
-The algorithm determins distance as the amount of operations needed to change string A to string B. The algorithm uses 3 different types of operations:
+The algorithm determine distance as the amount of operations needed to change string A to string B. The algorithm uses 3 different types of operations:
 \begin{itemize}
   \item 1. Insertion
   \item 2. Deletion
@@ -164,7 +164,7 @@ To demonstrate that the functions work, it can be seen that both line 8 abd 9 ge
 Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
 
 \subsubsection{Included Sections and Generation}
-\incfigure{figures/include_function}{fig: inclusion_function}{Inclusion Function}
+\incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
 The process of finding the included sections can be described in three steps:
 \begin{itemize}
   \item 1. Create tuple struct holding the density value, and the section ID.
