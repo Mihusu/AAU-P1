@@ -18,6 +18,9 @@ void output_capitalized(char *capitalized_text) {
         else if(capitalized_text[i] == '.' || capitalized_text[i] == '?' || capitalized_text[i] == '!') {
             marker_index = i + 1;
         }
+        else if(capitalized_text[i] == 'i') {
+            capitalized_text[i] = toupper(capitalized_text[i]);
+        }
     }
 }
 
