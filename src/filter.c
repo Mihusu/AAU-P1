@@ -150,47 +150,11 @@ bool is_word_match(char word_1[], char word_2[]){
 void remove_punctuation(char *word){
     // int starts at 1, to ignore the first char in the word.
     for (int i = 1; i < strlen(word); i++){
-        if((word[i] >= 33 && word[i] <= 47)||(word[i] >= 58 && word[i] <= 63)||(word[i] >= 91 && word[i] <= 96)||(word[i] >= 123 && word[i] <= 126)){
+        if((word[i] >= 33 && word[i] <= 47)||(word[i] >= 58 && word[i] <= 63)
+            ||(word[i] >= 91 && word[i] <= 96)||(word[i] >= 123 && word[i] <= 126)){
             word[i] = '\0';
         } 
     }
-}
-
-/* 
-source code for the levenstein algorithm from 
-https://rosettacode.org/wiki/Levenshtein_distance#C
-Modified to be used in our program.
-fuzzy string matching to find out how similar words are, to counteract misspelling.
-*/
-int levenshtein(char *s, char *t){
-	int ls = strlen(s), lt = strlen(t);
-	int d[ls + 1][lt + 1];
- 
-	for (int i = 0; i <= ls; i++)
-		for (int j = 0; j <= lt; j++)
-			d[i][j] = -1;
- 
-	int dist(int i, int j){
-		if (d[i][j] >= 0) return d[i][j];
- 
-		int x;
-		if (i == ls)
-			x = lt - j;
-		else if (j == lt)
-			x = ls - i;
-		else if (s[i] == t[j])
-			x = dist(i + 1, j + 1);
-		else {
-			x = dist(i + 1, j + 1);
- 
-			int y;
-			if ((y = dist(i, j + 1)) < x) x = y;
-			if ((y = dist(i + 1, j)) < x) x = y;
-			x++;
-		}
-		return d[i][j] = x;
-	}
-	return dist(0, 0);
 }
 
 //returns a pointer to bool array of which paragraphs that should be included.
