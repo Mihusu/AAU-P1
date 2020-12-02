@@ -18,9 +18,9 @@ void output_capitalized(char *capitalized_text) {
         else if(capitalized_text[i] == '.' || capitalized_text[i] == '?' || capitalized_text[i] == '!') {
             marker_index = i + 1;
         }
-        else if(capitalized_text[i] == 'i') {
-            capitalized_text[i] = toupper(capitalized_text[i]);
-        }
+        /*if(capitalized_text[i] == 'i') {
+            capitalized_text[i] = toupper(capitalized_text[i]-32);
+        }*/
     }
 }
 
@@ -30,7 +30,7 @@ The function should also convert a plain text into a LaTeX format.
 */
 void output_general_contents(FILE *general_CV) { //char *array_general_information,  FILE *Picture
     //output_capitalized(array_general_information);
-    fprintf(general_CV,"\\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Nikolaj Vinje \n\n Address: Islands brygge 56b 1tv \n\n Zip nr. 2300 Koebenhavn S \n\n Phone number: 26325635 \n\n E-mail: david2300@hotmail.com \n\n Country: Danmark \n\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
+    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Nikolaj Vinje \\newline\n Address: Islands brygge 56b 1tv \\newline\n Zip nr. 2300 Koebenhavn S \\newline\n Phone number: 26325635 \\newline\n E-mail: david2300@hotmail.com \\newline\n Country: Danmark \\newline\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
     //fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
 }
 
@@ -38,7 +38,7 @@ void output_general_contents(FILE *general_CV) { //char *array_general_informati
 void output_picture(FILE *picture) {
     //Put your picture here after the phrase figures/...
     // This figure can be adjusted, so it will be at the right side of the CV
-    fprintf(picture, "\n\\begin{minipage}[b]{3cm} \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark} \\end{minipage}\n");
+    fprintf(picture, "\n\\begin{minipage}[b]{3cm}\n \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark}\n \\end{minipage}\n \\end{center}\n");
 }
 
 void output_essential_contens(char ***array_essential_contents, int n, int *amount_of_itemized, FILE *essenctial_CV) {
