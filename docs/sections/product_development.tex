@@ -182,9 +182,10 @@ Next, a bool array is created and calloc'ed. The values for the bool array are d
 In order to determin what sections should be included, a while loop is run, until a certain amount of words are included.
 The amount of allowed words in the output is restricted to around 650, as that is the range, which grants the most amount of interviews.
 That is, according to the research as described in the background section.
-\\
-Here is an example, of it working.
-\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array} \\
+\\ \\
+Here is an example, of it working: 
+\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array} 
+
 The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determins should be included, and saves it into a long string.
 Starting from the lowest section ID to the highest ID. 
 The process of getting here is a little more complex, since it requires a lot of dynamic arrays, and inserting a lot of Null terminators, such  that it doesn't print null pointers.
