@@ -10,4 +10,4 @@ For at køre programmet og lave filen fra en text editor til latex og derefter t
 
 Indsæt et billede til et CV og redigere størrelse:
 
-Man kan gøre det enten i CV.tex, hvis man har kørt programmet en gang, eller redigere i format.c under "output_picture". 
+Man kan gøre det enten i CV.tex, hvis man har kørt programmet en gang, eller redigere i format.c under "output_picture" funktionen. 

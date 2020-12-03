@@ -128,12 +128,15 @@ After using the levenshtein algorithm, one could argue that the remove punctuati
 unnecessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
 is smaller than what it had to be, if we hadn't removed punctuation.
 \\
-The overall structure of this functions ends up looking like the following: 
+The overall structure of this functions ends up looking like the following:
 \incfigure{figures/is_word_match}{fig: Is word match}{Word Matching}
 
-The overal structure can be described as this:
-
-\incfigure{figures/is_match}{fig: is_match}{Flow diagram of word matching}
+The overall structure can be described as this:
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=3cm]{figures/is_match}
+  \caption{Flow diagram of word matching}\label{fig:ie}
+\end{figure}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
 calculations, so that the run time is optimized as much as possible.
@@ -200,15 +203,27 @@ After the CV has been filtered then our next plan is to print the text to a late
 A good way to describe the production could be the TVOP-model also known as technique, knowledge, organization and product.
 It gives an easy impression of what the project group had performed.
 First the technique, and to create a product for our project is essential to find a solution, 
-one must use a number of techniques including programming, latex and github techniques.
-Those techniques is good way to established . In this case, we use MIG welding systems, 
-since unalloyed steel is used. this makes one have to be well known in the technique to
-manufacture the product, which can make it problematic to find people with the right one
-work expertise. We use the machines as a human labor, as many of
-the working means cannot be used without human help, but in addition to the working means so require
-manufacturing actually not much more labor, however, labor is also a large part of
-manufacturing, so of course a lot of labor is spent on it. In addition to mechanical
-machines and tools also use materials such as steel. In addition to labor requires
-manufacturing also some work items, fortunately there are not as many of work items as
-working means, which are only the raw materials, ie steel, other materials are not consumed
-the manufacture of the product.
+one must use a number of techniques including C-programming, latex and github techniques.
+Those techniques is good way to establish and find our solution. C-programming can help us to produce a CV using the techniques
+of commands, functions etc. Latex is a good method to have a fine structured format, 
+also it will help the writer and reader to read in the future. \newline
+
+This takes one to have a fair amount of knowledge about the functions.
+First of all knowledge about a CV, and how to use the knowledge is a important factor.
+We have researched programming online about the functions that we didn't know about, 
+and afterwords we will implement this to our code and see if it's working. If not then we can research more about the exact problem.
+That's the waterfall model we have been used, not directly but it has been done in order to our code works.
+\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model}
+It has the elements that has been implemented in our coding. First we have the requirements for the program, 
+so we can have functionally program, next we will design with the help from a UML diagram, 
+so we know what should have in the program. Implementation of the program comes next, so we could test it later, 
+and if we have other suggestions for improvement then we can write it down for further development.
+
+In the process of coding the product, we choose to use a vertical work distribution, as many of the product
+components can be made parallel to each other. We have divided it to several functions, 
+so all of the group members can either alone or in pairs to get them done.
+Each small group still needs to know future updates about the development with the functions, so the program can be put together.
+To get an overview, we have made temporary division of labor
+schedule, so the group can clearly see what can be done at the same time.
+
+At last there is a product, a program from C that wil 
