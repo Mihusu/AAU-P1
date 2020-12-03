@@ -55,7 +55,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
 } 
 
 
-void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int **nSectionWords_p, char *cvGInfo_p) {
+void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int *nSectionWords_p, char *cvGInfo_p) {
     int i, j;
     for(i = 0; i < nKword; i++){
         free(theKeywords_pp[i]);

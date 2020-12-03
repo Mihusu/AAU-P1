@@ -15,8 +15,7 @@ Date of birth: 11/06/1995
 2013-2016 HTX-Hilleroed, Mat-Fys.
 
 
-Freetext
-
+#Freetext
 I took a highschool diploma in Biotechnology and chemistry, where i ended with a grade of 10.7.
 
 I took a highschool diploma in Biotechnology and chemistry: im capable of doing PCR testing.

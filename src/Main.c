@@ -19,27 +19,24 @@ int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
     //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
     int sections_count, *words_in_sections, i, j, keyword_count;
-    char *full_text, **keywords, ***sections_out;
+    char **keywords, ***sections_out;
     double *density_of_section = calloc(sections_count,sizeof(double)); //defines a density for each sections/paragraph
     char *cv_filtered_freetext; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
     bool *included_sections = calloc(sections_count,sizeof(bool)); //defines an array of which paragraphs/sections should be included
     
-    char **keywords_pp;
-    int nKeywords; // Number of keywords
-
     char ***itemicedSections_ppp;
     int nItemices, *nItemicedContent_p; // Number of itemices, Number of items in eatch itemices
-
-    char ***inCVSections_ppp;
-    int nSections, *nSectionContent_p; // Number of freetext sections, Number of words in eatch section
-
+    
     char *cvGeneralInfo_p;
     int initialWordCount;
-    start_read(&keywords_pp, &nKeywords, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &inCVSections_ppp, &nSections, &nSectionContent_p, &cvGeneralInfo_p, &initialWordCount);
-    // All rest of code here
-    the_ending(keywords_pp, nKeywords, itemicedSections_ppp, nItemices, nItemicedContent_p, inCVSections_ppp, nSections, nSectionContent_p, cvGeneralInfo_p);
-
-    remove_personal_pronouns(words_in_sections,sections_count,sections_out);
+    
+    start_read(&keywords, &keyword_count, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &sections_out, &sections_count, &words_in_sections, &cvGeneralInfo_p, &initialWordCount);
+    for(int i = 0; i < sections_count; i++) {
+        for(int j = 0; j < words_in_sections[i]; j++) {
+            printf("%s ", sections_out[i][j]);
+        }
+    }
+    remove_personal_pronouns(words_in_sections, sections_count, sections_out);
     calculate_text_density(sections_out,keywords,words_in_sections,sections_count,keyword_count,density_of_section);
     include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
@@ -77,5 +74,8 @@ int main(void){
     free(words_in_sections);
     free(sections_out);
     printf("Executed program correctly");
+    
+    // All rest of code here
+    the_ending(keywords, keyword_count, itemicedSections_ppp, nItemices, nItemicedContent_p, sections_out, sections_count, words_in_sections, cvGeneralInfo_p);
     return 0;
 }
