@@ -37,7 +37,7 @@ int main(void){
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
     
     printf("\n\n%s\n", cv_filtered_freetext);
-    run_pdfLaTeX(cvGeneralInfo_p, itemicedSections_ppp, nItemices, nItemicedContent_p, cv_filtered_freetext);  // SKAL BRUGES. M.I.S
+    run_pdfLaTeX(cvGeneralInfo_p, itemicedSections_ppp, nItemices, nItemicedContent_p, cv_filtered_freetext);
 
     printf("keywords:");
     for (int i = 0; i < keyword_count; i++) {

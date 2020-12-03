@@ -238,8 +238,8 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     if(infoText_p == NULL){
         exit(EXIT_FAILURE);
     }
-    for(j = 0; j < areaLength; j++){
-        infoText_p[j] = tagLocations_pp[0][j];
+    for(i = 0; i < areaLength; i++){
+        infoText_p[i] = tagLocations_pp[0][i];
     }
     *cvGInfo_pp = infoText_p;
     // Gets number of words in the infoText.
@@ -345,7 +345,7 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
 
 
 int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
-    int theReader = 0, alloChars = 20, marking = 0, tempWordCounter = 0;
+    int theReader = 0, alloChars = 20; //marking = 0, tempWordCounter = 0;
     char *theLine_p = malloc(alloChars * sizeof(char));
     if(theLine_p == NULL){
         exit(EXIT_FAILURE);

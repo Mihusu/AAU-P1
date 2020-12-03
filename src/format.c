@@ -63,7 +63,7 @@ void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
 }
 
 void run_pdfLaTeX(char *run_general_info, char ***run_essential_info, int n, int *amount_of_itemized_to_g_info_and_essential_info, char *run_free_text) {
-    FILE *final_CV = fopen(".\\..\\docs\\CV.tex", "w");
+    FILE *final_CV = fopen(".\\..\\CV.tex", "w");
     if(final_CV == NULL) { 
         printf("Cannot open file\n"); 
         exit(EXIT_FAILURE); 
