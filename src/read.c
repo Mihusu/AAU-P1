@@ -38,7 +38,7 @@ void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_
     FILE *theLongCV, *theKeywords;
     char *cvTotalText_p, *keywordsTotalText_p;
     theLongCV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
-    theKeywords = fopen("Hello.txt", "r");
+    theKeywords = fopen("Keywords.txt", "r");
     if(theLongCV == NULL || theKeywords == NULL){
         // Error, can't open file.
         printf("\nError can't open input file(s)\n"); // temp remove later
@@ -206,7 +206,7 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     // Handels tag splitting of the longCV.
     int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
     char *infoText_p, **tempTrash_pp;
-    // Contains pointers to the tags, in .
+    // Contains pointers to the tags, in .  Mangler SÆTNING!!!!!
     char **tagLocations_pp = malloc(alloTags * sizeof(char *));
     if(tagLocations_pp == NULL){
         exit(EXIT_FAILURE);

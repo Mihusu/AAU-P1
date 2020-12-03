@@ -28,10 +28,10 @@ void output_capitalized(char *capitalized_text) {
 This function will make some modification for the plain text like structure, layout, font etc.
 The function should also convert a plain text into a LaTeX format.
 */
-void output_general_contents(FILE *general_CV) { //char *array_general_information,  FILE *Picture
+void output_general_contents(char *array_general_information, FILE *general_CV) { 
     //output_capitalized(array_general_information);
-    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsubsection*{General information}\n Name: David Nikolaj Vinje \\newline\n Address: Islands brygge 56b 1tv \\newline\n Zip nr. 2300 Koebenhavn S \\newline\n Phone number: 26325635 \\newline\n E-mail: david2300@hotmail.com \\newline\n Country: Danmark \\newline\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
-    //fprintf(general_CV,"\\section*{General information}\n%s\n", array_general_information);
+    //fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n Name: David Nikolaj Vinje \\newline\n Address: Islands brygge 56b 1tv \\newline\n Zip nr. 2300 Koebenhavn S \\newline\n Phone number: 26325635 \\newline\n E-mail: david2300@hotmail.com \\newline\n Country: Danmark \\newline\n Date of birth: 11/06/1995 \n \\end{minipage}\n \\hfill");
+    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n%s\n \\end{minipage}\n \\hfill", array_general_information);
 }
 
 /* Load a picture to the CV. That can be essential for the recruiter. */
@@ -62,15 +62,15 @@ void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
     fprintf(free_text_CV,"\n\\section*{Free text}\n%s\n", array_free_text);
 }
 
-void run_pdfLaTeX(/*char *run_general_info, char ***run_essential_info,*/ char *run_free_text) {
+void run_pdfLaTeX(char *run_general_info, char ***run_essential_info, int n, int *amount_of_itemized_to_g_info_and_essential_info, char *run_free_text) {
     FILE *final_CV = fopen(".\\..\\docs\\CV.tex", "w");
     if(final_CV == NULL) { 
         printf("Cannot open file\n"); 
         exit(EXIT_FAILURE); 
     }
-    output_general_contents(final_CV);
+    output_general_contents(run_general_info, final_CV);
     output_picture(final_CV);
-    //output_essential_contens(run_essential_info, final_CV);
+    output_essential_contens(run_essential_info, n, amount_of_itemized_to_g_info_and_essential_info, final_CV);
     output_LaTeX_free_text(run_free_text, final_CV);
     fclose(final_CV);
 }

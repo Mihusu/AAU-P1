@@ -3,7 +3,7 @@
 Before building the program, we brainstormed and created a Minimal Viable Product (MVP).
 This MVP (which can be seen illustrate beneeth) is a general high level schematic outlining what our program is supposed to do.
 
-\incfigure{figures/engMVP}{fig: MVP}{MVP}
+\incfigure{figures/engMVP}{fig: Minimal Viable Product}{MVP}
 Here we discussed what are the most essential parts, and came to the conclusion that the following things
 were needed: The Users skills/abilities and the information from the vacant job position. These things
 should be transformed into a custom application. 
@@ -20,10 +20,10 @@ is ready to be sent. In other words, we decided to instead concentrate on creati
 in sending out applications, instead of a CV generation program.
 
 We then changed the MVP schematic to the following:
-\incfigure{figures/Program_process_diagram}{fig: MVP}{Revised MVP}
+\incfigure{figures/Program_process_diagram}{fig: Revised Minimal Viable Product}{Revised MVP} \newline
 This program is supposed to take in the keywords/job application, some formel requirements for
-the structure of the new CV, and the originally long CV. 
-
+the structure of the new CV, and the originally long CV.
+ 
 The long CV should contain as many pages as possible, of all abilities and skills one has.
 It should also include prior work experience, and anything else relevant on a CV. 
 
@@ -128,25 +128,24 @@ After using the levenshtein algorithm, one could argue that the remove punctuati
 unnecessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
 is smaller than what it had to be, if we hadn't removed punctuation.
 \\
-The overall structure of this functions ends up looking like the following:
-\incfigure{figures/is_word_match}{fig: Is word match}{Word Matching}
-
+The overall structure of this functions ends up looking like the following: %is_word_match "SKAL VÆRE HER"
+\newpage
 The overall structure can be described as this:
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics[height=3cm]{figures/is_match}
+  \includegraphics[height=6cm]{figures/is_match}
   \caption{Flow diagram of word matching}\label{fig:ie}
 \end{figure}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
-calculations, so that the run time is optimized as much as possible.
+calculations, so that the run time is optimized as much as possible.\\
 \subsubsection{Section Density}
 \incfigure{figures/section_density}{fig: density function}{Density and weight function}
 Section density is based on the same concepts as in physics: Weight(mass)/Volume = Density.
 In this case, weight is how many times in a section different words match with a keyword, and volume is how many words there
 are in a section. The boundaries for the density function is as follows: Density goes from zero to one. 
 Where zero is that there is no matches in a section, and one, is that every single word matches. Though a problem quickly arises
-from doing it this way: A word may match with multiple keywords.
+from doing it this way: A word may match with multiple keywords.\\
 \begin{itemize}
   \item Section: "Great physic", keywords: "Physics, physicial".
 \end{itemize}
@@ -164,7 +163,7 @@ Thus it can easily be seen, which sections may be best suited for the job openin
 In this case, an example of a job opening specializing in software.
 
 To demonstrate that the functions work, it can be seen that both line 8 abd 9 gets printet with a result of exactly 1.
-Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
+Even though one of the words match with 2, and the other, though misspelled, also matches with 2\\
 
 \subsubsection{Included Sections and Generation}
 \incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
@@ -179,7 +178,7 @@ This is important, since it can make it unreadable, if all the sections are mumb
 After that, a Q-sort algorithm is used from the standard library. This algorithm makes sure, that the highest density comes first.
 \\
 Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchat:
-\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array}
+\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array} \newline
 In order to determin what sections should be included, a while loop is run, until a certain amount of words are included.
 The amount of allowed words in the output is restricted to around 650, as that is the range, which grants the most amount of interviews.
 That is, according to the research as described in the background section.
@@ -205,24 +204,25 @@ First the technique, and to create a product for our project is essential to fin
 one must use a number of techniques including C-programming, latex and github techniques.
 Those techniques is good way to establish and find our solution. C-programming can help us to produce a CV using the techniques
 of commands, functions etc. Latex is a good method to have a fine structured format, 
-also it will help the writer and reader to read in the future. \newline
+also it will help the writer and reader to read in the future. \\
 
 This takes one to have a fair amount of knowledge about the functions.
 First of all knowledge about a CV, and how to use the knowledge is a important factor.
 We have researched programming online about the functions that we didn't know about, 
 and afterwords we will implement this to our code and see if it's working. If not then we can research more about the exact problem.
 That's the waterfall model we have been used, not directly but it has been done in order to our code works.
-\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model}
+\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model} 
+\newpage
 It has the elements that has been implemented in our coding. First we have the requirements for the program, 
 so we can have functionally program, next we will design with the help from a UML diagram, 
 so we know what should have in the program. Implementation of the program comes next, so we could test it later, 
-and if we have other suggestions for improvement then we can write it down for further development.
+and if we have other suggestions for improvement then we can write it down for further development.\\
 
 In the process of coding the product, we choose to use a vertical work distribution, as many of the product
 components can be made parallel to each other. We have divided it to several functions, 
 so all of the group members can either alone or in pairs to get them done.
 Each small group still needs to know future updates about the development with the functions, so the program can be put together.
 To get an overview, we have made temporary division of labor
-schedule, so the group can clearly see what can be done at the same time.
+schedule, so the group can clearly see what can be done at the same time. \\
 
 At last there is a product, a program from C that wil 
