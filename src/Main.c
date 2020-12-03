@@ -23,6 +23,7 @@ int main(void){
     double *density_of_section = calloc(sections_count,sizeof(double)); //defines a density for each sections/paragraph
     char *cv_filtered_freetext; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
     bool *included_sections = calloc(sections_count,sizeof(bool)); //defines an array of which paragraphs/sections should be included
+    
     char **keywords_pp;
     int nKeywords; // Number of keywords
 
@@ -44,7 +45,7 @@ int main(void){
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
     
     printf("\n\n%s\n", cv_filtered_freetext);
-    run_pdfLaTeX(cvGeneralInfo_p,  ,*nItemicedContent_p, cv_filtered_freetext);  // SKAL BRUGES. M.I.S
+    run_pdfLaTeX(cvGeneralInfo_p, itemicedSections_ppp, nItemices, nItemicedContent_p, cv_filtered_freetext);  // SKAL BRUGES. M.I.S
 
     printf("keywords:");
     for (int i = 0; i < keyword_count; i++) {
