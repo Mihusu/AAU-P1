@@ -31,11 +31,6 @@ int main(void){
     int initialWordCount;
     
     start_read(&keywords, &keyword_count, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &sections_out, &sections_count, &words_in_sections, &cvGeneralInfo_p, &initialWordCount);
-    for(int i = 0; i < sections_count; i++) {
-        for(int j = 0; j < words_in_sections[i]; j++) {
-            printf("%s ", sections_out[i][j]);
-        }
-    }
     remove_personal_pronouns(words_in_sections, sections_count, sections_out);
     calculate_text_density(sections_out,keywords,words_in_sections,sections_count,keyword_count,density_of_section);
     include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
@@ -51,7 +46,6 @@ int main(void){
     
     printf("\n\nBool value -- Section ID -- Section Density -- Section Text\n");
     for (int i = 0; i < sections_count; i++) {
-        
         printf("\n[%d] (%d): %lf -- ",included_sections[i],i,density_of_section[i]);
     
         for (int j = 0; j < words_in_sections[i]; j++) {

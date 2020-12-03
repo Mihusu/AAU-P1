@@ -38,13 +38,13 @@ void output_general_contents(char *array_general_information, FILE *general_CV) 
 void output_picture(FILE *picture) {
     //Put your picture here after the phrase figures/...
     // This figure can be adjusted, so it will be at the right side of the CV
-    fprintf(picture, "\n\\begin{minipage}[b]{3cm}\n \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark}\n \\end{minipage}\n \\end{center}\n");
+    fprintf(picture, "\n\\begin{minipage}[b]{3cm}\n \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark}\n \\end{minipage}\n \\end{center}\n\n");
 }
 
 void output_essential_contens(char ***array_essential_contents, int n, int *amount_of_itemized, FILE *essenctial_CV) {
     for(int i = 0; i < n; i++) {
         // The print is going to start at index 0, because of 'i' is going to start at 0.
-        fprintf(essenctial_CV, "\\section*{%s}\n\\begin{itemize}[label=$\\ast$]\n", array_essential_contents[i][0]);
+        fprintf(essenctial_CV, "\\section*{%s}\n\\begin{itemize}\n", array_essential_contents[i][0]);
         for(int j = 1; j < amount_of_itemized[i]; j++) {
             fprintf(essenctial_CV, "\\item %s\n", array_essential_contents[i][j]);
         }
