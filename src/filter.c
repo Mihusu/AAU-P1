@@ -55,7 +55,7 @@ void remove_personal_pronouns(int *words_in_sections,int sections_count,char ***
 }
 
 //checks if a paragraph in CV is apart of "bool included paragraphs" to add those paragraphs to "filtered_text"
-void generate_text(bool *included_sections, char ***sections_out, int sections_count, int *wors_in_section, char **filtered_text){
+void generate_text(bool *included_sections, char ***sections_out, int sections_count, int *words_in_section, char **filtered_text){
     int total_chars = 1;
     int ammount_malloced = 100;
 
@@ -64,18 +64,20 @@ void generate_text(bool *included_sections, char ***sections_out, int sections_c
     for(int i = 0; i < sections_count; i++){
         if (included_sections[i])
         {
-            for(int k = 0; k < wors_in_section[i]; k++){
+            for(int k = 0; k < words_in_section[i]; k++){
                 if (total_chars + strlen(sections_out[i][k]) + 1 >= ammount_malloced){
                     ammount_malloced += 100;
                     *filtered_text = realloc(*filtered_text, ammount_malloced * sizeof(char));
                 }
                 total_chars += strlen(sections_out[i][k])+1; //adds neccesary characters for the added chars plus nullterminator
                 strcat(*filtered_text,sections_out[i][k]); //adds the section to the filtered CV.
-                if (k != wors_in_section[i] - 1){
+                if (k != words_in_section[i] - 1){
                     strcat(*filtered_text," "); //puts a space after each word, if it isnt the last word
                 }
             }
-            strcat(*filtered_text,"\n"); //adds newline
+            total_chars += 8;
+            strcat(*filtered_text,"\\newline "); //adds newline
+            //strcat(*filtered_text," "); //adds newline
         }  
     }
 }
