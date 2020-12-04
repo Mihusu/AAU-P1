@@ -1,12 +1,103 @@
-#Workexperience
-2009-2011 Flaskedreng i Netto.
-2011-2013 Flymekaniker.
+Name: David Rasmussen \\
+Address: Islands brygge 56b 1tv \\
+Zip nr. 2300 Koebenhavn S \\
+Phone number: 26325635 \\
+E-mail: david2300@hotmail.com \\
+Country: Danmark \\
+Date of birth: 11/06/1995
+
+#Work experience
+2010 - 2012 Netto - Sevice employee
+2012 - 2013 Bauhaus Valby - Salesman
+2013 - 2014 Q8 - Sales Assistant
+2016 - 2018 Elgiganten Glostrup - Cross operation 
+2018 - 2020 Concept - Client service 
+
 #Education
-2016 AAU Batchelor i software.
-2013 HTX-Hilleroed, Mat-Fys.
-#FreeText
-Hello I am a good worker.
-I flush the toilet always.
-Going home is for the weak.
-I am very proud.
-I am also happy.
+2011 - 2014 HTX-Hilleroed, Biotech
+2015 - 2018 Aalborg university Bachelor of Software Engineering
+2018 - 2020 Aalborg university Master of Software Engineering
+
+
+#Freetext
+I took a highschool diploma in Biotechnology and chemistry: im capable of doing PCR testing.
+
+I learned to tackle multiple things at once, while working at Q8, since I was alone in the shop.
+
+I was responsible for handling company customers at Bauhaus.
+
+My slogan is "if its worth doing, then its worth doing properly".
+
+Everything i do, i try to be a perfectionist about it.
+
+I'm fluent in english, danish and somewhat capable of understanding french and spanish due to my understanding of latin.
+
+My highschool exam project was using c sharp (unity) to make a game.
+
+During my education, i was the one who was the teamleader.
+
+I have elementary understand of business and economics.
+
+I have taken courses in analysis.
+
+i have done a BSc and MSc in engineering (software) at Aalborg university.
+
+Im incredibly disciplined, and work good in teams.
+
+I once had a girlfriend in highschool: She was incredibly dumb.
+She was horrible at school work though.
+
+My university focuses on teamwork, so i have lots of experience with larger groups.
+
+I have lots of skills in programming.
+
+I'm able to set up databases using SQL and net.
+
+My best friend is kinda stupid and rude, but still, he's lots of fun to be with.
+
+my worst enemy is sometimes also my best friend. Hes stupid though.
+
+I take a large interest in electronics. i have done multiple projects.
+
+through university, i have learned c in depth.
+
+im capable of using machine learning using python.
+i also read a lot of statistics and probability theory to learn the theory behind it.
+i can use neural networks, to predict behavior.
+
+I'm proficient in C++.
+
+I have made my own website using Javascript, HTML5 and CSS
+
+I'm able to do mathematical optimization using matlab.
+
+my earlier work include: working at a sushi restaurant, Bilka, bauhaus, Q8, and with selling christmas trees.
+because of this, im disciplined in customer service.
+
+I am also good at handling lots of things at once, without getting stressed out.
+
+Im a perfectionist, and incredible easy to work with in general.
+
+in my childhood i used to mod games such as Minecraft. This ignited my interest in programming. Through this i learned Java.
+
+Through my Msc i specialized in machine learning.
+
+I have had a focus on becoming really good at cryptography
+
+I have great social skills, and am generally easy to speak with.
+
+i have the ability to predict the future using magic.
+
+I speak both danish and english, and have no trouble speaking both.
+
+I have a large interest in philosophy, especially exsistentialism and moral ambiguity.
+
+I love reading Roman history in my free time.
+
+I usually speak Arabic at home, and especially in work if needed.
+
+I have had a well-being ambassador course to help people with the social.
+
+I'm an expert in baking different cakes
+
+In 2018 I won a baking competition.
