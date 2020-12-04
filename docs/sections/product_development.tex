@@ -8,6 +8,7 @@ Here we discussed what are the most essential parts, and came to the conclusion 
 were needed: The Users skills/abilities and the information from the vacant job position. These things
 should be transformed into a custom application. 
 
+
 After further consideration, we had encountered a problem, that generating a custom CV from nothing but
 skills/abilities would create a very childlike, maybe even unreadable, application. This could be solved with a lot
 of data, and therefore a lot of time calibrating the process of automatically creating sentences. This may also result
@@ -32,7 +33,14 @@ and from the structural requirements creates a new CV.
 
 From here we decided to organize our MVP into a UML diagram, to make it more apparent
 what the essential functions were supposed to do, and which functions that were essential:
-\incfigure{figures/UML}{fig: UML}{UML 1.0}
+%\incfigure{figures/UML}{fig: UML}{UML}
+\begin{figure} 
+  \raggedright
+  \hspace*{-1in}
+  \includegraphics[scale = 0.50,left]{figures/UML}
+  \caption{UML}
+\end{figure}
+\newpage
 
 \subsection{Read.c}
 \subsection{Filter.c}
@@ -131,9 +139,9 @@ is smaller than what it had to be, if we hadn't removed punctuation.
 The overall structure of this functions ends up looking like the following: %is_word_match "SKAL VÆRE HER"
 \newpage
 The overall structure can be described as this:
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
-  \includegraphics[height=6cm]{figures/is_match}
+  \includegraphics[scale = 0.6]{figures/is_match}
   \caption{Flow diagram of word matching}\label{fig:ie}
 \end{figure}
 
@@ -162,8 +170,8 @@ Printing the result from this, we can see:
 Thus it can easily be seen, which sections may be best suited for the job opening. 
 In this case, an example of a job opening specializing in software.
 
-To demonstrate that the functions work, it can be seen that both line 8 abd 9 gets printet with a result of exactly 1.
-Even though one of the words match with 2, and the other, though misspelled, also matches with 2\\
+To demonstrate that the functions work, it can be seen that both line 8 and 9 gets printet with a result of exactly 1.
+Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
 
 \subsubsection{Included Sections and Generation}
 \incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
@@ -195,7 +203,7 @@ This part isn't that interesting, but if you're interested, you can see it here:
 \subsection{Format.c}
 After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf 
 
-\subsection{CV-Gen.c}
+\subsection{Main.c}
 \subsection{Makefile}
 
 \subsection{TKOP-model}
