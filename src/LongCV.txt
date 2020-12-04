@@ -1,10 +1,10 @@
-Name: Prins David Nikolaj Vinje 
-Address: Amalienborg
-Zip nr. 2300 Koebenhavn S
-number: 12345678
-E-mail: david2300@hotmail.com
-Country: Danmark
-Date of birth: 11/06/1995
+Name: David Nikolaj Vinje \\
+Address: Islands brygge 56b 1tv \\
+Zip nr. 2300 Koebenhavn S \\
+number: 26325635 \\
+E-mail: david2300@hotmail.com \\
+Country: Danmark \\
+Date of birth: 11/06/1995 \\
 
 #Workexperience
 2011-2012 Netto.
