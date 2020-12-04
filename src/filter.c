@@ -75,9 +75,8 @@ void generate_text(bool *included_sections, char ***sections_out, int sections_c
                     strcat(*filtered_text," "); //puts a space after each word, if it isnt the last word
                 }
             }
-            total_chars += 8;
-            strcat(*filtered_text,"\\newline "); //adds newline
-            //strcat(*filtered_text," "); //adds newline
+            total_chars += 4; //adds more characters for the "\\\\"
+            strcat(*filtered_text,"\\\\"); //adds newline
         }  
     }
 }
