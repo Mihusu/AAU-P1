@@ -1,4 +1,4 @@
-Name: David Nikolaj Vinje \\
+Name: David Rasmussen \\
 Address: Islands brygge 56b 1tv \\
 Zip nr. 2300 Koebenhavn S \\
 Phone number: 26325635 \\
@@ -34,7 +34,7 @@ I'm fluent in english, danish and somewhat capable of understanding french and s
 
 My highschool exam project was using c sharp (unity) to make a game.
 
-im currently doing a bsc in engineering (software) at Aalborg university.
+i have done a BSc and MSc in engineering (software) at Aalborg university.
 
 Im incredibly disciplined, and work good in teams.
 
@@ -59,6 +59,12 @@ im capable of using machine learning using python.
 i also read a lot of statistics and probability theory to learn the theory behind it.
 i can use neural networks, to predict behavior.
 
+I'm proficient in C++.
+
+I have made my own website using Javascript, HTML5 and CSS
+
+I'm able to do mathematical optimization using matlab.
+
 my earlier work include: working at a sushi restaurant, Bilka, bauhaus, Q8, and with selling christmas trees.
 because of this, im disciplined in customer service.
 
@@ -77,6 +83,10 @@ I have great social skills, and am generally easy to speak with.
 i have the ability to predict the future using magic.
 
 I speak both danish and english, and have no trouble speaking both.
+
+I have a large interest in philosophy, especially exsistentialism and moral ambiguity.
+
+I love reading Roman history in my free time.
 
 I usually speak Arabic at home, and especially in work if needed.
 
