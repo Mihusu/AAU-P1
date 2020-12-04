@@ -21,7 +21,6 @@ int main(void){
     char **keywords, ***sections_out;
     char ***itemicedSections_ppp;
     int nItemices, *nItemicedContent_p; // Number of itemices, Number of items in each itemices
-    
     char *cvGeneralInfo_p;
     int initialWordCount;
     start_read(&keywords, &keyword_count, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &sections_out, &sections_count, &words_in_sections, &cvGeneralInfo_p, &initialWordCount);
@@ -30,8 +29,6 @@ int main(void){
     bool *included_sections = calloc(sections_count,sizeof(bool)); //defines an array of which paragraphs/sections should be included
     
     remove_personal_pronouns(words_in_sections, sections_count, sections_out);
-    /* remove_personal_pronouns, include_section OG generate_text HAR IKKE NOGET OM levenshtein FUNKTION 
-    ELLER NOGET ANDET OG DET ER KUN calculate_text_density, SOM HAR NOGET OM DET*/
     calculate_text_density(sections_out, keywords, words_in_sections, sections_count, keyword_count, density_of_section);
     include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
@@ -52,7 +49,6 @@ int main(void){
     }
     run_pdfLaTeX(cvGeneralInfo_p, itemicedSections_ppp, nItemices, nItemicedContent_p, cv_filtered_freetext);
 
-    
     //free variables
     free(density_of_section);
     free(included_sections);

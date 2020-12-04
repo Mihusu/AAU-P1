@@ -36,7 +36,7 @@ The function should also convert a plain text into a LaTeX format.
 */
 void output_general_contents(char *array_general_information, FILE *general_CV) { 
     output_capitalized(array_general_information);
-    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n%s\\newline \\end{minipage}\n \\hfill", array_general_information);
+    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n%s\n \\end{minipage}\n \\hfill", array_general_information);
 }
 
 /* Load a picture to the CV. That can be essential for the recruiter. */
