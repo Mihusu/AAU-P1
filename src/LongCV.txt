@@ -1,19 +1,22 @@
 Name: David Nikolaj Vinje \\
 Address: Islands brygge 56b 1tv \\
 Zip nr. 2300 Koebenhavn S \\
-number: 26325635 \\
+Phone number: 26325635 \\
 E-mail: david2300@hotmail.com \\
 Country: Danmark \\
-Date of birth: 11/06/1995 \\
+Date of birth: 11/06/1995
 
-#Workexperience
-2011-2012 Netto.
-2012-2013 Bauhaus.
-2013-2014 Q8
+#Work experience
+2010 - 2012 Netto - Sevice employee
+2012 - 2013 Bauhaus Valby - Salesman
+2013 - 2014 Q8 - Sales Assistant
+2016 - 2018 Elgiganten Glostrup - Cross operation 
+2018 - 2020 Concept - Client service 
 
 #Education
-2011-2014 HTX-Hilleroed, Biotech.
-2015-2020 AAU Master of Software Engineering.
+2011 - 2014 HTX-Hilleroed, Biotech
+2015 - 2018 Aalborg university Bachelor of Software Engineering
+2018 - 2020 Aalborg university Master of Software Engineering
 
 
 #Freetext
@@ -42,7 +45,7 @@ My university focuses on teamwork, so i have lots of experience with larger grou
 
 I have lots of skills in programming.
 
-I'm able to set up databases using SQL & net.
+I'm able to set up databases using SQL and net.
 
 My best friend is kinda stupid and rude, but still, he's lots of fun to be with.
 
@@ -72,3 +75,13 @@ I have had a focus on becoming really good at cryptography
 I have great social skills, and am generally easy to speak with.
 
 i have the ability to predict the future using magic.
+
+I speak both danish and english, and have no trouble speaking both.
+
+I usually speak Arabic at home, and especially in work if needed.
+
+I have had a well-being ambassador course to help people with the social.
+
+I'm an expert in baking different cakes
+
+In 2018 I won a baking competition.

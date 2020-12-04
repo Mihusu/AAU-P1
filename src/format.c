@@ -36,14 +36,14 @@ The function should also convert a plain text into a LaTeX format.
 */
 void output_general_contents(char *array_general_information, FILE *general_CV) { 
     output_capitalized(array_general_information);
-    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n%s\n \\end{minipage}\n \\hfill", array_general_information);
+    fprintf(general_CV,"\\begin{center}\n \\begin{minipage}[b]{0.45\\textwidth} \n\\subsection*{General information}\n%s\\newline\n \\end{minipage}\n \\hfill", array_general_information);
 }
 
 /* Load a picture to the CV. That can be essential for the recruiter. */
 void output_picture(FILE *picture) {
     //Put your picture here after the phrase figures/...
     // This figure can be adjusted, so it will be at the right side of the CV
-    fprintf(picture, "\n\\begin{minipage}[b]{3cm}\n \\includegraphics[height=4cm]{figures/1200px-Drottning_Margrethe_av_Danmark}\n \\end{minipage}\n \\end{center}\n\n");
+    fprintf(picture, "\n\\begin{minipage}[b]{4.5cm}\n \\includegraphics[height=4.25cm]{figures/Billede_af_David}\n \\end{minipage}\n \\end{center}\n\n");
 }
 
 void output_essential_contens(char ***array_essential_contents, int amount_of_itemizes, int *amount_of_items_in_a_itemize, FILE *essenctial_CV) {
