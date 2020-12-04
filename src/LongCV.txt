@@ -1,27 +1,33 @@
-Name: David Nikolaj Vinje 
-Address: Islands brygge 56b 1tv
+Name: Prins David Nikolaj Vinje 
+Address: Amalienborg
 Zip nr. 2300 Koebenhavn S
-number: 26325635
+number: 12345678
 E-mail: david2300@hotmail.com
 Country: Danmark
 Date of birth: 11/06/1995
 
 #Workexperience
-2011-2012 Flaskedreng i Netto.
-2012-2013 Kundeservice i Bauhaus.
+2011-2012 Netto.
+2012-2013 Bauhaus.
 2013-2014 Q8
 
 #Education
-2011-2014 HTX-Hilleroed, Mat-Fys.
-2015-2020 AAU Batchelor i software.
+2011-2014 HTX-Hilleroed, Biotech.
+2015-2020 AAU Master of Software Engineering.
 
 
 #Freetext
-I took a highschool diploma in Biotechnology and chemistry, where i ended with a grade of 10.7.
-
 I took a highschool diploma in Biotechnology and chemistry: im capable of doing PCR testing.
 
-I'm fluent in english, danish and somewhat capable of understand french and spanish due to my understanding of latin.
+I learned to tackle multiple things at once, while working at Q8, since I was alone in the shop.
+
+I was responsible for handling company customers at Bauhaus.
+
+My slogan is "if its worth doing, then its worth doing properly".
+
+Everything i do, i try to be a perfectionist about it.
+
+I'm fluent in english, danish and somewhat capable of understanding french and spanish due to my understanding of latin.
 
 My highschool exam project was using c sharp (unity) to make a game.
 
@@ -35,6 +41,8 @@ She was horrible at school work though.
 My university focuses on teamwork, so i have lots of experience with larger groups.
 
 I have lots of skills in programming.
+
+I'm able to set up databases using SQL & net.
 
 My best friend is kinda stupid and rude, but still, he's lots of fun to be with.
 
@@ -57,8 +65,10 @@ Im a perfectionist, and incredible easy to work with in general.
 
 in my childhood i used to mod games such as Minecraft. This ignited my interest in programming. Through this i learned Java.
 
-Im done with my bsc in 2025, where i will be a master in artificial intelligence.
+Through my Msc i specialized in machine learning.
+
+I have had a focus on becoming really good at cryptography
+
+I have great social skills, and am generally easy to speak with.
 
 i have the ability to predict the future using magic.
-
-i have a degree in computer science.
