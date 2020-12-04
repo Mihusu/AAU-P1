@@ -31,31 +31,27 @@ int main(void){
     return 0;
 } // */
 
-
 void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *initialWords_p){
 
     //char *fnLongCV = malloc(); // In case of user defined file name
     FILE *theLongCV, *theKeywords;
     char *cvTotalText_p, *keywordsTotalText_p;
     theLongCV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
-    theKeywords = fopen("Hello.txt", "r");
+    theKeywords = fopen("Keywords.txt", "r");
     if(theLongCV == NULL || theKeywords == NULL){
         // Error, can't open file.
         printf("\nError can't open input file(s)\n"); // temp remove later
         exit(EXIT_FAILURE);
     }
-
     text_reader(theLongCV, &cvTotalText_p);
     tag_searcher(cvTotalText_p, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, cvGInfo_pp, initialWords_p);
     free(cvTotalText_p);
-
     text_reader(theKeywords, &keywordsTotalText_p);
     worder(keywordsTotalText_p, theKeywords_ppp, nKword_p);
     free(keywordsTotalText_p);
 } 
 
-
-void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int **nSectionWords_p, char *cvGInfo_p){
+void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int *nSectionWords_p, char *cvGInfo_p) {
     int i, j;
     for(i = 0; i < nKword; i++){
         free(theKeywords_pp[i]);
@@ -80,7 +76,6 @@ void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, i
     free(cvGInfo_p);
 }
 
-
 void text_reader(FILE *theFile, char **outText_pp){
     // Read all text from the file.
     int characters = 0, alottetArray = 300;
@@ -89,8 +84,7 @@ void text_reader(FILE *theFile, char **outText_pp){
         // Error can't allocate memmory
         printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
-    }
-    
+    } 
     while(1){
         if(characters >= alottetArray){
             // Allocating more memmory when more is required.
@@ -137,7 +131,6 @@ void text_reader(FILE *theFile, char **outText_pp){
     // All content of the file is in a string, file is no longer needed.
     fclose(theFile);
 }
-
 
 void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     // Seperates a string text into a array of strings containing individual words.
@@ -201,12 +194,11 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     *nWordsOut_p = nTheWords;
 }
 
-
 void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *wordCounter_p){
     // Handels tag splitting of the longCV.
     int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
     char *infoText_p, **tempTrash_pp;
-    // Contains pointers to the tags, in .
+    // Contains pointers to the tags, in .  Mangler SÆTNING!!!!!
     char **tagLocations_pp = malloc(alloTags * sizeof(char *));
     if(tagLocations_pp == NULL){
         exit(EXIT_FAILURE);
@@ -238,8 +230,8 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     if(infoText_p == NULL){
         exit(EXIT_FAILURE);
     }
-    for(j = 0; j < areaLength; j++){
-        infoText_p[j] = tagLocations_pp[0][j];
+    for(i = 0; i < areaLength; i++){
+        infoText_p[i] = tagLocations_pp[0][i];
     }
     *cvGInfo_pp = infoText_p;
     // Gets number of words in the infoText.
@@ -253,7 +245,6 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     free(tagLocations_pp);
 }
 
-
 void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, int *nWordsInStart_p){
     int currentItemice = 0, alloItemices = 4, i, j, tempTest, nItems, alloItems, tempWordCounter, tempLineResult;
     char *freeTextVariations[32] = {"freetext", "Freetext", "freeText", "FreeText", "freetext.", "Freetext.", "freeText.", "FreeText.",
@@ -266,7 +257,6 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
     if(itemices_ppp == NULL || nItemsInItem_p == NULL){
         exit(EXIT_FAILURE);
     }
-
     for(i = 1; i < nOfTags - 1; i++){
         if(tags_pp[i + 1][0] != '\0')
             tags_pp[i + 1][-1] = '\0';
@@ -343,9 +333,8 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
     *nItemices_p = currentItemice;
 }
 
-
 int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
-    int theReader = 0, alloChars = 20, marking = 0, tempWordCounter = 0;
+    int theReader = 0, alloChars = 20; //marking = 0, tempWordCounter = 0;
     char *theLine_p = malloc(alloChars * sizeof(char));
     if(theLine_p == NULL){
         exit(EXIT_FAILURE);
@@ -385,7 +374,6 @@ int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
     else
         return 1;
 }
-
 
 void section_treater(char *theFreeText_p, char ****theSections_pppp, int *theNSections_p, int **theNWordSections_pp){
     int theReader = 0, currentMarker = -1, nSections = 1, nSectAllo = 10, i;
