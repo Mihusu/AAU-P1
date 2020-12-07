@@ -84,7 +84,7 @@ void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
 }
 
 void run_pdfLaTeX(char *run_general_info, char ***run_essential_info, int itemizes, int *items_for_G_info_and_essential_info, char *run_free_text) {
-    // Create or overwrite a LaTeX file, and check it can create or overwrite it.
+    // Create or overwrite a LaTeX file, and check it if file can be created or overwritten.
     FILE *final_CV;
     final_CV = fopen(".\\..\\docs\\CV.tex", "w");
     
