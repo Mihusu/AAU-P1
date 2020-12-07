@@ -212,11 +212,11 @@ The process of finding the included sections can be described in three steps:
   \item 2. Q-Sort the struct after density value.
   \item 3. save what section ID's should be included in the final output, based on the density, in a bool array.
 \end{itemize}
-First a struct is created. This is to ensure, that after sorting after highest density, the origianl order is still maintained.
-This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around.
+First a struct is created. This is to ensure, that after sorting after highest density, the original order is still maintained.
+This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around. %Det skal ændres
 After that, a Q-sort algorithm is used from the standard library. This algorithm makes sure, that the highest density comes first.
 \\
-Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchat:
+Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchart:
 %\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array}
 \begin{figure}[H]
   \centering
