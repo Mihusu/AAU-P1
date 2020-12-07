@@ -52,9 +52,14 @@ what the essential functions were supposed to do, and which functions that were 
 
 \subsection{Read.c}
 \subsection{Filter.c}
-%Indsæt filter strukturen som billede
-
-%talk about what this part should do
+The filter file is the next step in the process to creating a new CV, after read.c has been executed.
+The filter.c file has the following structure and interaction with the main.c file:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/filter_flow.png}
+  \caption{Filter Sequence Diagram}
+\end{figure}
+The end result from the filter file will then later on be used in the format.c file.
 
 \subsubsection{Removing Personal Pronouns}
 After receiving the "free text" part, from the read.c file, we need to remove any personal pronouns.
@@ -111,10 +116,10 @@ In order to overcome the first problem, one could easily make a loop, to loop th
 and return a match. This is especially easy, since the small letters always has a 32 higher ASCII value from their capitalized counterpart.
 But after reading through the string library we found a function that does just the same comparison while ignoring capitalized letters: strcasecmp(n,r).
 \\
-The second problem has a quite a simple solution as well. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a '\\0'. 
-instead, thus making the string shorter.
+The second problem has a quite a simple solution as well. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a null terminator. 
+instead, thus making the string shorter. This is done, on a temporarily saved word, such that this temporarirly saved word can be used in the string compare function. This is done since we don't want to change the punctuation of the final output.
 \\
-The third problem, is the trickiest one of the bunch. To solve this we decided on using the levenshtein algorithm. 
+The third problem, is the trickiest one of the bunch. To solve this we decided on using an algorithm to find the levenshtein distance. 
 We found a translation of this algorithm in C and imported it\cite{levenshtein}.
 The way this algorithm works, is by finding the distance between words. The larger the distance, the greater the difference between the words.
 The algorithm determine distance as the amount of operations needed to change string A to string B. The algorithm uses 3 different types of operations:
@@ -131,12 +136,29 @@ to give an example of how these 3 operations can be applied:
   \item Turn "Sittin" into "Sitting"  (Insertion, adding a 'G')
 \end{itemize}
 
-as an example, the levenshtein distance between "computer" and "cmptr" is 3.
+as an example, the levenshtein distance between rain -> shine is 3, shine -> train is 4:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/levenshtein_example.png}
+  \caption{example of levenshtein distance, \cite{levenshtein_distance}}
+\end{figure}
 
-This quickly raises a problem though, since the distance between cat and hat is smaller than the distance
+The levenshtein distance can be defined using the following naive recursive definition where |a| and |b| is the distance of a and b respectively:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.7]{figures/levenshtein_recursive.png}
+  \caption{Naive Recursion, \cite{levenshtein_recursive_definition}}
+\end{figure}
+The tail part is the entire word minus the first letter.
+The base steps go as following: It returns the length of a as the distance, if the length of word b is zero, and vice versa.
+if the first letter of a and b equal each other, then it recursively runs the algorithm with the tail part of a and b.
+Otherwise, it finds the minimum value (assuming the operations are weighted differently) of either operation 1 (Deletion), 2 (Insertion) or 3 (Substitution) and adds 1 to the result.
+\\
+
+Using the levenshtein distance quickly raises a problem though, since the distance between cat and hat is smaller than the distance
 between artificial and artificially. 
 It's obvious that this isn't a spelling mistake, but 2 distinct words. Therefore we ran
-some tests, to see how long words need to be, before something like this doesn't happen. 
+some tests, to see how long words need to be, before something like this doesn't happen to often. 
 The problem quickly becomes, that the longer the requirement the better the accuracy. 
 But also the fewer words we can use the algorithm on, making the algorithm redundant.
 We came to the conclusion based on our tests, that having words with greater than 4 letters, would be
@@ -149,8 +171,8 @@ the max levenshtein distance should be under 4 letters.
 Retesting using these values, we find that in nearly all arbitrary cases, the levenshtein algorithm matches the right words.
 One problem may arise from the fact, that words can have different meanings in different contexts. Unfortunately taking account for semantics is out of the scope of this program.
 \\
-After using the levenshtein algorithm, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
-unnecessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
+After using the algorithm to find the levenshtein distance, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
+unnecessary parts of a string before finding the levenshtein distance, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
 is smaller than what it had to be, if we hadn't removed punctuation.
 \\
 The overall structure of this functions ends up looking like the following: %is_word_match "SKAL VÆRE HER"
@@ -176,7 +198,7 @@ are in a section. The boundaries for the density function is as follows: Density
 Where zero is that there is no matches in a section, and one, is that every single word matches. Though a problem quickly arises
 from doing it this way: A word may match with multiple keywords.\\
 \begin{itemize}
-  \item Section: "Great physic", keywords: "Physics, physicial".
+  \item Section: "physic expert", keywords: "Physics, physicial".
 \end{itemize}
 Since the levenshtein distance is only 3 between physic and physical, and 1 between physic and physics,
 the word physic will match with them both, thus potentilly creating a section with a density higher than the allowed 1.
@@ -249,7 +271,7 @@ This part isn't that interesting, but if you're interested, you can see it here:
 After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf. 
 This program will check the format and edited it accordingly to how a CV should be visualized.
 
-\subsubsection{Output capitalized}
+\subsubsection{Output Capitalized}
 In this first function it's about to capitalize a letter if needed.
 The function has there only one variable, a char array, since that's the only one other functions need.
 The function can be useful for all the contents in The CV,
