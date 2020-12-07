@@ -20,8 +20,6 @@ Date of birth: 11/06/1995
 
 
 #Freetext
-I took a highschool diploma in Biotechnology and chemistry: im capable of doing PCR testing.
-
 I learned to tackle multiple things at once, while working at Q8, since I was alone in the shop.
 
 I was responsible for handling company customers at Bauhaus.
@@ -30,44 +28,27 @@ My slogan is "if its worth doing, then its worth doing properly".
 
 Everything i do, i try to be a perfectionist about it.
 
-I'm fluent in english, danish and somewhat capable of understanding french and spanish due to my understanding of latin.
+I'm fluent in english and danish.
 
 My highschool exam project was using c sharp (unity) to make a game.
-
-During my education, i was the one who was the teamleader.
 
 I have elementary understand of business and economics.
 
 I have taken courses in analysis.
 
-i have done a BSc and MSc in engineering (software) at Aalborg university.
-
 Im incredibly disciplined, and work good in teams.
-
-I once had a girlfriend in highschool: She was incredibly dumb.
-She was horrible at school work though.
-
-My university focuses on teamwork, so i have lots of experience with larger groups.
 
 I have lots of skills in programming.
 
-I'm able to set up databases using SQL and net.
-
-My best friend is kinda stupid and rude, but still, he's lots of fun to be with.
-
-my worst enemy is sometimes also my best friend. Hes stupid though.
+I have a good fundamental understanding of databases.
 
 I take a large interest in electronics. i have done multiple projects.
 
 through university, i have learned c in depth.
 
-im capable of using machine learning using python.
-i also read a lot of statistics and probability theory to learn the theory behind it.
-i can use neural networks, to predict behavior.
-
 I'm proficient in C++.
 
-I have made my own website using Javascript, HTML5 and CSS
+I have made my own website using Javascript, HTML5 and CSS.
 
 I'm able to do mathematical optimization using matlab.
 
@@ -75,29 +56,60 @@ my earlier work include: working at a sushi restaurant, Bilka, bauhaus, Q8, and 
 because of this, im disciplined in customer service.
 
 I am also good at handling lots of things at once, without getting stressed out.
+I took a high school diploma in biotechnology: I finished with a grade of 10.7.
 
-Im a perfectionist, and incredible easy to work with in general.
+Throughout highschool, i joined a lot of extra curricala activities.
 
-in my childhood i used to mod games such as Minecraft. This ignited my interest in programming. Through this i learned Java.
+I love presenting: i have therefore heavily improved my oral skills.
 
-Through my Msc i specialized in machine learning.
+One of my core interests lie in history.
 
-I have had a focus on becoming really good at cryptography
+I love discussion philosophy, and especially moral ambiguities.
 
-I have great social skills, and am generally easy to speak with.
+I read a lot of philosophy in my free time.
 
-i have the ability to predict the future using magic.
+I'm concise and well spoken in my communication.
 
-I speak both danish and english, and have no trouble speaking both.
+I was an incredible dedicated person.
 
-I have a large interest in philosophy, especially exsistentialism and moral ambiguity.
+I have done multiple extra projects in my free time.
 
-I love reading Roman history in my free time.
+I have made my own self driving RC car.
 
-I usually speak Arabic at home, and especially in work if needed.
+I have made a robot, that can drive on its own.
 
-I have had a well-being ambassador course to help people with the social.
+I have spent a lot of time during integrated circuits in my free time.
 
-I'm an expert in baking different cakes
+I once made an embedded electronic watch/thermometer for my girlfriend.
 
-In 2018 I won a baking competition.
+I love helping people.
+
+I have taken a BSc and MSc degree in software engineering.
+
+My Bsc was focused on group work, which has honned my team skills.
+
+I was always the teamleader during group projects.
+
+We did a multi group project, which made me good at agile and large scale software development.
+
+I have experience using Git as a resource management tool.
+
+I specialized in articifial intelligence and cloud computing.
+
+I have expertise in javascript, .Net, Css, Html, SQL to do general web programming.
+
+I have experience in python using their libraries to do machine learning.
+
+I have good experience using Java
+
+I have done a lot of lowlevel programming, including: microproccessor programming, and using the language C.
+
+I have skills in optimization, more specifically how to use financial and management optimizaiton.
+
+I have Multiple years of experience in algorithms and datastructures.
+
+I'm capable of tackling most complex computer science problems.
+
+I have experience coding in Windows and linux.
+
+Experience using scrum meetings as a part of the everyday organisational process.
