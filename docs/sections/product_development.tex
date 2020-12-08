@@ -75,7 +75,7 @@ To remove all personal pronouns before filtering the rest of the text, we made t
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 1]{figures/personal_pronoun_v2.png}
-  \caption{Remove Personal Pronouns Function}\label{fig:ie}
+  \caption{Remove Personal Pronouns Function}\label{fig:personal_pronoun_v2}
 \end{figure}
 
 It's a pretty simple function. To start it reads a certain section. Then it removes all personal pronouns at the start of each sentence in that section.
@@ -182,7 +182,7 @@ The overall structure can be described as this:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.55]{figures/is_match}
-  \caption{Flow diagram of word matching}\label{fig:ie}
+  \caption{Flow diagram of word matching}\label{fig:is_match}
 \end{figure}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
@@ -191,7 +191,7 @@ calculations, so that the run time is optimized as much as possible.\\
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 1]{figures/section_density_v2}
-  \caption{Density and weight function}\label{fig:ie}
+  \caption{Density and weight function}\label{fig:section_density_v2}
 \end{figure}
 Section density is based on the same concepts as in physics: Weight(mass)/Volume = Density.
 In this case, weight is how many times in a section different words match with a keyword, and volume is how many words there
@@ -227,7 +227,7 @@ Even though one of the words match with 2, and the other, though misspelled, als
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 1]{figures/includefunction_v2.png}
-  \caption{Inclusion Function}\label{fig:ie}
+  \caption{Inclusion Function}\label{fig:includefunction_v2}
 \end{figure}
 The process of finding the included sections can be described in three steps:
 \begin{itemize}
