@@ -1,26 +1,26 @@
 \section{Product Development}\label{sec:product_development}
 \subsection{Planing phase}
 Before building the program, we brainstormed and created a Minimal Viable Product (MVP).
-This MVP (which can be seen illustrate beneeth) is a general high level schematic outlining what our program is supposed to do.
+This MVP (which can be seen illustrate beneath) is a general high level schematic outlining what our program is supposed to do.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/engMVP}
   \caption{MVP}
 \end{figure}
-Here we discussed what are the most essential parts, and came to the conclusion that the following things
-were needed: The Users skills/abilities and the information from the vacant job position. These things
+Here we discussed what were the most essential parts, and came to the conclusion that the following things
+were needed: The users skills/abilities and the information from the vacant job position. These things
 should be transformed into a custom application. 
 
 
-After further consideration, we had encountered a problem, that generating a custom CV from nothing but
+After further consideration, we had encountered a problem: That generating a custom CV from nothing but
 skills/abilities would create a very childlike, maybe even unreadable, application. This could be solved with a lot
 of data, and therefore a lot of time calibrating the process of automatically creating sentences. This may also result
 in a lower quality application, if this calibration doesn't happen. 
 A CV, that might and might not even get through the "ATS/keyword scanner" outlined in the analysis. 
 
 We therefore sought to instead create a filter, where the high quality sentences would be somewhat guaranteed and maintained.
-This filter is only supposed to filter out all the unneccessary parts of a longer quality CV, into an application that
+This filter is only supposed to filter out all the unnecessary parts of a longer quality CV, into an application that
 is ready to be sent. In other words, we decided to instead concentrate on creating a tool that aids
 in sending out applications, instead of a CV generation program.
 
@@ -30,7 +30,7 @@ We then changed the MVP schematic to the following:
   \includegraphics[scale = 0.6]{figures/Program_process_diagram.png}
   \caption{Revised MVP}
 \end{figure}
-This program is supposed to take in the keywords/job application, some formel requirements for
+This program is supposed to take in the keywords/job application, some formal requirements for
 the structure of the new CV, and the originally long CV.
  
 The long CV should contain as many pages as possible, of all abilities and skills one has.
@@ -52,9 +52,14 @@ what the essential functions were supposed to do, and which functions that were 
 
 \subsection{Read.c}
 \subsection{Filter.c}
-%Indsæt filter strukturen som billede
-
-%talk about what this part should do
+The filter file is the next step in the process to creating a new CV, after read.c has been executed.
+The filter.c file has the following structure and interaction with the main.c file:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/filter_flow.png}
+  \caption{Filter Sequence Diagram}
+\end{figure}
+The end result from the filter file will then later on be used in the format.c file.
 
 \subsubsection{Removing Personal Pronouns}
 After receiving the "free text" part, from the read.c file, we need to remove any personal pronouns.
@@ -69,13 +74,14 @@ To remove all personal pronouns before filtering the rest of the text, we made t
 %\incfigure{figures/personal_pronoun}{fig: pp function}{Remove personal pronouns function}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale = 0.6]{figures/personal_pronoun.png}
-  \caption{Remove Personal Pronouns Function}
+  \includegraphics[scale = 1]{figures/personal_pronoun_v2.png}
+  \caption{Remove Personal Pronouns Function}\label{fig:ie}
 \end{figure}
+
 It's a pretty simple function. To start it reads a certain section. Then it removes all personal pronouns at the start of each sentence in that section.
 It loops through it, until there is no longer any personal pronouns left.
 \\
-In order to identity which words are personal pronouns, we have hardcoded a list of personal pronouns\cite{english_personal_pronouns} (including some words that are also unneccessary), that will be 'case insensitive compared'.
+In order to identity which words are personal pronouns, we have hardcoded a list of personal pronouns\cite{english_personal_pronouns} (including some words that are also unnecessary), that will be 'case insensitive compared'.
 Each time a word is identified as a personal pronoun, a loop swaps all the words 1 to the left in the array, where the last word in that array will then be freed.
 \\
 There are also some hardcoded punctuation symbols, to indicate what is defined as the "start of a sentence". 
@@ -111,10 +117,10 @@ In order to overcome the first problem, one could easily make a loop, to loop th
 and return a match. This is especially easy, since the small letters always has a 32 higher ASCII value from their capitalized counterpart.
 But after reading through the string library we found a function that does just the same comparison while ignoring capitalized letters: strcasecmp(n,r).
 \\
-The second problem has a quite a simple solution as well. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a '\\0'. 
-instead, thus making the string shorter.
+The second problem has a quite a simple solution as well. Using the ASCII value of different kinds of punctuation symbols, we can easily remove these symbols by inserting a null terminator. 
+instead, thus making the string shorter. This is done, on a temporarily saved word, such that this temporarily saved word can be used in the string compare function. This is done since we don't want to change the punctuation of the final output.
 \\
-The third problem, is the trickiest one of the bunch. To solve this we decided on using the levenshtein algorithm. 
+The third problem, is the trickiest one of the bunch. To solve this we decided on using an algorithm to find the levenshtein distance. 
 We found a translation of this algorithm in C and imported it\cite{levenshtein}.
 The way this algorithm works, is by finding the distance between words. The larger the distance, the greater the difference between the words.
 The algorithm determine distance as the amount of operations needed to change string A to string B. The algorithm uses 3 different types of operations:
@@ -131,12 +137,29 @@ to give an example of how these 3 operations can be applied:
   \item Turn "Sittin" into "Sitting"  (Insertion, adding a 'G')
 \end{itemize}
 
-as an example, the levenshtein distance between "computer" and "cmptr" is 3.
+as an example, the levenshtein distance between rain -> shine is 3, shine -> train is 4:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/levenshtein_example.png}
+  \caption{example of levenshtein distance, \cite{levenshtein_distance}}
+\end{figure}
 
-This quickly raises a problem though, since the distance between cat and hat is smaller than the distance
+The levenshtein distance can be defined using the following naive recursive definition where |a| and |b| is the distance of a and b respectively:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.7]{figures/levenshtein_recursive.png}
+  \caption{Naive Recursion, \cite{levenshtein_recursive_definition}}
+\end{figure}
+The "tail" part is the entire word minus the first letter.
+The base steps go as following: It returns the length of a as the distance, if the length of word b is zero, and vice versa.
+if the first letter of a and b equal each other, then it recursively runs the algorithm with the tail part of a and b.
+Otherwise, it finds the minimum value (assuming the operations are weighted differently) of either operation 1 (Deletion), 2 (Insertion) or 3 (Substitution) and adds 1 to the result.
+\\
+
+Using the levenshtein distance quickly raises a problem though, since the distance between cat and hat is smaller than the distance
 between artificial and artificially. 
 It's obvious that this isn't a spelling mistake, but 2 distinct words. Therefore we ran
-some tests, to see how long words need to be, before something like this doesn't happen. 
+some tests, to see how long words need to be, before something like this doesn't happen to often. 
 The problem quickly becomes, that the longer the requirement the better the accuracy. 
 But also the fewer words we can use the algorithm on, making the algorithm redundant.
 We came to the conclusion based on our tests, that having words with greater than 4 letters, would be
@@ -144,13 +167,13 @@ the best compromise between length and accuracy.
 \\
 Now the problem is, what distance is accepted as 2 words being the same?
 Here the problem also becomes, that grammatical endings are still the same words, just conjugated.
-Based on a list of grammatical endings, the longest English ending adds a surfix of 3 letters\cite{grammar_endings}. Thus,
+Based on a list of grammatical endings, the longest English ending adds a suffix of 3 letters\cite{grammar_endings}. Thus,
 the max levenshtein distance should be under 4 letters.
 Retesting using these values, we find that in nearly all arbitrary cases, the levenshtein algorithm matches the right words.
 One problem may arise from the fact, that words can have different meanings in different contexts. Unfortunately taking account for semantics is out of the scope of this program.
 \\
-After using the levenshtein algorithm, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
-unnecessary parts of a string before using the levenshtein algorithm, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
+After using the algorithm to find the levenshtein distance, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
+unnecessary parts of a string before finding the levenshtein distance, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
 is smaller than what it had to be, if we hadn't removed punctuation.
 \\
 The overall structure of this functions ends up looking like the following: %is_word_match "SKAL VÆRE HER"
@@ -158,8 +181,8 @@ The overall structure of this functions ends up looking like the following: %is_
 The overall structure can be described as this:
 \begin{figure}[H]
   \centering
-  \includegraphics[scale = 0.6]{figures/is_match}
-  \caption{Flow diagram of word matching}
+  \includegraphics[scale = 0.55]{figures/is_match}
+  \caption{Flow diagram of word matching}\label{fig:ie}
 \end{figure}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
@@ -167,8 +190,8 @@ calculations, so that the run time is optimized as much as possible.\\
 \subsubsection{Section Density}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale = 0.6]{figures/section_density}
-  \caption{Density and weight function}
+  \includegraphics[scale = 1]{figures/section_density_v2}
+  \caption{Density and weight function}\label{fig:ie}
 \end{figure}
 Section density is based on the same concepts as in physics: Weight(mass)/Volume = Density.
 In this case, weight is how many times in a section different words match with a keyword, and volume is how many words there
@@ -176,14 +199,14 @@ are in a section. The boundaries for the density function is as follows: Density
 Where zero is that there is no matches in a section, and one, is that every single word matches. Though a problem quickly arises
 from doing it this way: A word may match with multiple keywords.\\
 \begin{itemize}
-  \item Section: "Great physic", keywords: "Physics, physicial".
+  \item Section: "physic expert", keywords: "Physics, physicial".
 \end{itemize}
 Since the levenshtein distance is only 3 between physic and physical, and 1 between physic and physics,
-the word physic will match with them both, thus potentilly creating a section with a density higher than the allowed 1.
+the word physic will match with them both, thus potentially creating a section with a density higher than the allowed 1.
 To fix this issue, there was made a break condition for the weight loop, if a word from the section matched with a keyword.
 The break function makes it such that no word could match with more than 1 keyword.
 \\
-Once the sections density has been calculated, the calculated density will be saved chonologically in a calloc'ed array of double values. 
+Once the sections density has been calculated, the calculated density will be saved chronologically in a calloc'ed array of double values. 
 This will be used to asses which sections are the most "important", from the definition that the more keyword matches, the greater the importance.
 \\
 Printing the result from this, we can see:
@@ -196,25 +219,36 @@ Printing the result from this, we can see:
 Thus it can easily be seen, which sections may be best suited for the job opening. 
 In this case, an example of a job opening specializing in software.
 
-To demonstrate that the functions work, it can be seen that both line 8 and 9 gets printet with a result of exactly 1.
+To demonstrate that the functions work, it can be seen that both line 8 and 9 gets printed with a result of exactly 1.
 Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
 
 \subsubsection{Included Sections and Generation}
 %\incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale = 0.6]{figures/includefunction.png}
-  \caption{Inclusion Function}
+  \includegraphics[scale = 1]{figures/includefunction_v2.png}
+  \caption{Inclusion Function}\label{fig:ie}
 \end{figure}
 The process of finding the included sections can be described in three steps:
 \begin{itemize}
-  \item 1. Create tuple struct holding the density value, and the section ID.
+  \item 1. Create a tuple struct holding the density value, and the section ID.
   \item 2. Q-Sort the struct after density value.
   \item 3. save what section ID's should be included in the final output, based on the density, in a bool array.
 \end{itemize}
 First a struct is created. This is to ensure, that after sorting after highest density, the original order is still maintained.
-This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around. %Det skal ændres
-After that, a Q-sort algorithm is used from the standard library. This algorithm makes sure, that the highest density comes first.
+This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around.
+After that, a Q-sort algorithm is used from the standard library. This algorithm makes sure, that the highest density comes first, by sorting by densities.
+Q-sort is based on quick sort, which is a type of divide and conquer algorithm. Which as the name suggests, divides the list (array) into atomic parts, and conquers the parts, such that the new list is sorted.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.7]{figures/qsort.png}
+  \caption{Quick Sort \cite{quicksort}}
+\end{figure}
+The way it works, is that it chooses a pivot point, traditionally randomly, the left most or the right most element.
+In more modern versions of quick sort, the pivot point is chosen as the median. The rest of the list is then divided up into 2 lists.
+The elements of the 2 lists are chosen by wether they're are smaller or larger than the pivot point.
+A new pivot point is selected, and this process continues until each list only contains one element. 
+Then the elements can be recombined in the new order, and thus the list (array) us sorted.
 \\
 Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchart:
 %\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array}
@@ -235,16 +269,17 @@ Here is an example, of it working:
   \includegraphics[scale = 0.6]{figures/bool_example.png}
   \caption{Example of the Bool Array}
 \end{figure}
-The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determins should be included, and saves it into a long string.
+The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determines should be included, and saves it into a long string.
 Starting from the lowest section ID to the highest ID. \\
-The process of getting here is a little more complex, since it requires a lot of dynamic arrays, and inserting a lot of Null terminators, such  that it doesn't print null pointers.
-This part isn't that interesting, but if you're interested, you can see it here:
+The process of getting here is a little more complex, since it requires a lot of dynamic arrays, and inserting a lot of Null terminators, such that it doesn't print null pointers (I.e "(NULL)" ).
+
+%This part isn't that interesting, but if you're interested, you can see it here:
 %\incfigure{figures/generate}{fig: generate function}{Text Generation Function}
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale = 0.6]{figures/generate.png}
-  \caption{Text Generation Function}
-\end{figure}
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[scale = 0.6]{figures/generate.png}
+%  \caption{Text Generation Function}\label{fig:ie}
+%\end{figure}
 
 \subsection{Format.c}
 After the CV has been filtered, our next plan is to print out the text to a LaTeX format, and afterwords compile it to a pdf file. 
@@ -257,7 +292,7 @@ and it's done accordingly to this diagram.
   \caption{Flow diagram for coming to format.c}
 \end{figure}
 
-\subsubsection{Output capitalized}
+\subsubsection{Output Capitalized}
 In this first function it's about to capitalize a letter if needed.
 The function has there only one variable, a char array, since that's the only one other function need.
 The function can be useful for all the contents in the CV,
@@ -266,7 +301,7 @@ We must two integer markers to indicate the index of an array,
 and right now, it's outside the index, because if the markers were inside the index 
 then the markers will have to count the first index as a space, 
 and then the first character will be at the second index instead. %Er ikke sikker på denne sætning. Spørg Mikkel - Ming
-To see the length of the string, it best to use the function strlen, this will know the exact length of each string. \\
+To see the length of the string, it best to use the function strlen(), this will know the exact length of each string. \\
 
 As a standard for any other text the first paragraph for the first letter should always be capitalized with the function toupper.
 This function comes from the c-type header that are included at the top.
