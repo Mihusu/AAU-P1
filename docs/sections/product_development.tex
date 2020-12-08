@@ -248,7 +248,14 @@ This part isn't that interesting, but if you're interested, you can see it here:
 
 \subsection{Format.c}
 After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf. 
-This program will check the format and edited it accordingly to how a CV should be visualized.
+This program will check the format and edited it accordingly to how a CV should be visualized. 
+There are several step before entering the main function for format.c,
+and it is done accordingly to this diagram.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.43]{figures/Fra_read.c_og_filter.c_format.c}
+  \caption{Flow diagram for coming to format.c}
+\end{figure}
 
 \subsubsection{Output capitalized}
 In this first function it's about to capitalize a letter if needed.
@@ -270,7 +277,8 @@ because of LaTeX either needs to have double backslashes, a par or a newline com
 in order to do a line break. So first the program will do a for loop to check the length of the char array,
 it will so by -1 because it has to end at an exclamation point.\\
 
-The integer 'i' should always go up by 1, if the it's still lower than the length, and that means until the text is finally done 
+The integer 'i' should always go up by 1 if the it's still lower than the length, 
+and that means until the text is finally done 
 it will continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
 the letter will be either after a space and if the writer decides to make line break also if the marker index 2 is still equal to 'i'.
 There is also a chance if the text turns up to have a dot, question mark or an exclamation mark, 
@@ -320,13 +328,14 @@ As long as the file is created or overwritten the rest of the program will also 
 the functions from all above is being included to run and build the document into latex and later on a pdf file.
 
 There are included a LaTeX format to enhance readability for the user and recruit when reading it
-to the program. A picture af yourselves is required for most of the jobs that are available.
+to the program. This 
+A picture af yourselves is required for most of the jobs that are available. 
 
 \subsection{Main.c}
 \subsection{Makefile}
 
 \subsection{TKOP-model}
-A good way to describe the production could be the TVOP-model also known as technique, knowledge, organization and product.
+A good way to describe the production could be the TKOP-model also known as technique, knowledge, organization and product.
 It gives an easy impression of what the project group had performed.
 First the technique, and to create a product for our project is essential to find a solution, 
 one must use a number of techniques including C-programming, latex and github techniques.
