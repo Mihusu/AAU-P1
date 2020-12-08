@@ -3,7 +3,11 @@
 Before building the program, we brainstormed and created a Minimal Viable Product (MVP).
 This MVP (which can be seen illustrate beneeth) is a general high level schematic outlining what our program is supposed to do.
 
-\incfigure{figures/engMVP}{fig: Minimal Viable Product}{MVP}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/engMVP}
+  \caption{MVP}
+\end{figure}
 Here we discussed what are the most essential parts, and came to the conclusion that the following things
 were needed: The Users skills/abilities and the information from the vacant job position. These things
 should be transformed into a custom application. 
@@ -21,7 +25,11 @@ is ready to be sent. In other words, we decided to instead concentrate on creati
 in sending out applications, instead of a CV generation program.
 
 We then changed the MVP schematic to the following:
-\incfigure{figures/Program_process_diagram}{fig: Revised Minimal Viable Product}{Revised MVP} \newline
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/Program_process_diagram.png}
+  \caption{Revised MVP}
+\end{figure}
 This program is supposed to take in the keywords/job application, some formel requirements for
 the structure of the new CV, and the originally long CV.
  
@@ -34,7 +42,7 @@ and from the structural requirements creates a new CV.
 From here we decided to organize our MVP into a UML diagram, to make it more apparent
 what the essential functions were supposed to do, and which functions that were essential:
 %\incfigure{figures/UML}{fig: UML}{UML}
-\begin{figure} 
+\begin{figure}[H]
   \raggedright
   \hspace*{-1in}
   \includegraphics[scale = 0.50,left]{figures/UML}
@@ -58,8 +66,12 @@ As talked about in the background section, not using personal pronouns increases
 chances of getting an interview by 55 percent.
 \\
 To remove all personal pronouns before filtering the rest of the text, we made the following function:
-\incfigure{figures/personal_pronoun}{fig: pp function}{Remove personal pronouns function}
-\\
+%\incfigure{figures/personal_pronoun}{fig: pp function}{Remove personal pronouns function}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/personal_pronoun.png}
+  \caption{Remove Personal Pronouns Function}
+\end{figure}
 It's a pretty simple function. To start it reads a certain section. Then it removes all personal pronouns at the start of each sentence in that section.
 It loops through it, until there is no longer any personal pronouns left.
 \\
@@ -69,7 +81,12 @@ Each time a word is identified as a personal pronoun, a loop swaps all the words
 There are also some hardcoded punctuation symbols, to indicate what is defined as the "start of a sentence". 
 \\
 this results in the following:
-\incfigure{figures/personal_pronoun_ex}{fig: pp example}{Removing Personal Pronouns example}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/personal_pronoun_ex.png}
+  \caption{Removing Personal Pronouns Example}
+\end{figure}
+%\incfigure{figures/personal_pronoun_ex}{fig: pp example}{Removing Personal Pronouns example}
 
 As we can see, the filtered result is much cleaner and easier to read, without losing any information.
 There is only problem left with it. Since the words are just shifted 1 to the left in the array, the sentence no longer begins
@@ -109,9 +126,9 @@ The algorithm determine distance as the amount of operations needed to change st
 
 to give an example of how these 3 operations can be applied:
 \begin{itemize}
-  \item Cat  Fat  (Substitution, 'C' with 'F')
-  \item Fart  Far  (Deletion, removing the 'T')
-  \item Sittin  Sitting  (Insertion, adding a 'G')
+  \item Turn "Cat" into "Fat"  (Substitution, 'C' with 'F')
+  \item Turn "Fart" into "Far"  (Deletion, removing the 'T')
+  \item Turn "Sittin" into "Sitting"  (Insertion, adding a 'G')
 \end{itemize}
 
 as an example, the levenshtein distance between "computer" and "cmptr" is 3.
@@ -142,13 +159,17 @@ The overall structure can be described as this:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/is_match}
-  \caption{Flow diagram of word matching}\label{fig:ie}
+  \caption{Flow diagram of word matching}
 \end{figure}
 
 The structure is constructed as a chain of if statements, to avoid unneccessary
 calculations, so that the run time is optimized as much as possible.\\
 \subsubsection{Section Density}
-\incfigure{figures/section_density}{fig: density function}{Density and weight function}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/section_density}
+  \caption{Density and weight function}
+\end{figure}
 Section density is based on the same concepts as in physics: Weight(mass)/Volume = Density.
 In this case, weight is how many times in a section different words match with a keyword, and volume is how many words there
 are in a section. The boundaries for the density function is as follows: Density goes from zero to one. 
@@ -166,7 +187,12 @@ Once the sections density has been calculated, the calculated density will be sa
 This will be used to asses which sections are the most "important", from the definition that the more keyword matches, the greater the importance.
 \\
 Printing the result from this, we can see:
-\incfigure{figures/density_example}{fig: density example}{Density array printet}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/density_example.png}
+  \caption{Density Array Printed}
+\end{figure}
+%\incfigure{figures/density_example}{fig: density example}{Density array printet}
 Thus it can easily be seen, which sections may be best suited for the job opening. 
 In this case, an example of a job opening specializing in software.
 
@@ -174,34 +200,127 @@ To demonstrate that the functions work, it can be seen that both line 8 and 9 ge
 Even though one of the words match with 2, and the other, though misspelled, also matches with 2.
 
 \subsubsection{Included Sections and Generation}
-\incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
+%\incfigure{figures/includefunction}{fig: inclusionfunction}{Inclusion Function}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/includefunction.png}
+  \caption{Inclusion Function}
+\end{figure}
 The process of finding the included sections can be described in three steps:
 \begin{itemize}
   \item 1. Create tuple struct holding the density value, and the section ID.
   \item 2. Q-Sort the struct after density value.
   \item 3. save what section ID's should be included in the final output, based on the density, in a bool array.
 \end{itemize}
-First a struct is created. This is to ensure, that after sorting after highest density, the origianl order is still maintained.
-This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around.
+First a struct is created. This is to ensure, that after sorting after highest density, the original order is still maintained.
+This is important, since it can make it unreadable, if all the sections are mumbo jumbo'ed around. %Det skal ændres
 After that, a Q-sort algorithm is used from the standard library. This algorithm makes sure, that the highest density comes first.
 \\
-Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchat:
-\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array} \newline
+Next, a bool array is created and calloc'ed. The values for the bool array are determined following this flowchart:
+%\incfigure{figures/include_flow}{fig: inclusion flowchart}{Flow diagram of the bool array}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/include_flow.png}
+  \caption{Flow Diagram of the Bool Array}
+\end{figure} 
+%\newline
 In order to determin what sections should be included, a while loop is run, until a certain amount of words are included.
 The amount of allowed words in the output is restricted to around 650, as that is the range, which grants the most amount of interviews.
 That is, according to the research as described in the background section.
 \\ \\
 Here is an example, of it working: 
-\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array} 
-
+%\incfigure{figures/bool_example}{fig: bool diagram}{Example of the bool array} 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/bool_example.png}
+  \caption{Example of the Bool Array}
+\end{figure}
 The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determins should be included, and saves it into a long string.
-Starting from the lowest section ID to the highest ID. 
+Starting from the lowest section ID to the highest ID. \\
 The process of getting here is a little more complex, since it requires a lot of dynamic arrays, and inserting a lot of Null terminators, such  that it doesn't print null pointers.
 This part isn't that interesting, but if you're interested, you can see it here:
-\incfigure{figures/generate}{fig: generate function}{Text Generation Function}
+%\incfigure{figures/generate}{fig: generate function}{Text Generation Function}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/generate.png}
+  \caption{Text Generation Function}
+\end{figure}
 
 \subsection{Format.c}
-After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf 
+After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf. 
+This program will check the format and edited it accordingly to how a CV should be visualized.
+
+\subsubsection{Output capitalized}
+In this first function it's about to capitalize a letter if needed.
+The function has there only one variable, a char array, since that's the only one other function need.
+The function can be useful for all the contents in the CV,
+and that can be either the general information, education, work experience or free text.
+We must two integer markers to indicate the index of an array, 
+and right now, it's outside the index, because if the markers were inside the index 
+then the markers will have to count the first index as a space, 
+and then the first character will be at the second index instead. %Er ikke sikker på denne sætning. Spørg Mikkel - Ming
+To see the length of the string, it best to use the function strlen, this will know the exact length of each string. \\
+
+As a standard for any other text the first paragraph for the first letter should always be capitalized with the function toupper.
+This function comes from the c-type header that are included at the top.
+
+After a space, dot, question mark or an exclamation mark, there are always a capitalized letter after those markings,
+at the same time the program needs to check after line breaks, 
+because of LaTeX either needs to have double backslashes, a par or a newline command
+in order to do a line break. So first the program will do a for loop to check the length of the char array,
+it will so by -1 because it has to end at an exclamation point.\\
+
+The integer 'i' should always go up by 1, if the it's still lower than the length, and that means until the text is finally done 
+it will continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
+the letter will be either after a space and if the writer decides to make line break also if the marker index 2 is still equal to 'i'.
+There is also a chance if the text turns up to have a dot, question mark or an exclamation mark, 
+This will let the marker index 1 and 2 have their value changed by +1, since the program will afterwards look for a space.\\
+
+\subsubsection{LaTeX general Contents}
+The most crutial part is how to output the entire text from an ordinary text to LaTeX format.
+output general contents has a char array that will take the whole section from general contents and added it in the CV,
+also, there are a file handling variable as well to output the text to a specific file. 
+
+If there are any small letters that should be capitalized output capitalized will do this specific job.
+Finally, the general text will begin at the center with a LaTeX command, follow up by a minipage command, 
+and at last make the textwidth smaller, so the text will be moved more at the left side, and the title is auto generated. \\
+
+General contents from read.c will not be sorted or anything similar 
+since it doesn't need to be filtered from filter.c.
+Output of the text will be a string from the char array and end it with minipage and hfill - the unused lines will be used by this command in LaTeX.
+After hfill has been executed the output of a picture is need right beside the general info.
+It is the same method that has been describe just right from above, only the difference is that includegraphics is just to load a picture 
+
+\subsubsection{handling essential contents and free text}
+Essential contents have a char array with three pointers, since the first one will handle the sentences,
+next ones with the words and last is the letters. An opportunity for adding educations and work experiences is possible.
+These will therefore have a n amount of itemizes and n number of items in an itemize.
+The program will start printing out the self-selected subtitle and n number of itemizes.
+Texts under a hashtag are being loaded from read.c and it will afterwords be sent to final CV and that is CV.tex.\\
+ 
+To check the amount of itemizes for the essential contents it will so by using a for loop to check each of the value,
+and after the 'i' is bigger than amount of itemizes - the amount of itemizes is coming from read.c.
+We are checking after hashtags and the text as well, since it is the best way of not making mistakes for handling the essential contents
+therefore, the array essential contents variable will print out as a 2-dimension array for the section part both in index 0.
+Same goes for the number of items to output since there can be n amount of jobs to writes, 
+therefore, the program is using a for loop to run down after how many jobs that has been transferred from read.c.
+The arrays has also 2 dimensions, first for checking the amount of itemizes [i] and for the number of items [j] in the indexes.
+At the end of items is the end of itemize, and that will stop the for loops before the end. \\
+
+As for the free text this only function that are being filtered by filter.c. It is fairly simple, 
+the text that are being received is just a char array and will therefore be treated as a string 
+just like before for the general information. All information is going to the CV file at the end of the function.
+It will have a static title so no one is going to edit it.
+
+\subsubsection{Run the whole LaTeX document}
+This function will create or overwrite a file if possible. There can be various kinds of reason why a file can't be created.
+If the file can't be opened that will be the end of the program to continue, 
+and it will go out with a message "Cannot open file".
+As long as the file is created or overwritten the rest of the program will also run, 
+the functions from all above is being included to run and build the document into latex and later on a pdf file.
+
+There are included a LaTeX format to enhance readability for the user and recruit when reading it
+to the program. A picture af yourselves is required for most of the jobs that are available.
 
 \subsection{Main.c}
 \subsection{Makefile}
@@ -217,11 +336,11 @@ also it will help the writer and reader to read in the future. \\
 
 This takes one to have a fair amount of knowledge about the functions.
 First of all knowledge about a CV, and how to use the knowledge is a important factor.
-We have researched programming online about the functions that we didn't know about, 
-and afterwords we will implement this to our code and see if it's working. If not then we can research more about the exact problem.
+The group have researched programming online about the functions that we didn't know about, 
+and afterwords this will implement this to our code and see if it's working. If not then we can research more about the exact problem.
 That's the waterfall model we have been used, not directly but it has been done in order to our code works.
-\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model} 
-\newpage
+\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model \cite{Waterfall_model}}
+
 It has the elements that has been implemented in our coding. First we have the requirements for the program, 
 so we can have functionally program, next we will design with the help from a UML diagram, 
 so we know what should have in the program. Implementation of the program comes next, so we could test it later, 
@@ -234,4 +353,28 @@ Each small group still needs to know future updates about the development with t
 To get an overview, we have made temporary division of labor
 schedule, so the group can clearly see what can be done at the same time. \\
 
-At last there is a product, a program from C that wil 
+At last our product is a program from C that will help to generate a CV. This way the CV can be made multiple times,
+that means the use value will be very high for a applicant will have a greater chance of getting a job interview,
+rather than a ATS scanner will decline a CV, even though the text is very detailed with a lot good points.
+The C-program it self will not make the CV but it is an extension of a complex way to load from a other text editor
+other than LaTeX, then compile it to LaTeX, so the tex file will make a pdf for the person.\\
+
+If the whole process should be looked of different levels then there is five of them:
+
+\begin{enumerate}
+  \item Our program should be researched in four different aspects 
+  \begin{enumerate}
+    \item Knowledge to find the rights methods 
+    \item Techniques to develop the product
+    \item A strategy to give every single person a piece of the project, so all have an issue to work with.
+    \item Knowledge about the product it self, and summarize the parts from all the issues to make a final product.
+  \end{enumerate}
+  \item Knowledge about the product of creating a CV.
+  \item After gaining the knowledge,
+        we can start coding for our software solution with help of programming techniques
+  \item Our product has a long code with more function than the group it self, 
+        Organize for each individual in the group is the key to get the project done faster.
+  \item After making the product, comes the testing where it can be done with help of experts in CV.
+        This process will afterwards lead to testing with the applicants if it is good enough of our criteria.
+        All the coding parts will be added together in a readable way, and summarize all of it into a pdf file from a makefile.
+\end{enumerate}

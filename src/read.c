@@ -31,32 +31,32 @@ int main(void){
     return 0;
 } // */
 
-void start_read(char ***theKeywords_ppp, int *nKword_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *initialWords_p){
+void start_read(char ***the_keywords_ppp, int *n_kword_p, char ****cv_long_Itemized_pppp, int *n_itemizes_p, int **n_itemized_content_pp, char ****cv_long_sections_pppp, int *n_sections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *initial_words_p){
 
     //char *fnLongCV = malloc(); // In case of user defined file name
-    FILE *theLongCV, *theKeywords;
+    FILE *the_long_CV, *the_keywords;
     char *cvTotalText_p, *keywordsTotalText_p;
-    theLongCV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
-    theKeywords = fopen("Keywords.txt", "r");
-    if(theLongCV == NULL || theKeywords == NULL){
+    the_long_CV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
+    the_keywords = fopen("Keywords.txt", "r");
+    if(the_long_CV == NULL || the_keywords == NULL){
         // Error, can't open file.
         printf("\nError can't open input file(s)\n"); // temp remove later
         exit(EXIT_FAILURE);
     }
-    text_reader(theLongCV, &cvTotalText_p);
-    tag_searcher(cvTotalText_p, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, cvGInfo_pp, initialWords_p);
+    text_reader(the_long_CV, &cvTotalText_p);
+    tag_searcher(cvTotalText_p, cv_long_Itemized_pppp, n_itemizes_p, n_itemized_content_pp, cv_long_sections_pppp, n_sections_p, nSectionWords_pp, cvGInfo_pp, initial_words_p);
     free(cvTotalText_p);
-    text_reader(theKeywords, &keywordsTotalText_p);
-    worder(keywordsTotalText_p, theKeywords_ppp, nKword_p);
+    text_reader(the_keywords, &keywordsTotalText_p);
+    worder(keywordsTotalText_p, the_keywords_ppp, n_kword_p);
     free(keywordsTotalText_p);
 } 
 
-void the_ending(char **theKeywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int *nSectionWords_p, char *cvGInfo_p) {
+void the_ending(char **the_keywords_pp, int nKword, char ***cvLongItemiced_ppp, int nItemices, int *nItemicedContent_p, char ***cvLongSections_ppp, int nSections, int *nSectionWords_p, char *cvGInfo_p) {
     int i, j;
     for(i = 0; i < nKword; i++){
-        free(theKeywords_pp[i]);
+        free(the_keywords_pp[i]);
     }
-    free(theKeywords_pp);
+    free(the_keywords_pp);
     for(i = 0; i < nItemices; i++){
         for(j = 0; j < nItemicedContent_p[i]; j++){
             free(cvLongItemiced_ppp[i][j]);
@@ -194,7 +194,7 @@ void worder(char *cleanText_p, char ***wordsOut_ppp, int *nWordsOut_p){
     *nWordsOut_p = nTheWords;
 }
 
-void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *wordCounter_p){
+void tag_searcher(char *fileCleanText_p, char ****cv_long_Itemized_pppp, int *n_itemizes_p, int **n_itemized_content_pp, char ****cv_long_sections_pppp, int *n_sections_p, int **nSectionWords_pp, char **cvGInfo_pp, int *wordCounter_p){
     // Handels tag splitting of the longCV.
     int currentChar = 1, currentMarker = -1, nTags = 1, alloTags = 5, i = 0, j, areaLength;
     char *infoText_p, **tempTrash_pp;
@@ -241,11 +241,11 @@ void tag_searcher(char *fileCleanText_p, char ****cvLongItemiced_pppp, int *nIte
     }
     free(tempTrash_pp);
 
-    line_reader_controle(tagLocations_pp, nTags, cvLongItemiced_pppp, nItemices_p, nItemicedContent_pp, cvLongSections_pppp, nSections_p, nSectionWords_pp, wordCounter_p);
+    line_reader_controle(tagLocations_pp, nTags, cv_long_Itemized_pppp, n_itemizes_p, n_itemized_content_pp, cv_long_sections_pppp, n_sections_p, nSectionWords_pp, wordCounter_p);
     free(tagLocations_pp);
 }
 
-void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_pppp, int *nItemices_p, int **nItemicedContent_pp, char ****cvLongSections_pppp, int *nSections_p, int **nSectionWords_pp, int *nWordsInStart_p){
+void line_reader_controle(char **tags_pp, int nOfTags, char ****cv_long_Itemized_pppp, int *n_itemizes_p, int **n_itemized_content_pp, char ****cv_long_sections_pppp, int *n_sections_p, int **nSectionWords_pp, int *nWordsInStart_p){
     int currentItemice = 0, alloItemices = 4, i, j, tempTest, nItems, alloItems, tempWordCounter, tempLineResult;
     char *freeTextVariations[32] = {"freetext", "Freetext", "freeText", "FreeText", "freetext.", "Freetext.", "freeText.", "FreeText.",
     "free text", "Free text", "free Text", "Free Text", "free text.", "Free text.", "free Text.", "Free Text.",
@@ -317,7 +317,7 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
             currentItemice++;
         } else {
             free(tempFirstLine_p);
-            section_treater(tempNextLineLocation_p, cvLongSections_pppp, nSections_p, nSectionWords_pp);
+            section_treater(tempNextLineLocation_p, cv_long_sections_pppp, n_sections_p, nSectionWords_pp);
         }
     }
     if(currentItemice == 0){
@@ -328,9 +328,9 @@ void line_reader_controle(char **tags_pp, int nOfTags, char ****cvLongItemiced_p
     if(itemices_ppp == NULL || nItemsInItem_p == NULL){
         exit(EXIT_FAILURE);
     }
-    *cvLongItemiced_pppp = itemices_ppp;
-    *nItemicedContent_pp = nItemsInItem_p;
-    *nItemices_p = currentItemice;
+    *cv_long_Itemized_pppp = itemices_ppp;
+    *n_itemized_content_pp = nItemsInItem_p;
+    *n_itemizes_p = currentItemice;
 }
 
 int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
@@ -375,7 +375,7 @@ int line_reader(char *theTextIn_p, char **theNextLine_pp, char **theLineOut_pp){
         return 1;
 }
 
-void section_treater(char *theFreeText_p, char ****theSections_pppp, int *theNSections_p, int **theNWordSections_pp){
+void section_treater(char *theFreeText_p, char ****theSections_pppp, int *then_sections_p, int **theNWordSections_pp){
     int theReader = 0, currentMarker = -1, nSections = 1, nSectAllo = 10, i;
     char **theSectionsTemp_pp = malloc(nSectAllo * sizeof(char *));
     if(theSectionsTemp_pp == NULL){
@@ -400,17 +400,17 @@ void section_treater(char *theFreeText_p, char ****theSections_pppp, int *theNSe
         theReader++;
     }
     char ***finalSections_ppp = malloc(nSections * sizeof(char **));
-    int *wordsInSections_p = malloc(nSections * sizeof(int));
-    if(finalSections_ppp == NULL || wordsInSections_p == NULL){
+    int *wordsIn_sections_p = malloc(nSections * sizeof(int));
+    if(finalSections_ppp == NULL || wordsIn_sections_p == NULL){
         exit(EXIT_FAILURE);
     }
     for(i = 0; i < nSections; i++){
-        worder(theSectionsTemp_pp[i], &(finalSections_ppp[i]), &(wordsInSections_p[i]));
+        worder(theSectionsTemp_pp[i], &(finalSections_ppp[i]), &(wordsIn_sections_p[i]));
     }
     free(theSectionsTemp_pp);
     *theSections_pppp = finalSections_ppp;
-    *theNSections_p = nSections;
-    *theNWordSections_pp = wordsInSections_p;
+    *then_sections_p = nSections;
+    *theNWordSections_pp = wordsIn_sections_p;
 }
 
 /* Exampel of LongCV conntent:
