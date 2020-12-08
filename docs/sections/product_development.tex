@@ -6,7 +6,7 @@ This MVP (which can be seen illustrate beneath) is a general high level schemati
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/engMVP}
-  \caption{MVP}\label{fig:ie}
+  \caption{MVP}
 \end{figure}
 Here we discussed what were the most essential parts, and came to the conclusion that the following things
 were needed: The users skills/abilities and the information from the vacant job position. These things
@@ -28,7 +28,7 @@ We then changed the MVP schematic to the following:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/Program_process_diagram.png}
-  \caption{Revised MVP}\label{fig:ie}
+  \caption{Revised MVP}
 \end{figure}
 This program is supposed to take in the keywords/job application, some formal requirements for
 the structure of the new CV, and the originally long CV.
@@ -90,7 +90,7 @@ this results in the following:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/personal_pronoun_ex.png}
-  \caption{Removing Personal Pronouns Example}\label{fig:ie}
+  \caption{Removing Personal Pronouns Example}
 \end{figure}
 %\incfigure{figures/personal_pronoun_ex}{fig: pp example}{Removing Personal Pronouns example}
 
@@ -213,7 +213,7 @@ Printing the result from this, we can see:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/density_example.png}
-  \caption{Density Array Printed}\label{fig:ie}
+  \caption{Density Array Printed}
 \end{figure}
 %\incfigure{figures/density_example}{fig: density example}{Density array printet}
 Thus it can easily be seen, which sections may be best suited for the job opening. 
@@ -255,7 +255,7 @@ Next, a bool array is created and calloc'ed. The values for the bool array are d
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/include_flow.png}
-  \caption{Flow Diagram of the Bool Array}\label{fig:ie}
+  \caption{Flow Diagram of the Bool Array}
 \end{figure} 
 %\newline
 In order to determin what sections should be included, a while loop is run, until a certain amount of words are included.
@@ -267,7 +267,7 @@ Here is an example, of it working:
 \begin{figure}[H]
   \centering
   \includegraphics[scale = 0.6]{figures/bool_example.png}
-  \caption{Example of the Bool Array}\label{fig:ie}
+  \caption{Example of the Bool Array}
 \end{figure}
 The generation of the cv is quite simple in theory. All it does, is include all sections that the bool array determines should be included, and saves it into a long string.
 Starting from the lowest section ID to the highest ID. \\
@@ -280,17 +280,25 @@ The process of getting here is a little more complex, since it requires a lot of
 %  \includegraphics[scale = 0.6]{figures/generate.png}
 %  \caption{Text Generation Function}\label{fig:ie}
 %\end{figure}
+
 \subsection{Format.c}
-After the CV has been filtered then our next plan is to print the text string to a latex format, and afterwords compile it to a pdf. 
-This program will check the format and edited it accordingly to how a CV should be visualized.
+After the CV has been filtered then our next plan is to print the text to a latex format, and afterwords compile it to a pdf. 
+This program will check the format and edited it accordingly to how a CV should be visualized. 
+There are several step before entering the main function for format.c,
+and it is done accordingly to this diagram.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.43]{figures/Fra_read.c_og_filter.c_format.c}
+  \caption{Flow diagram for coming to format.c}
+\end{figure}
 
 \subsubsection{Output Capitalized}
 In this first function it's about to capitalize a letter if needed.
-The function has there only one variable, a char array, since that's the only one other functions need.
-The function can be useful for all the contents in The CV,
+The function has there only one variable, a char array, since that's the only one other function need.
+The function can be useful for all the contents in the CV,
 and that can be either the general information, education, work experience or free text.
-We have to two integer markers to indicate the index of an array, 
-and right now it's outside the index, because if the markers were inside the index 
+We must two integer markers to indicate the index of an array, 
+and right now, it's outside the index, because if the markers were inside the index 
 then the markers will have to count the first index as a space, 
 and then the first character will be at the second index instead. %Er ikke sikker på denne sætning. Spørg Mikkel - Ming
 To see the length of the string, it best to use the function strlen(), this will know the exact length of each string. \\
@@ -304,48 +312,65 @@ because of LaTeX either needs to have double backslashes, a par or a newline com
 in order to do a line break. So first the program will do a for loop to check the length of the char array,
 it will so by -1 because it has to end at an exclamation point.\\
 
-The integer 'i' should always go up by 1, if the it's still lower than the length, and that means until the text is finally done 
-it will still continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
+The integer 'i' should always go up by 1 if the it's still lower than the length, 
+and that means until the text is finally done 
+it will continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
 the letter will be either after a space and if the writer decides to make line break also if the marker index 2 is still equal to 'i'.
 There is also a chance if the text turns up to have a dot, question mark or an exclamation mark, 
-This will let the marker index 1 and 2 have their value changed by +1, since the program will afterwards look for a space. \\
+This will let the marker index 1 and 2 have their value changed by +1, since the program will afterwards look for a space.\\
 
 \subsubsection{LaTeX general Contents}
 The most crutial part is how to output the entire text from an ordinary text to LaTeX format.
-output general contents has an char array that will take the whole section from general contents and added it in the CV,
-also there are a file handling variable as well to output the text to a specific file. 
+output general contents has a char array that will take the whole section from general contents and added it in the CV,
+also, there are a file handling variable as well to output the text to a specific file. 
 
 If there are any small letters that should be capitalized output capitalized will do this specific job.
-Finally the general text will begin at the center with a LaTeX command, follow up by a minipage command, 
+Finally, the general text will begin at the center with a LaTeX command, follow up by a minipage command, 
 and at last make the textwidth smaller, so the text will be moved more at the left side, and the title is auto generated. \\
 
 General contents from read.c will not be sorted or anything similar 
 since it doesn't need to be filtered from filter.c.
-Output of the text will be a string from the char array, and end it with minipage and hfill - the unused lines will be used by this command in LaTeX.
+Output of the text will be a string from the char array and end it with minipage and hfill - the unused lines will be used by this command in LaTeX.
 After hfill has been executed the output of a picture is need right beside the general info.
 It is the same method that has been describe just right from above, only the difference is that includegraphics is just to load a picture 
 
 \subsubsection{handling essential contents and free text}
-Essential contents have an char array with three pointers, since the first one will handle the sentences,
-next ones with the words and last is the letters. An opportunity for more educations and work experiences is possible,
-these will therefore have a n amount of itemizes and n amount of items in an itemize. 
-These texts is being sent to the file where the rest of CV is at.
+Essential contents have a char array with three pointers, since the first one will handle the sentences,
+next ones with the words and last is the letters. An opportunity for adding educations and work experiences is possible.
+These will therefore have a n amount of itemizes and n number of items in an itemize.
+The program will start printing out the self-selected subtitle and n number of itemizes.
+Texts under a hashtag are being loaded from read.c and it will afterwords be sent to final CV and that is CV.tex.\\
+ 
 To check the amount of itemizes for the essential contents it will so by using a for loop to check each of the value,
 and after the 'i' is bigger than amount of itemizes - the amount of itemizes is coming from read.c.
 We are checking after hashtags and the text as well, since it is the best way of not making mistakes for handling the essential contents
-therefore the array essential contents variable will print out as an 2 dimension array for the section part both in index 0.
-Same goes for the amount of items to output since there can be n amount of jobs to writes, 
-therefore the program is using a for loop to run down after how many job that has been transferred from read.c.
-The arrays has also 2 dimensions, first for checking the amount of itemizes and for the amount of items in the indexes.
+therefore, the array essential contents variable will print out as a 2-dimension array for the section part both in index 0.
+Same goes for the number of items to output since there can be n amount of jobs to writes, 
+therefore, the program is using a for loop to run down after how many jobs that has been transferred from read.c.
+The arrays has also 2 dimensions, first for checking the amount of itemizes [i] and for the number of items [j] in the indexes.
+At the end of items is the end of itemize, and that will stop the for loops before the end. \\
 
+As for the free text this only function that are being filtered by filter.c. It is fairly simple, 
+the text that are being received is just a char array and will therefore be treated as a string 
+just like before for the general information. All information is going to the CV file at the end of the function.
+It will have a static title so no one is going to edit it.
+
+\subsubsection{Run the whole LaTeX document}
+This function will create or overwrite a file if possible. There can be various kinds of reason why a file can't be created.
+If the file can't be opened that will be the end of the program to continue, 
+and it will go out with a message "Cannot open file".
+As long as the file is created or overwritten the rest of the program will also run, 
+the functions from all above is being included to run and build the document into latex and later on a pdf file.
 
 There are included a LaTeX format to enhance readability for the user and recruit when reading it
-to the program. A picture af yourselves is required for most of the jobs that are available.
+to the program. This 
+A picture af yourselves is required for most of the jobs that are available. 
+
 \subsection{Main.c}
 \subsection{Makefile}
 
 \subsection{TKOP-model}
-A good way to describe the production could be the TVOP-model also known as technique, knowledge, organization and product.
+A good way to describe the production could be the TKOP-model also known as technique, knowledge, organization and product.
 It gives an easy impression of what the project group had performed.
 First the technique, and to create a product for our project is essential to find a solution, 
 one must use a number of techniques including C-programming, latex and github techniques.
@@ -376,7 +401,7 @@ At last our product is a program from C that will help to generate a CV. This wa
 that means the use value will be very high for a applicant will have a greater chance of getting a job interview,
 rather than a ATS scanner will decline a CV, even though the text is very detailed with a lot good points.
 The C-program it self will not make the CV but it is an extension of a complex way to load from a other text editor
-other than LaTeX, then compile it to LaTeX, so the tex file will make a pdf for the person.
+other than LaTeX, then compile it to LaTeX, so the tex file will make a pdf for the person.\\
 
 If the whole process should be looked of different levels then there is five of them:
 
