@@ -12,7 +12,6 @@ Here we discussed what were the most essential parts, and came to the conclusion
 were needed: The users skills/abilities and the information from the vacant job position. These things
 should be transformed into a custom application. 
 
-
 After further consideration, we had encountered a problem: That generating a custom CV from nothing but
 skills/abilities would create a very childlike, maybe even unreadable, application. This could be solved with a lot
 of data, and therefore a lot of time calibrating the process of automatically creating sentences. This may also result
@@ -41,12 +40,12 @@ and from the structural requirements creates a new CV.
 
 From here we decided to organize our MVP into a UML diagram, to make it more apparent
 what the essential functions were supposed to do, and which functions that were essential:
-%\incfigure{figures/UML}{fig: UML}{UML}
 \begin{figure}[H]
   \raggedright
   \hspace*{-1in}
   \includegraphics[scale = 0.50,left]{figures/UML}
   \caption{UML}
+  \label{fig:UML}
 \end{figure}
 \newpage
 
@@ -293,78 +292,79 @@ and it's done accordingly to this diagram.
 \end{figure}
 
 \subsubsection{Output Capitalized}
-In this first function it's about to capitalize a letter if needed.
-The function has there only one variable, a char array, since that's the only one other function need.
-The function can be useful for all the contents in the CV,
-and that can be either the general information, education, work experience or free text.
-We must two integer markers to indicate the index of an array, 
-and right now, it's outside the index, because if the markers were inside the index 
-then the markers will have to count the first index as a space, 
-and then the first character will be at the second index instead. %Er ikke sikker på denne sætning. Spørg Mikkel - Ming
-To see the length of the string, it best to use the function strlen(), this will know the exact length of each string. \\
+The first function will capitalize any letter that has a dot, question mark or an exclamation mark.
+The function has one variable, a char array to check after characters if these need to be capitalized,
+it can therefore be useful for all the contents in the CV - the general information, education, work experience or free text.
+There are two integer markers to indicate the index of an array, 
+and right now, it's outside of the index, so the markers will not have accessed to the first index in the array,
+since it doesn't need to be for finding text, as long as file is being read.
+To see the length of a string, a function called strlen will know how long is a string. \\
 
-As a standard for any other text the first paragraph for the first letter should always be capitalized with the function toupper.
-This function comes from the c-type header that are included at the top.
+A string can be a sentence, and everytime for the first letter will always be capitalized,
+and it can be done so with toupper.
+This is a function that are included from the c-type header.
+After a sentence is finished with a dot, question mark or an exclamation mark, 
+the letter is always capitalized after those markings.
+For doing line breaks in LaTeX it only needs two backslashes, a par or a newline command. 
+In order to these above properly for a full text, a for loop needed to check the length of the char array,
+it will do so by -1 with it, because it has to end at an exclamation point before the null terminator.\\
 
-After a space, dot, question mark or an exclamation mark, there are always a capitalized letter after those markings,
-at the same time the program needs to check after line breaks, 
-because of LaTeX either needs to have double backslashes, a par or a newline command
-in order to do a line break. So first the program will do a for loop to check the length of the char array,
-it will so by -1 because it has to end at an exclamation point.\\
-
-The integer 'i' should always go up by 1 if the it's still lower than the length, 
+The integer 'i' should always go up by 1 if it's still lower than the length, 
 and that means until the text is finally done 
 it will continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
-the letter will be either after a space and if the writer decides to make line break also if the marker index 2 is still equal to 'i'.
-There is also a chance if the text turns up to have a dot, question mark or an exclamation mark, 
+the letter will be either after a space and if there is a line break.
+There is also a chance if the text turns up to have a dot, question mark or an exclamation mark like described before.
 This will let the marker index 1 and 2 have their value changed by +1, since the program will afterwards look for a space.\\
 
 \subsubsection{LaTeX general Contents}
-The most crutial part is how to output the entire text from an ordinary text to LaTeX format.
+The most crutial part is how to output the entire text from for example an ordinary txt file to LaTeX format.
 output general contents has a char array that will take the whole section from general contents and added it in the CV,
 also, there are a file handling variable as well to output the text to a specific file. 
 
-If there are any small letters that should be capitalized output capitalized will do this specific job.
+The function output capitalized is included to this function, if the text need to capitalized.
 Finally, the general text will begin at the center with a LaTeX command, follow up by a minipage command, 
 and at last make the textwidth smaller, so the text will be moved more at the left side, and the title is auto generated. \\
 
-General contents from read.c will not be sorted or anything similar 
-since it doesn't need to be filtered from filter.c.
-Output of the text will be a string from the char array and end it with minipage and hfill - the unused lines will be used by this command in LaTeX.
-After hfill has been executed the output of a picture is need right beside the general info.
-It is the same method that has been describe just right from above, only the difference is that includegraphics is just to load a picture 
+General contents from read.c will not be sorted after keywords or anything similar 
+since name, address, e-mail etc. is important to let the recruiters know and therefore it should not be filtered from filter.c.
+Output of the text will be a string from the char array 
+and end it with a minipage and hfill - the unused lines will be used by this command in LaTeX.
+After hfill has been executed, the output of a picture begin a minipage 
+and then print out a picture with includegraphics, and it is been programmed to be right beside the general info. 
 
 \subsubsection{handling essential contents and free text}
-Essential contents have a char array with three pointers, since the first one will handle the sentences,
-next ones with the words and last is the letters. An opportunity for adding educations and work experiences is possible.
-These will therefore have a n amount of itemizes and n number of items in an itemize.
+Essential contents have a char array with three pointers to chech the sentences,
+the words and last with the letters to get an opportunity for adding educations and work experiences.
+These will therefore have a n amount of itemizes and n number of items in an itemize, 
+and item and itemize is a form for putting bulletpoints.
 The program will start printing out the self-selected subtitle and n number of itemizes.
-Texts under a hashtag are being loaded from read.c and it will afterwords be sent to final CV and that is CV.tex.\\
+Texts under a hashtag are being loaded from read.c and it will afterwords be sent to a LaTeX CV.\\
  
-To check the amount of itemizes for the essential contents it will so by using a for loop to check each of the value,
-and after the 'i' is bigger than amount of itemizes - the amount of itemizes is coming from read.c.
-We are checking after hashtags and the text as well, since it is the best way of not making mistakes for handling the essential contents
-therefore, the array essential contents variable will print out as a 2-dimension array for the section part both in index 0.
-Same goes for the number of items to output since there can be n amount of jobs to writes, 
+To check the amount of itemizes for the essential contents it will use a for loop to check each value,
+and after the 'i' is bigger than amount of itemizes the loop will stop - the amount of itemizes is coming from read.c.
+After having checked hashtags and the text as well, and hashtags are for indicate the sections,
+this way the array essential contents variable will therefore have an 2-dimension array.
+Same goes for the number of items to output because of there can be n amount of jobs to writes, 
 therefore, the program is using a for loop to run down after how many jobs that has been transferred from read.c.
 The arrays has also 2 dimensions, first for checking the amount of itemizes [i] and for the number of items [j] in the indexes.
-At the end of items is the end of itemize, and that will stop the for loops before the end. \\
+when there is no need to make more items and itemizes the for loops will stop and end the functions. \\
 
-As for the free text this only function that are being filtered by filter.c. It is fairly simple, 
-the text that are being received is just a char array and will therefore be treated as a string 
+As for the free text and this is where the most common for background information if this relevant for the specific job.
+This only function that are being filtered by filter.c. It is fairly simple, 
+the text that are being received is a char array and will therefore be treated as a string 
 just like before for the general information. All information is going to the CV file at the end of the function.
-It will have a static title so no one is going to edit it.
+It will have a static title so it is not going to be edited.
 
 \subsubsection{Run the whole LaTeX document}
-This function will create or overwrite a file if possible. There can be various kinds of reason why a file can't be created.
-If the file can't be opened that will be the end of the program to continue, 
+When all of the functions above is created this function will then call all other function and run it add all the text into a file,
+and build the document into LaTeX and later on a pdf file.
+First of the function will create or overwrite a file if possible. There can be various kinds of reason why a file can't be created.
+If the file can't be opened then it will be the end of the program with "EXIT FAILURE", 
 and it will go out with a message "Cannot open file".
-As long as the file is created or overwritten the rest of the program will also run, 
-the functions from all above is being included to run and build the document into latex and later on a pdf file.
+As long as the file is created or overwritten the rest of the program will run.\\
 
-There are included a LaTeX format to enhance readability for the user and recruit when reading it
-to the program. This 
-A picture af yourselves is required for most of the jobs that are available. 
+There are included a preamble and this will enhance the LaTeX format readability for the user and recruiter when reading it. 
+Most of the time a picture af oneself is required for most of the jobs, therefore it is possible to manually insert a photo to the CV. 
 
 \subsection{Main.c}
 \subsection{Makefile}
@@ -372,23 +372,30 @@ A picture af yourselves is required for most of the jobs that are available.
 \subsection{TKOP-model}
 A good way to describe the production could be the TKOP-model also known as technique, knowledge, organization and product.
 It gives an easy impression of what the project group had performed.
-First the technique, and to create a product for our project is essential to find a solution, 
-one must use a number of techniques including C-programming, latex and github techniques.
-Those techniques is good way to establish and find our solution. C-programming can help us to produce a CV using the techniques
-of commands, functions etc. Latex is a good method to have a fine structured format, 
-also it will help the writer and reader to read in the future. \\
+First is the technique, it is essential to create a product for our project to find a solution. 
+one must use a number of techniques including C-programming, LaTeX and github techniques, researching on the web etc..
+Those techniques is good way to establish the project solution. C-programming can help us to produce a CV using the techniques
+of commands, functions etc. LaTeX can give a monotonous structured format all the text is always the same. \\
 
-This takes one to have a fair amount of knowledge about the functions.
-First of all knowledge about a CV, and how to use the knowledge is a important factor.
-The group have researched programming online about the functions that we didn't know about, 
-and afterwords this will implement this to our code and see if it's working. If not then we can research more about the exact problem.
-That's the waterfall model we have been used, not directly but it has been done in order to our code works.
-\incfigure{figures/vandfald}{fig: Waterfall}{Waterfall model \cite{Waterfall_model}}
+These function takes one to have a fair amount of knowledge to make a LaTeX text properly.
+First of all knowledge about a CV is important, and how to use the knowledge is a also important.
+Therefore it's best to start research about programming online that we don't know about, 
+and afterwords the gained information will be used to implement our code and see if it's working. 
+If not, then it's best to research more about the exact problem.
+This is exactly the same way what the the waterfall model is being used.
+We don't exactly use it directly but it is a way to be finished with the code.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.2]{figures/vandfald}
+  \caption{Waterfall model \cite{Waterfall_model}}
+\end{figure}
 
 It has the elements that has been implemented in our coding. First we have the requirements for the program, 
-so we can have functionally program, next we will design with the help from a UML diagram, 
-so we know what should have in the program. Implementation of the program comes next, so we could test it later, 
-and if we have other suggestions for improvement then we can write it down for further development.\\
+so we can have program that is working properly, 
+next we will design the structure of the program just like from the UML diagram at figure \vref{fig:UML}
+ 
+so we know what should have in the program. Implementation comes next, so we could test the program later, 
+and if we have other suggestions for improvement we can write it down for further development.\\
 
 In the process of coding the product, we choose to use a vertical work distribution, as many of the product
 components can be made parallel to each other. We have divided it to several functions, 
@@ -400,10 +407,10 @@ schedule, so the group can clearly see what can be done at the same time. \\
 At last our product is a program from C that will help to generate a CV. This way the CV can be made multiple times,
 that means the use value will be very high for a applicant will have a greater chance of getting a job interview,
 rather than a ATS scanner will decline a CV, even though the text is very detailed with a lot good points.
-The C-program it self will not make the CV but it is an extension of a complex way to load from a other text editor
+The C-program it self will not make the CV but it is an extension of a complex way to load from a other text editors
 other than LaTeX, then compile it to LaTeX, so the tex file will make a pdf for the person.\\
 
-If the whole process should be looked of different levels then there is five of them:
+If the whole process should be looked in different levels then there are five of them:
 
 \begin{enumerate}
   \item Our program should be researched in four different aspects 
