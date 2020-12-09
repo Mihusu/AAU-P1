@@ -1,40 +1,46 @@
-\section{Method}\label{sec:method}
-\subsection{Quantitative test}
+\section{Experiment}\label{sec:method}
+\subsection{Method}
 In order to test if our product helps solve our product statement, we wish
-to make an experiment that quantitatively evaluates the effectiveness of your
+to make an experiment that quantitatively evaluates the effectiveness of our
 program. 
 
 In order to do this, we have devised the following experiment:
-\incfigure{figures/experiment1}{fig:Experiment}{Method}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/experiment1.png}
+  \caption{Experiment Method}\label{fig:ie}
+\end{figure} 
 In the experiment we will create a long CV where all the original information
 is in. We do this to ensure that there is no extra information in the human 
 rewritten CV that our program couldn't have created. In this way, we ensure
 the test is as fair as possible.
 
-There after the danish job center will be asked, to answer which of the two CV's is most suited
+Thereafter the danish job center will be asked, to answer which of the two CV's is most suited
 for the job posting. How this works is as such:
-
+\\
 The human will shorten down and create a CV based on the long CV. This CV is
 is gonna be compared to n number of job postings.
 Our program, is gonna filter down the long CV, and create a job application,
 for each individual job posting. 
 To ensure, that some job postings don't just have lower requirements, we will be
 comparing the new CV applications from both the program and the person to the same 
-job postings each time. In total we will be comparing out n number of applications.
+job postings each time. In total we will be comparing n number of applications.
 \\
 In this way, we can assume that both the human who had rewritten one
 CV and the program, who has rewritten n number of CV's,
-will take about the same amount of time, to compare n CV's.
-Therefore we can somewhat ensure the results as a function of effort are gonna
-be fair.
-
+will take about the same amount of time, to create n CV's .
+Therefore we can somewhat ensure that the results are somewhat fair, in relation to the amount of effort each set of n CV's require.
+The structure of both CV's should also remain the same in the testing, such that one CV isn't prioritized because of better formatting.
+This is important, since the test is primarily testing the CV's contents compared to the job opening.
+\\
 This experiment will compare the results of how many times one gets a "job
 interview" using one of the two methods: Comparing the amount of 
 "job interviews" (based on what the job center thinks is most likely to earn an interview) 
 from the qualitatively created CV from
 the human, to the quantitatively created CV from the program to
 each other.
-
+\\
 The results from this, will be a good indication, whether our program solved, or
 atleast helped, in the process of getting a job interview, or if just manually
 creating one good application is better.
+\subsection{Results}

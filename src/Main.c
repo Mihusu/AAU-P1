@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
-#include <strings.h>
+#include <string.h> // Functions package
+#include <strings.h> // Format package
 #include "filter.c"
 #include "levenshtein.c"
 #include "read.c"
