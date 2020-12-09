@@ -16,8 +16,12 @@
 \usepackage{xcolor}
 \definecolor{aaublue}{RGB}{33,26,82}
 \usepackage[contents={},color=gray]{background}
+% Change the headers and footers
+\usepackage{fancyhdr}
+%\fancyhf{} %delete everything
+%\renewcommand{\headrulewidth}{0pt} %remove the horizontal line in the header
+\cfoot{Page \thepage} %Sidenummer
 
-%\usepackage[backend=biber]{biblatex}
 \usepackage[backend=biber,
 bibencoding=utf8,
 sorting=none,

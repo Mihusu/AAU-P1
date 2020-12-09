@@ -6,15 +6,14 @@
 
 \begin{document}
 
-%\listoffixmes
-
+\pagestyle{empty} %disable headers and footers
 \input{titlepage/Frontpage}
 \input{sections/tiltlepage}
 \input{sections/preface}\newpage
 
 \hypersetup{linkcolor=black}
 \tableofcontents\newpage
-
+\pagestyle{fancy} %enable headers and footers again
 \pagenumbering{arabic}
 \input{sections/introduction}
 \input{sections/background}
@@ -24,6 +23,7 @@
 \input{sections/experiment_method}
 \input{sections/discussion}
 \input{sections/conclusion}
+\input{sections/reflection}
 
 \printbibliography[heading=bibintoc]
 
