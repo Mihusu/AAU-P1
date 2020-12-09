@@ -59,7 +59,7 @@ This will also set the picture at the right side of the CV.
 void output_picture(FILE *picture) {
     //Put your picture here after the phrase figures/...
     // This figure can be adjusted, so it will be at the right side of the CV
-    fprintf(picture, "\n\\begin{minipage}[b]{4.5cm}\n \\includegraphics[height=4.25cm]{figures/Billede_af_David}\n \\end{minipage}\n \\end{center}\n\n");
+    fprintf(picture, "\n\\begin{minipage}[b]{4.5cm}\n \\includegraphics[height=4.25cm]{Billede_af_David}\n \\end{minipage}\n \\end{center}\n\n");
 }
 
 void output_essential_contents(char ***array_essential_contents, int amount_of_itemizes, int *amount_of_items_in_a_itemize, FILE *essenctial_CV) {
@@ -86,7 +86,7 @@ void output_LaTeX_free_text(char *array_free_text, FILE *free_text_CV) {
 void run_pdfLaTeX(char *run_general_info, char ***run_essential_info, int itemizes, int *items_for_G_info_and_essential_info, char *run_free_text) {
     // Create or overwrite a LaTeX file, and check it if file can be created or overwritten.
     FILE *final_CV;
-    final_CV = fopen(".\\..\\docs\\CV.tex", "w");
+    final_CV = fopen("CV.tex", "w");
     
     if(final_CV == NULL) { 
         printf("Cannot open file\n"); 
