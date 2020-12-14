@@ -281,7 +281,7 @@ The process of getting here is a little more complex, since it requires a lot of
 %\end{figure}
 
 \subsection{Format.c}
-After the CV has been filtered, our next plan is to print out the text to a LaTeX format, and afterwords compile it to a pdf file. 
+After the CV has been filtered, our next plan is to print out the text to a LaTeX format, and afterward compile it to a pdf file. 
 This program will check the format and edited it accordingly to how a CV should be visualized. 
 There are several step before entering the main function for format.c,
 and it's done accordingly to this diagram.
@@ -314,7 +314,7 @@ and that means until the text is finally done
 it will continue to capitalize letters. The capitalized letter will only capitalize with two scenarios, 
 the letter will be either after a space and if there is a line break.
 There is also a chance if the text turns up to have a dot, question mark or an exclamation mark like described before.
-This will let the marker index 1 and 2 have their value changed by +1, since the program will afterwards look for a space.\\
+This will let the marker index 1 and 2 have their value changed by +1, since the program will afterward look for a space.\\
 
 \subsubsection{LaTeX general Contents}
 The most crutial part is how to output the entire text from for example an ordinary txt file to LaTeX format.
@@ -338,7 +338,7 @@ the words and last with the letters to get an opportunity for adding educations 
 These will therefore have a n amount of itemizes and n number of items in an itemize, 
 and item and itemize is a form for putting bulletpoints.
 The program will start printing out the self-selected subtitle and n number of itemizes.
-Texts under a hashtag are being loaded from read.c and it will afterwords be sent to a LaTeX CV.\\
+Texts under a hashtag are being loaded from read.c and it will afterward be sent to a LaTeX CV.\\
  
 To check the amount of itemizes for the essential contents it will use a for loop to check each value,
 and after the 'i' is bigger than amount of itemizes the loop will stop - the amount of itemizes is coming from read.c.
@@ -367,6 +367,13 @@ There are included a preamble and this will enhance the LaTeX format readability
 Most of the time a picture af oneself is required for most of the jobs, therefore it is possible to manually insert a photo to the CV. 
 
 \subsection{Main.c}
+As the program is heading to the final phase, all other c programs will be added to a large file, 
+this is going to become the main.c, and it will have read.c, filter.c and format.c included for printing out the CV pdf file. \\
+
+The program will start of with running the start read. In this particular function it will load out the whole file, 
+similarly speaking it will split a complete text up to four separate if possible. A section is the biggest part of a text, 
+therefore it will start with checking how many sections, then the sentences, words and letters at last. Imagine 
+
 \subsection{Makefile}
 
 \subsection{TKOP-model}
@@ -380,7 +387,7 @@ of commands, functions etc. LaTeX can give a monotonous structured format all th
 These function takes one to have a fair amount of knowledge to make a LaTeX text properly.
 First of all knowledge about a CV is important, and how to use the knowledge is a also important.
 Therefore it's best to start research about programming online that we don't know about, 
-and afterwords the gained information will be used to implement our code and see if it's working. 
+and afterward the gained information will be used to implement our code and see if it's working. 
 If not, then it's best to research more about the exact problem.
 This is exactly the same way what the the waterfall model is being used.
 We don't exactly use it directly but it is a way to be finished with the code.
@@ -426,6 +433,6 @@ If the whole process should be looked in different levels then there are five of
   \item Our product has a long code with more function than the group it self, 
         Organize for each individual in the group is the key to get the project done faster.
   \item After making the product, comes the testing where it can be done with help of experts in CV.
-        This process will afterwards lead to testing with the applicants if it is good enough of our criteria.
+        This process will afterward lead to testing with the applicants if it is good enough of our criteria.
         All the coding parts will be added together in a readable way, and summarize all of it into a pdf file from a makefile.
 \end{enumerate}
