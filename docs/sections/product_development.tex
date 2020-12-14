@@ -367,7 +367,18 @@ There are included a preamble and this will enhance the LaTeX format readability
 Most of the time a picture af oneself is required for most of the jobs, therefore it is possible to manually insert a photo to the CV. 
 
 \subsection{Main.c}
+The main.c file contains in which order to execute the numerous aforementioned functions.
+It follows a generally chronologically imperative flow:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.6]{figures/main.png}
+  \caption{Flow Diagram of main.c}
+\end{figure}
+
 \subsection{Makefile}
+In order to compile the entire program, a makefile has been made. It links the header and .c files together, to create object files. Which are then compiled into one file named "generate_cv".
+This newly compiled file, when executed, can include the user picture, the user made keywords.txt and the user made long_cv.txt, and from there create a pdf file.
+This means, that the user mealy has to execute one file, for the program to work.
 
 \subsection{TKOP-model}
 A good way to describe the production could be the TKOP-model also known as technique, knowledge, organization and product.
@@ -405,7 +416,7 @@ To get an overview, we have made temporary division of labor
 schedule, so the group can clearly see what can be done at the same time. \\
 
 At last our product is a program from C that will help to generate a CV. This way the CV can be made multiple times,
-that means the use value will be very high for a applicant will have a greater chance of getting a job interview,
+that means the use value will be very high for the applicant will have a greater chance of getting a job interview,
 rather than a ATS scanner will decline a CV, even though the text is very detailed with a lot good points.
 The C-program it self will not make the CV but it is an extension of a complex way to load from a other text editors
 other than LaTeX, then compile it to LaTeX, so the tex file will make a pdf for the person.\\
