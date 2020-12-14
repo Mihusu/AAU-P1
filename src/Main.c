@@ -19,8 +19,8 @@ int main(void){
     
     remove_personal_pronouns(words_in_sections, sections_count, sections_out);
     calculate_text_density(sections_out, keywords, words_in_sections, sections_count, keyword_count, density_of_section);
-    include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
-    generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
+    include_section(density_of_section, sections_out, words_in_sections, sections_count, included_sections);
+    generate_text(included_sections, sections_out, sections_count, words_in_sections, &cv_filtered_freetext);
 
     printf("keywords: ");
     for (int i = 0; i < keyword_count; i++) {
