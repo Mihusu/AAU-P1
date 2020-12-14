@@ -8,8 +8,8 @@ void start_read(char ***the_keywords_ppp, int *n_keyword_p, char ****cv_long_ite
     //char *fnLongCV = malloc(); // In case of user defined file name
     FILE *the_long_CV, *the_keywords;
     char *cv_total_text_p, *keywords_total_text_p;
-    the_long_CV = fopen("LongCV.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
-    the_keywords = fopen("Keywords.txt", "r");
+    the_long_CV = fopen("../long_cv.txt", "r"); // Doing longCV first might have more consecutive space available if pc is low RAM
+    the_keywords = fopen("../keywords.txt", "r");
     if(the_long_CV == NULL || the_keywords == NULL){
         // Error, can't open file.
         printf("\nError can't open input file(s)\n"); // temp remove later

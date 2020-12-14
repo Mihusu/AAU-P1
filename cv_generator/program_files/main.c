@@ -1,4 +1,6 @@
-#include "main.h"
+#include "read.h"
+#include "filter.h"
+#include "format.h"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
@@ -9,7 +11,7 @@ Project done by Ming Hui Sun, David Rasmusen, Mikkel Kaa, Hans Heje
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
     //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
-    int sections_count, *words_in_sections, i, j, keyword_count;
+    int sections_count, *words_in_sections, keyword_count;
     char **keywords, ***sections_out;
     char ***itemicedSections_ppp;
     int nItemices, *nItemicedContent_p; // Number of itemices, Number of items in each itemices
@@ -24,14 +26,16 @@ int main(void){
     calculate_text_density(sections_out, keywords, words_in_sections, sections_count, keyword_count, density_of_section);
     include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
+    
+    printf("Filtered free text:");
     printf("\n\n%s\n", cv_filtered_freetext);
 
-    printf("keywords:");
+    printf("keywords: ");
     for (int i = 0; i < keyword_count; i++) {
         printf("%s, ",keywords[i]);
     }
     
-    printf("\n\nBool value -- Section ID -- Section Density -- Section Text\n");
+    printf("\n\ninclude? -- Section ID -- Section Density -- Section Text\n");
     for (int i = 0; i < sections_count; i++) {
         printf("\n[%d] (%d): %lf -- ",included_sections[i],i,density_of_section[i]);
     
@@ -45,16 +49,6 @@ int main(void){
     free(density_of_section);
     free(included_sections);
     free(cv_filtered_freetext); //freeinng variables
-    for(i = 0; i < sections_count; i++){
-        //printf("Section: %d, words in section: %d\n", i, words_in_sections[i]);
-        for(j = 0; j < words_in_sections[i]; j++){
-            //printf("\n%s", sections_out[i][j]);
-            free(sections_out[i][j]);
-        }
-        free(sections_out[i]);
-    }
-    free(words_in_sections);
-    free(sections_out);
     printf("Executed program correctly");
     
     // All rest of code here
