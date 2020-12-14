@@ -1,6 +1,11 @@
 #ifndef P1_SRC_FILTER_H
 #define P1_SRC_FILTER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
 typedef struct {
     double doubleVal; //density array
     int intVal; //value to be inserted into cv, to declare which to add first.

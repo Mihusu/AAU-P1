@@ -17,12 +17,9 @@ Project done by Ming Hui Sun, David Rasmusen, Mikkel Kaa, Hans Heje
 int main(void){
     printf("########  ########   #######        ## ########  ######  ########    ##     ## #### ########    ###\n##     ## ##     ## ##     ##       ## ##       ##    ##    ##       ##     ##  ##     ##      ## ##   \n##     ## ##     ## ##     ##       ## ##       ##          ##       ##     ##  ##     ##     ##   ##  \n########  ########  ##     ##       ## ######   ##          ##       ##     ##  ##     ##    ##     ## \n##        ##   ##   ##     ## ##    ## ##       ##          ##        ##   ##   ##     ##    ######### \n##        ##    ##  ##     ## ##    ## ##       ##    ##    ##         ## ##    ##     ##    ##     ## \n##        ##     ##  #######   ######  ########  ######     ##          ###    ####    ##    ##     ## \n");
     //wordsinsections tells how many words in each paragraph/section. section count is total section numbers.
-    int sections_count, *words_in_sections, i, j, keyword_count;
-    char **keywords, ***sections_out;
-    char ***itemicedSections_ppp;
+    int sections_count, i, j, keyword_count, initialWordCount, *words_in_sections;
     int nItemices, *nItemicedContent_p; // Number of itemices, Number of items in each itemices
-    char *cvGeneralInfo_p;
-    int initialWordCount;
+    char *cvGeneralInfo_p, **keywords, ***sections_out, ***itemicedSections_ppp;
     start_read(&keywords, &keyword_count, &itemicedSections_ppp, &nItemices, &nItemicedContent_p, &sections_out, &sections_count, &words_in_sections, &cvGeneralInfo_p, &initialWordCount);
     double *density_of_section = calloc(sections_count,sizeof(double)); //defines a density for each sections/paragraph
     char *cv_filtered_freetext; //makes a dynamic variable to later be malloced to be used to dynamically change length/words in new cv
@@ -32,9 +29,8 @@ int main(void){
     calculate_text_density(sections_out, keywords, words_in_sections, sections_count, keyword_count, density_of_section);
     include_section(density_of_section,sections_out,words_in_sections,sections_count,included_sections);
     generate_text(included_sections,sections_out,sections_count,words_in_sections,&cv_filtered_freetext);
-    printf("\n\n%s\n", cv_filtered_freetext);
 
-    printf("keywords:");
+    printf("keywords: ");
     for (int i = 0; i < keyword_count; i++) {
         printf("%s, ",keywords[i]);
     }
@@ -49,7 +45,7 @@ int main(void){
     }
     run_pdfLaTeX(cvGeneralInfo_p, itemicedSections_ppp, nItemices, nItemicedContent_p, cv_filtered_freetext);
 
-    //free variables
+    //free variables for each of them that was malloced, called
     free(density_of_section);
     free(included_sections);
     free(cv_filtered_freetext); //freeinng variables

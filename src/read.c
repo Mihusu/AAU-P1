@@ -50,17 +50,17 @@ void text_reader(FILE *the_file, char **out_text_pp){
     int characters = 0, alottet_array = 300;
     char *the_text_p = malloc(alottet_array * sizeof(char));
     if(the_text_p == NULL){
-        // Error can't allocate memmory
+        // Error can't allocate memory
         printf("\nError m allo, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     } 
     while(1){
         if(characters >= alottet_array){
-            // Allocating more memmory when more is required.
+            // Allocating more memory when more is required.
             alottet_array += 100;
             the_text_p = (char *) realloc(the_text_p, alottet_array * sizeof(char));
             if(the_text_p == NULL){
-                // Error can't reallocate new memmory
+                // Error can't reallocate new memory
                 printf("\nError m re allo, in text_reader\n"); // Temp remove later
                 exit(EXIT_FAILURE);
             }
@@ -68,13 +68,13 @@ void text_reader(FILE *the_file, char **out_text_pp){
         // Reads the next char from the file.
         the_text_p[characters] = fgetc(the_file);
 
-        // End Of File was reatched.
+        // End Of File was reached.
         if(the_text_p[characters] == EOF){
             // Change the_text_p from char array to string.
             the_text_p[characters] = '\0';
             break;
         }
-        // Easyer to handel in the rest of the code if there is no '\r'.
+        // Easier to handel in the rest of the code if there is no '\r'.
         if(the_text_p[characters] != '\r')
             characters++;
     }
@@ -85,11 +85,11 @@ void text_reader(FILE *the_file, char **out_text_pp){
         exit(EXIT_FAILURE);
     }
     /* Redo the_text_p to have correct size.
-    About realloc() atempts to resize at current memmory location, only if resize fails:
-    atempts to find somewhere with the requestet memmory size and moves there. // */
+    About realloc() attempts to resize at current memory location, only if resize fails:
+    attempts to find somewhere with the requestet memory size and moves there. // */
     the_text_p = (char *) realloc(the_text_p, (characters + 1) * sizeof(char));
     if(the_text_p == NULL){
-        // Error can't reallocate new memmory, for the final string
+        // Error can't reallocate new memory, for the final string
         printf("\nError m allo end, in text_reader\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
@@ -102,11 +102,11 @@ void text_reader(FILE *the_file, char **out_text_pp){
 }
 
 void worder(char *clean_text_p, char ***words_out_ppp, int *n_words_out_p){
-    // Seperates a string text into a array of strings containing individual words.
+    // Separates a string text into a array of strings containing individual words.
     int n_the_words = 0, n_words_space = 30, current_char = 0, word_start = 0, i;
     char **the_words_pp = malloc(n_words_space * sizeof(char *));
     if(the_words_pp == NULL){
-        // Error can't allocate memmory
+        // Error can't allocate memory
         printf("\nError m allo, in worder, for words\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
@@ -115,18 +115,18 @@ void worder(char *clean_text_p, char ***words_out_ppp, int *n_words_out_p){
         if(clean_text_p[current_char] == ' ' || clean_text_p[current_char] == '\n' || clean_text_p[current_char] == '\0'){
             if(current_char != word_start){
                 if(n_the_words >= n_words_space){
-                    // More memmory is needed.
+                    // More memory is needed.
                     n_words_space += 10;
                     the_words_pp = (char **) realloc(the_words_pp, n_words_space * sizeof(char *));
                     if(the_words_pp == NULL){
-                        // Error can't reallocate memmory
+                        // Error can't reallocate memory
                         printf("\nError m re allo, in worder\n"); // Temp remove later
                         exit(EXIT_FAILURE);
                     }
                 }
                 char *one_word_p = malloc((current_char - word_start + 1) * sizeof(char));
                 if(one_word_p == NULL){
-                    // Error can't allocate memmory
+                    // Error can't allocate memory
                     printf("\nError m allo, in worder, for a word\n"); // Temp remove later
                     exit(EXIT_FAILURE);
                 }
@@ -154,7 +154,7 @@ void worder(char *clean_text_p, char ***words_out_ppp, int *n_words_out_p){
     // Resize the_words_pp to correct size.
     the_words_pp = (char **) realloc(the_words_pp, n_the_words * sizeof(char *));
     if(the_words_pp == NULL){
-        // Error can't allocate memmory
+        // Error can't allocate memory
         printf("\nError m re allo final, in worder, for words\n"); // Temp remove later
         exit(EXIT_FAILURE);
     }
@@ -310,7 +310,7 @@ int line_reader(char *the_text_in_p, char **the_next_line_pp, char **the_line_ou
     }
     while(1){
         if(the_reader >= allocated_chars){
-            // Need more memmory.
+            // Need more memory.
             allocated_chars += 20;
             the_line_p = (char *) realloc(the_line_p, allocated_chars * sizeof(char));
             if(the_line_p == NULL){
