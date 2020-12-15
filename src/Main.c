@@ -1,4 +1,12 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h> // Functions package
+#include <strings.h> // Format
+#include "levenshtein.c"
+#include "read.c"
+#include "filter.c"
+#include "format.c"
 
 /*
 This program reads the input cv and keyword and requirements, filterets it 
