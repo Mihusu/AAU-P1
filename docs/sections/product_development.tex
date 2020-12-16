@@ -152,8 +152,7 @@ The levenshtein distance can be defined using the following naive recursive defi
 The "tail" part is the entire word minus the first letter.
 The base steps go as following: It returns the length of a as the distance, if the length of word b is zero, and vice versa.
 if the first letter of a and b equal each other, then it recursively runs the algorithm with the tail part of a and b.
-Otherwise, it finds the minimum value (assuming the operations are weighted differently) of either operation 1 (Deletion), 2 (Insertion) or 3 (Substitution) and adds 1 to the result.
-\\
+Otherwise, it finds the minimum value (assuming the operations are weighted differently) of either operation 1 (Deletion), 2 (Insertion) or 3 (Substitution) and adds 1 to the result. \\
 
 Using the levenshtein distance quickly raises a problem though, since the distance between cat and hat is smaller than the distance
 between artificial and artificially. 
@@ -162,19 +161,19 @@ some tests, to see how long words need to be, before something like this doesn't
 The problem quickly becomes, that the longer the requirement the better the accuracy. 
 But also the fewer words we can use the algorithm on, making the algorithm redundant.
 We came to the conclusion based on our tests, that having words with greater than 4 letters, would be
-the best compromise between length and accuracy.
-\\
+the best compromise between length and accuracy. \\
+
 Now the problem is, what distance is accepted as 2 words being the same?
 Here the problem also becomes, that grammatical endings are still the same words, just conjugated.
 Based on a list of grammatical endings, the longest English ending adds a suffix of 3 letters\cite{grammar_endings}. Thus,
 the max levenshtein distance should be under 4 letters.
 Retesting using these values, we find that in nearly all arbitrary cases, the levenshtein algorithm matches the right words.
-One problem may arise from the fact, that words can have different meanings in different contexts. Unfortunately taking account for semantics is out of the scope of this program.
-\\
+One problem may arise from the fact, that words can have different meanings in different contexts. Unfortunately taking account for semantics is out of the scope of this program. \\
+
 After using the algorithm to find the levenshtein distance, one could argue that the remove punctuation function is redundant. But this is not the case. To the contrary, removing any
 unnecessary parts of a string before finding the levenshtein distance, makes the algorithm more precise. This is the case, since we can make sure the allowed distance
-is smaller than what it had to be, if we hadn't removed punctuation.
-\\
+is smaller than what it had to be, if we hadn't removed punctuation. \\
+
 The overall structure of this functions ends up looking like the following: %is_word_match "SKAL VÆRE HER"
 \newpage
 The overall structure can be described as this:
