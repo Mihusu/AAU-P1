@@ -50,6 +50,21 @@ what the essential functions were supposed to do, and which functions that were 
 \newpage
 
 \subsection{Read.c}
+Read.c functions as the de facto file for creating the necessary data structures.
+The main function of it is to dynamically read the input cv and the input keywords, and structure them, such that it is easier for filter.c to filter the text.
+Read.c reads and dynamically saves the long cv depending on the length following this quadruple pointer structure:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.5]{figures/Datastructure_read.png}
+  \caption{Data structure for the input text}
+\end{figure}
+The way it works, is that a tagger looks after predefined tags, such as freetext, once it finds it, it then gets saved in a triple pointer array.
+Only the freetext part is sent on to the filter.c file, while the other tagged sections, are directly send to format.c to be printed. This is because, that there is no need
+to filter it when it's mandatory information, such as names and contact information.
+It's important, that this part is very dynamical, since it's impossible to foresee how long the input cv might be. Since it's impossible to suggest how long the input CV might be, then if it was to be statically defined, then the static array would need to allocate an excessively to impossibly large amount of memory.
+
+
 \subsection{Filter.c}
 The filter file is the next step in the process to creating a new CV, after read.c has been executed.
 The filter.c file has the following structure and interaction with the main.c file:
