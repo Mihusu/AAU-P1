@@ -59,7 +59,7 @@ This will also set the picture at the right side of the CV.
 void output_picture(FILE *picture) {
     //Put your picture here after the phrase figures/...
     // This figure can be adjusted, so it will be at the right side of the CV
-    fprintf(picture, "\n\\begin{minipage}[b]{4.5cm}\n \\includegraphics[height=4.25cm]{Billede_af_David}\n \\end{minipage}\n \\end{center}\n\n");
+    fprintf(picture, "\n\\begin{minipage}[b]{4.5cm}\n \\includegraphics[height=4.25cm]{../picture}\n \\end{minipage}\n \\end{center}\n\n");
 }
 
 void output_essential_contents(char ***array_essential_contents, int amount_of_itemizes, int *amount_of_items_in_a_itemize, FILE *essenctial_CV) {

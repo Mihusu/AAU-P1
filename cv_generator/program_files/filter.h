@@ -24,7 +24,7 @@ int cmp_tuples();
 void generate_text();
 void remove_punctuation();
 void remove_duplicate();
-int levenshtein();
 void remove_personal_pronouns();
+int levenshtein();
 
 #endif  // P1_SRC_FILTER_H
