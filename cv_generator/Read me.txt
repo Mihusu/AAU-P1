@@ -22,3 +22,15 @@ If one wishes to change the output pdf post processing, follow these steps:
 (1) Go into /program_files
 (2) Edit "CV.tex" to the desired information
 (3) Run "CV_generator.tex" using ones preferred LaTeX compiler.
+
+Tips for writing a long CV:
+(1) Writing ones age is only beneficial if you're around 35, as from that point on it makes you less attractive.
+(2) Adding industry buzzwords increases your chances
+(3) Demonstrating earlier job results using numbers increases your chances.
+(4) Listing achievements, where you weren't in charge, but only a helping hand
+ decreases your chances.
+(5) Using leadership affiliated buzzwords increases your chances
+(6) Start ones sentences with distinct action verbs, increases ones chances.
+   e.g. Do "Developed a mainframe architecture that dramatically increased efficiency"
+   instead of "After surveying people, the mainframe architecture that increases efficiency was
+   developed by me."
