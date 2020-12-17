@@ -1,6 +1,6 @@
 CC := gcc
 CFLAGS := -Wall -O
-HEADERS := read.h filter.h main.h format.h
+HEADERS := read.h filter.h format.h
 OBJ := generate_cv
 OBJFILES := levenshtein.o read.o filter.o format.o main.o
 
