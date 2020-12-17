@@ -1,5 +1,5 @@
 \section{Product Development}\label{sec:product_development}
-\subsection{Planing phase}
+\subsection{Planning Phase}
 Before building the program, we brainstormed and created a Minimal Viable Product (MVP).
 This MVP (which can be seen illustrate beneath) is a general high level schematic outlining what our program is supposed to do.
 
@@ -330,8 +330,8 @@ the letter will be either after a space and if there is a line break.
 There is also a chance if the text turns up to have a dot, question mark or an exclamation mark like described before.
 This will let the marker index 1 and 2 have their value changed by +1, since the program will afterward look for a space.\\
 
-\subsubsection{LaTeX general Contents}
-The most crutial part is how to output the entire text from for example an ordinary txt file to LaTeX format.
+\subsubsection{LaTeX General Contents}
+The most crucial part is how to output the entire text from for example an ordinary txt file to LaTeX format.
 output general contents has a char array that will take the whole section from general contents and added it in the CV,
 also, there are a file handling variable as well to output the text to a specific file. 
 
@@ -346,11 +346,11 @@ and end it with a minipage and hfill - the unused lines will be used by this com
 After hfill has been executed, the output of a picture begin a minipage 
 and then print out a picture with includegraphics, and it is been programmed to be right beside the general info. 
 
-\subsubsection{handling essential contents and free text}
-Essential contents have a char array with three pointers to chech the sentences,
-the words and last with the letters to get an opportunity for adding educations and work experiences.
-These will therefore have a n amount of itemizes and n number of items in an itemize, 
-and item and itemize is a form for putting bulletpoints.
+\subsubsection{Handling Essential Contents and Free Text}
+Essential contents has a char array with three-pointers to check the sentences,
+the words and the letters to get an opportunity for adding educations and work experiences.
+These will therefore have an n-amount of itemizes and n number of items in an itemize, 
+and item and itemize is a form for putting bullet points.
 The program will start printing out the self-selected subtitle and n number of itemizes.
 Texts under a hashtag are being loaded from read.c and it will afterward be sent to a LaTeX CV.\\
  
@@ -369,7 +369,7 @@ the text that are being received is a char array and will therefore be treated a
 just like before for the general information. All information is going to the CV file at the end of the function.
 It will have a static title so it is not going to be edited.
 
-\subsubsection{Run the whole LaTeX document}
+\subsubsection{Run The Whole LaTeX Document}
 When all of the functions above is created this function will then call all other function and run it add all the text into a file,
 and build the document into LaTeX and later on a pdf file.
 First of the function will create or overwrite a file if possible. There can be various kinds of reason why a file can't be created.
@@ -421,7 +421,7 @@ In order to compile the entire program, a makefile has been made. It links the h
 This newly compiled file, when executed, can include the user picture, the user made keywords.txt and the user made long cv.txt, and from there create a pdf file.
 This means, that the user mealy has to execute one file, for the program to work.
 
-\subsection{TKOP-model}
+\subsection{TKOP-Model}
 A good way to describe the production could be the TKOP-model also known as technique, knowledge, organization and product.
 It gives an easy impression of what the project group had performed.
 First is the technique, it is essential to create a product for our project to find a solution. 
